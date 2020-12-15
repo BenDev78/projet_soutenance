@@ -20,11 +20,6 @@ class Command
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commands")
-     */
-    private $userCommand;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -34,6 +29,12 @@ class Command
      */
     private $details;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commands")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->details = new ArrayCollection();
@@ -42,18 +43,6 @@ class Command
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUserCommand(): ?User
-    {
-        return $this->userCommand;
-    }
-
-    public function setUserCommand(?User $userCommand): self
-    {
-        $this->userCommand = $userCommand;
-
-        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -94,6 +83,18 @@ class Command
                 $detail->setCommand(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

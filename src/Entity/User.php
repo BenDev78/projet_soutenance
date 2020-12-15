@@ -73,19 +73,19 @@ class User implements UserInterface
     private $phone;
 
     /**
-     * @ORM\OneToMany(targetEntity=Command::class, mappedBy="userCommand")
-     */
-    private $commands;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="userComment")
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="user")
      */
     private $reviews;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Command::class, mappedBy="user")
+     */
+    private $commands;
+
     public function __construct()
     {
-        $this->commands = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->commands = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -258,28 +258,6 @@ class User implements UserInterface
         return $this->commands;
     }
 
-    public function addCommand(Command $command): self
-    {
-        if (!$this->commands->contains($command)) {
-            $this->commands[] = $command;
-            $command->setUserCommand($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommand(Command $command): self
-    {
-        if ($this->commands->removeElement($command)) {
-            // set the owning side to null (unless already changed)
-            if ($command->getUserCommand() === $this) {
-                $command->setUserCommand(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|Review[]
      */
@@ -292,7 +270,7 @@ class User implements UserInterface
     {
         if (!$this->reviews->contains($review)) {
             $this->reviews[] = $review;
-            $review->setUserComment($this);
+            $review->setUser($this);
         }
 
         return $this;
@@ -302,8 +280,30 @@ class User implements UserInterface
     {
         if ($this->reviews->removeElement($review)) {
             // set the owning side to null (unless already changed)
-            if ($review->getUserComment() === $this) {
-                $review->setUserComment(null);
+            if ($review->getUser() === $this) {
+                $review->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addCommand(Command $command): self
+    {
+        if (!$this->commands->contains($command)) {
+            $this->commands[] = $command;
+            $command->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommand(Command $command): self
+    {
+        if ($this->commands->removeElement($command)) {
+            // set the owning side to null (unless already changed)
+            if ($command->getUser() === $this) {
+                $command->setUser(null);
             }
         }
 
