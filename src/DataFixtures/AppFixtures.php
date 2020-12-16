@@ -45,6 +45,19 @@ class AppFixtures extends Fixture
 
         //------------- USER -------------//
         $user = new User();
+        $user->setcreatedAt(new \DateTime());
+        $user->setRoles(['ROLE_USER']);
+        $user->setFirstname('Hubert')
+            ->setLastname('Dupont')
+            ->setEmail('hubert@test.com')
+            ->setPassword('test')
+            ->setAddress('40 rue des pommes tombées')
+            ->setPostalCode(78000)
+            ->setCity('Belin')
+            ->setPhone('0606060606');
+
+        $manager->persist($user);
+        $manager->flush();
 
         // Création des produits
         for($i = 0; $i < 6; $i++)
@@ -75,13 +88,16 @@ class AppFixtures extends Fixture
             $manager->flush();
 
             //------------- DETAILS -------------//
-            $detail = new Detail();
-            $detail->setQuantity(2)
-                ->setProduct($product)
-                ->setCommand($command);
+            for($j = 0; $j < 6; $j++)
+            {
+                $detail = new Detail();
+                $detail->setQuantity(mt_rand(1, 10))
+                    ->setProduct($product)
+                    ->setCommand($command);
 
-            $manager->persist($detail);
-            $manager->flush();
+                $manager->persist($detail);
+                $manager->flush();
+            }
         }
 
         for($i = 5; $i < 11; $i++)
@@ -101,18 +117,19 @@ class AppFixtures extends Fixture
             $manager->flush();
 
             //------------- REVIEWS -------------//
-                for($i = 0; $i < 6; $i++)
-                {
-                    $review = new Review();
-                    $review->setProduct_id($product)
+
+            for($i = 0; $i < 6; $i++)
+            {
+                $review = new Review();
+                $review->setProduct_id($product)
                     ->setUser_id($user)
                     ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
                     ->setRating('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet');
 
-                    $manager->persist($review);
-                    $manager->flush();
+                $manager->persist($review);
+                $manager->flush();
 
-                }
+            }
 
             //------------- COMMANDS -------------//
             $command = new Command();
@@ -123,18 +140,18 @@ class AppFixtures extends Fixture
             $manager->flush();
 
             //------------- DETAILS -------------//
-            $detail = new Detail();
-            $detail->setQuantity(2)
-                ->setProduct($product)
-                ->setCommand($command);
+            for($j = 0; $j < 6; $j++)
+            {
+                $detail = new Detail();
+                $detail->setQuantity(mt_rand(1, 10))
+                    ->setProduct($product)
+                    ->setCommand($command);
 
-            $manager->persist($detail);
-            $manager->flush();
+                $manager->persist($detail);
+                $manager->flush();
+            }
+
         }
-
-
-
-
 
     }
 }
