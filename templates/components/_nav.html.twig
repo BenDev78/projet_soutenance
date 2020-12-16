@@ -1,26 +1,26 @@
 <nav class="pt-30 pb-30 bg-light text-center navigation_1">
     <div class="container-fluid px-5">
-        <div class="row justify-content-center align-items-center f-16">
+        <div class="row justify-content-center align-items-center f-18">
             <div class="mb-20 mb-lg-0 col-lg-3">
-                <a href="#" class="link color-main f-24 bold megrim">
-                    <i class="fal fa-wine-glass-alt"></i> Cognac Guy Bonnau
+                <a href="#" class="link color-main f-32 bold megrim">
+                    <i class="fal fa-wine-glass-alt action-2"></i> Cognac Guy Bonnaud
                 </a>
             </div>
             <div class="col-lg-6">
-                <a href="#" class="link mx-15 color-main">
+                <a href="#" class="link mx-15{% if current_page == "home" %} action-2{% else%} color-main{% endif %}">
                     Accueil
                 </a>
-                <a href="#" class="link mx-15 color-main">
+                <a href="#" class="link mx-15{% if current_page == "actu" %} action-2{% else%} color-main{% endif %}">
                     Actualités
                 </a>
-                <a href="#" class="link mx-15 color-main">
+                <a href="#" class="link mx-15{% if current_page == "history" %} action-2{% else%} color-main{% endif %}">
                     Notre histoire
                 </a>
-                <a href="#" class="link mx-15 color-main">
+                <a href="#" class="link mx-15{% if current_page == "Shop" %} action-2{% else%} color-main{% endif %}">
                     Shop
                 </a>
-                <a href="#" class="mx-15 link color-main">
-                    <i class="fas fa-search">
+                <a href="#" class="mx-15 link action-2">
+                    <i class="fas fa-search action-2">
                     </i>
                 </a>
             </div>
