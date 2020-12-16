@@ -1,11 +1,61 @@
-% extends 'base.html.twig' %}
-
+{% extends 'base.html.twig' %}
+{% set current_page = "user" %}
 {% block title %}
     S'inscrire
 {% endblock %}
-
 {% block body %}
-    <div class="col-6 mx-auto">
-        {{ form(form) }}
-    </div>
+
+    <section class="bg-light form_2">
+        <div class="container px-xl-0">
+            <div class="row justify-content-center text-center text-md-left">
+                <div class="col-lg-5 col-md-6 col-sm-10">
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                        <h2 class="mb-45 small">
+                            Créer votre compte !
+                        </h2>
+                        <div>
+                            <div class="mb-10 f-14 semibold text-uppercase sp-20">
+                                {{ form_label(form.lastname, 'Votre Nom') }}
+                            </div>
+                            {{ form_errors(form.lastname) }}
+                            {{ form_widget(form.lastname) }}
+                            {{ form_help(form.lastname) }}
+                        </div>
+                        <br>
+                        <div>
+                            <div class="mb-10 f-14 semibold text-uppercase sp-20">
+                                {{ form_label(form.email, 'Votre mail') }}
+                            </div>
+                            {{ form_errors(form.email) }}
+                            {{ form_widget(form.email) }}
+                            {{ form_help(form.email) }}
+                        </div>
+                        <br>
+                        <div>
+                            <div class="mb-10 f-14 semibold text-uppercase sp-20">
+                                {{ form_label(form.password, 'Votre mot de passe') }}
+                            </div>
+                            {{ form_errors(form.password) }}
+                            {{ form_widget(form.password) }}
+                            {{ form_help(form.password) }}
+                        </div>
+                        <div class="mt-25 d-flex flex-wrap align-items-center buttons">
+                            <button class="btn mr-20 mb-20 mb-xl-0 w-210 lg action-1">
+                                S'inscrire
+                            </button>
+                            <div class="color-heading text-adaptive">
+                                <i>En cliquant, vous acceptez
+                                    <br>nos termes de politique et d'utilisation de notre site</i>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-lg-6 col-md-5 d-none d-md-block overflow-hidden img_holder">
+                    <img src="" alt="" class="h-full absolute img-fluid" srcset="">
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
