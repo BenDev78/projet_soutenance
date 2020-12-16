@@ -118,6 +118,18 @@ class AppFixtures extends Fixture
 
             //------------- REVIEWS -------------//
 
+            for($i = 0; $i < 6; $i++)
+            {
+                $review = new Review();
+                $review->setProduct_id($product)
+                    ->setUser_id($user)
+                    ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
+                    ->setRating('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet');
+
+                $manager->persist($review);
+                $manager->flush();
+
+            }
 
             //------------- COMMANDS -------------//
             $command = new Command();
