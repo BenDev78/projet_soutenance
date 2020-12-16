@@ -3,7 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Command;
+use App\Entity\Detail;
 use App\Entity\Product;
+use App\Entity\Review;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -44,16 +47,16 @@ class AppFixtures extends Fixture
 
         //------------- USER -------------//
         $user = new User();
-        $user->setEmail('test@projet.fr');
-        $user->setPassword('password');
-        $user->setFirstname('prenom');
-        $user->setLastname('nom');
-        $user->setAddress('adresse');
-        $user->setPostalCode('12345');
-        $user->setCity('Ville');
-        $user->setPhone('0600000000');
-        $user->setRoles((array)'ROLE_USER');
         $user->setcreatedAt(new \DateTime());
+        $user->setRoles(['ROLE_USER']);
+        $user->setFirstname('Hubert')
+            ->setLastname('Dupont')
+            ->setEmail('hubert@test.com')
+            ->setPassword('test')
+            ->setAddress('40 rue des pommes tombées')
+            ->setPostalCode(78000)
+            ->setCity('Belin')
+            ->setPhone('0606060606');
 
         $manager->persist($user);
         $manager->flush();
@@ -71,6 +74,43 @@ class AppFixtures extends Fixture
                 ')
                 ->setImage('https://via.placeholder.com/150')
                 ->setYear(2000 + $i);
+
+            $manager->persist($product);
+            $manager->flush();
+
+            //------------- REVIEWS -------------//
+            for($r = 0; $r < 6; $r++)
+            {
+                $review = new Review();
+                $review->setProduct($product)
+                    ->setUser($user)
+                    ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
+                    ->setRating(mt_rand(1,5));
+
+                $manager->persist($review);
+                $manager->flush();
+
+            }
+
+            //------------- COMMANDS -------------//
+            $command = new Command();
+            $command->setCreatedAt(new \DateTime())
+                ->setUser($user);
+
+            $manager->persist($command);
+            $manager->flush();
+
+            //------------- DETAILS -------------//
+            for($j = 0; $j < 6; $j++)
+            {
+                $detail = new Detail();
+                $detail->setQuantity(mt_rand(1, 10))
+                    ->setProduct($product)
+                    ->setCommand($command);
+
+                $manager->persist($detail);
+                $manager->flush();
+            }
         }
 
         for($i = 5; $i < 11; $i++)
@@ -85,9 +125,46 @@ class AppFixtures extends Fixture
                 ')
                 ->setImage('https://via.placeholder.com/150')
                 ->setYear(2000 + $i);
-        }
 
-        //------------- REVIEW -------------//
+            $manager->persist($product);
+            $manager->flush();
+
+            //------------- REVIEWS -------------//
+
+            for($r = 0; $r < 6; $r++)
+            {
+                $review = new Review();
+                $review->setProduct($product)
+                    ->setUser($user)
+                    ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
+                    ->setRating(mt_rand(1,5));
+
+                $manager->persist($review);
+                $manager->flush();
+
+            }
+
+            //------------- COMMANDS -------------//
+            $command = new Command();
+            $command->setCreatedAt(new \DateTime())
+                ->setUser($user);
+
+            $manager->persist($command);
+            $manager->flush();
+
+            //------------- DETAILS -------------//
+            for($j = 0; $j < 6; $j++)
+            {
+                $detail = new Detail();
+                $detail->setQuantity(mt_rand(1, 10))
+                    ->setProduct($product)
+                    ->setCommand($command);
+
+                $manager->persist($detail);
+                $manager->flush();
+            }
+
+        }
 
     }
 }
