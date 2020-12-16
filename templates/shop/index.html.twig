@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+{% set current_page = 'shop' %}
+
+{% block title %}Cognac Guy Bonnaud{% endblock %}
+
+{% block body %}
+
+    <section class="pt-100 pb-60 bg-light ecommerce_20">
+        <div class="container px-xl-0">
+            <h2 class="mb-55 small text-center text-lg-left">
+                Shop
+            </h2>
+            <div class="row justify-content-center justify-content-md-end">
+                <div class="mb-30 mb-lg-0 col-lg-2 f-18 medium text-center text-lg-left categories">
+                    <div class="d-inline-block d-lg-block">
+                        <a href="#" class="link px-15 color-heading lh-40 radius10 category">
+                            All
+                        </a>
+                    </div>
+                    <div class="d-inline-block d-lg-block">
+                        <a href="#" class="link px-15 color-heading lh-40 radius10 category">
+                            Cognacs
+                        </a>
+                    </div>
+                    <div class="d-inline-block d-lg-block">
+                        <a href="#" class="link px-15 color-heading lh-40 radius10 category">
+                            Pineaux
+                        </a>
+                    </div>
+                    <div class="d-inline-block d-lg-block">
+                        <a href="#" class="link px-15 color-heading lh-40 radius10 category">
+                            Coffrets
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col-xl-1 d-none d-xl-block">
+                </div>
+                <div class="mt-2 mb-35 col-xl-4 col-lg-5 col-sm-9 d-flex flex-column justify-content-between product">
+                    <div class="top">
+                        <a href="#" class="link img_link">
+                            <img src="{{ asset("assets/i/image20.jpg") }}" alt="" class="w-full radius10">
+                        </a>
+                        <a href="#" class="link mt-25 d-block color-main f-32 bold title">
+                            Pineau Blanc
+                        </a>
+                        <div class="mt-20 f-18 medium color-heading text-adaptive">
+                            The fresh strawberry flavour in this will blow your mind! A no churn Strawberry Ice Cream that’s incredibly creamy, no ice crystals and perfectly scoopable.
+                        </div>
+                    </div>
+                    <div class="mt-35 d-flex flex-wrap align-items-center justify-content-between bottom">
+                        <div class="mb-15 mb-sm-0 color-heading f-14 medium info">
+                            <div class="reviews">
+									<span class="f-18 color-main">
+										123
+									</span>
+                                <span>
+										Reviews
+									</span>
+                            </div>
+                            <div class="likes">
+									<span class="f-18 color-main">
+										23
+									</span>
+                                <span>
+										Likes
+									</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn mb-15 mb-sm-0 action-1 medium px-lg-4">
+                            Purchase for $4.55
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-1 d-none d-xl-block">
+                </div>
+                <div class="mt-2 mb-35 col-xl-4 col-lg-5 col-sm-9 d-flex flex-column justify-content-between product">
+                    <div class="top">
+                        <a href="#" class="link img_link">
+                            <img src="{{ asset("assets/i/image21.jpg") }}" alt="" class="w-full radius10">
+                        </a>
+                        <a href="#" class="link mt-25 d-block color-main f-32 bold title">
+                            Pineau Rosé
+                        </a>
+                        <div class="mt-20 f-18 medium color-heading text-adaptive">
+                            This really is The Best Strawberry Ice Cream Recipe around. It's super creamy and has tons of fresh strawberry flavor.
+                        </div>
+                    </div>
+                    <div class="mt-35 d-flex flex-wrap align-items-center justify-content-between bottom">
+                        <div class="mb-15 mb-sm-0 color-heading f-14 medium info">
+                            <div class="reviews">
+									<span class="f-18 color-main">
+										123
+									</span>
+                                <span>
+										Reviews
+									</span>
+                            </div>
+                            <div class="likes">
+									<span class="f-18 color-main">
+										23
+									</span>
+                                <span>
+										Likes
+									</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn mb-15 mb-sm-0 action-1 medium px-lg-4">
+                            Purchase for $3.55
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
