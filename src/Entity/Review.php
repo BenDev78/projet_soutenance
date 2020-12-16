@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=ReviewRepository::class)
@@ -24,6 +26,7 @@ class Review
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(min="3", max="255")
      */
     private $comment;
 
@@ -37,6 +40,11 @@ class Review
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="string", length=105, nullable=true)
+     */
+    private $pseudo;
 
     public function getId(): ?int
     {
@@ -87,6 +95,18 @@ class Review
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(?string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }
