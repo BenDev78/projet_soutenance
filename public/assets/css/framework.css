@@ -727,7 +727,7 @@ input[type=radio] + label:before {
 
 /* Other elements */
 .logo {
-  /*font-family: Playfair Display, Helvetica, Arial, sans-serif;*/
+  font-family: 'Roboto', sans-serif;
   font-size: 24px;
   color: #9E8A73;
   font-weight: 700;
@@ -11726,11 +11726,11 @@ input[type=radio] + label:before {
 
 /* Font families */
 .f-heading {
-  /*font-family: Playfair Display, Helvetica, Arial, sans-serif;*/
+  font-family: 'Roboto', sans-serif;
 }
 
 .f-main {
-  /*font-family: Open Sans, Helvetica, Arial, sans-serif;*/
+  font-family: 'Roboto', sans-serif;
 }
 
 /* Font sizes */
