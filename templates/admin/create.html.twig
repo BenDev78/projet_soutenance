@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Enregister un produit
+{% endblock %}
+
+{% block body %}
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col">
+                <h3 class="my-4 text-center">Enregistrer un produit</h3>
+                {{ form_start(form, {'attr': {'novalidate' : 'novalidate'}}) }}
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+                        <div class="card shadow-sm mt-4 px-5" style="padding-top: 15px">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_row(form.name) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(form.category) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    {{ form_row(form.quantity) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form_row(form.price) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form_row(form.year) }}
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 mx-auto">
+        {{ form_start(form) }}
+    </div>
+{% endblock %}
+
+

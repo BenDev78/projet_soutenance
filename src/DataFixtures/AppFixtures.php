@@ -6,9 +6,11 @@ use App\Entity\Category;
 use App\Entity\Command;
 use App\Entity\Detail;
 use App\Entity\Product;
+use App\Entity\Review;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class AppFixtures extends Fixture
 {
@@ -77,7 +79,18 @@ class AppFixtures extends Fixture
             $manager->flush();
 
             //------------- REVIEWS -------------//
+            for($r = 0; $r < 6; $r++)
+            {
+                $review = new Review();
+                $review->setProduct($product)
+                    ->setUser($user)
+                    ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
+                    ->setRating(mt_rand(1,5));
 
+                $manager->persist($review);
+                $manager->flush();
+
+            }
 
             //------------- COMMANDS -------------//
             $command = new Command();
@@ -118,13 +131,13 @@ class AppFixtures extends Fixture
 
             //------------- REVIEWS -------------//
 
-            for($i = 0; $i < 6; $i++)
+            for($r = 0; $r < 6; $r++)
             {
                 $review = new Review();
-                $review->setProduct_id($product)
-                    ->setUser_id($user)
+                $review->setProduct($product)
+                    ->setUser($user)
                     ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
-                    ->setRating('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet');
+                    ->setRating(mt_rand(1,5));
 
                 $manager->persist($review);
                 $manager->flush();
