@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Command;
+use App\Entity\Detail;
 use App\Entity\Product;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -43,6 +45,19 @@ class AppFixtures extends Fixture
 
         //------------- USER -------------//
         $user = new User();
+        $user->setcreatedAt(new \DateTime());
+        $user->setRoles(['ROLE_USER']);
+        $user->setFirstname('Hubert')
+            ->setLastname('Dupont')
+            ->setEmail('hubert@test.com')
+            ->setPassword('test')
+            ->setAddress('40 rue des pommes tombées')
+            ->setPostalCode(78000)
+            ->setCity('Belin')
+            ->setPhone('0606060606');
+
+        $manager->persist($user);
+        $manager->flush();
 
         // Création des produits
         for($i = 0; $i < 6; $i++)
@@ -57,6 +72,32 @@ class AppFixtures extends Fixture
                 ')
                 ->setImage('https://via.placeholder.com/150')
                 ->setYear(2000 + $i);
+
+            $manager->persist($product);
+            $manager->flush();
+
+            //------------- REVIEWS -------------//
+
+
+            //------------- COMMANDS -------------//
+            $command = new Command();
+            $command->setCreatedAt(new \DateTime())
+                ->setUser($user);
+
+            $manager->persist($command);
+            $manager->flush();
+
+            //------------- DETAILS -------------//
+            for($j = 0; $j < 6; $j++)
+            {
+                $detail = new Detail();
+                $detail->setQuantity(mt_rand(1, 10))
+                    ->setProduct($product)
+                    ->setCommand($command);
+
+                $manager->persist($detail);
+                $manager->flush();
+            }
         }
 
         for($i = 5; $i < 11; $i++)
@@ -71,9 +112,34 @@ class AppFixtures extends Fixture
                 ')
                 ->setImage('https://via.placeholder.com/150')
                 ->setYear(2000 + $i);
-        }
 
-        //------------- REVIEW -------------//
+            $manager->persist($product);
+            $manager->flush();
+
+            //------------- REVIEWS -------------//
+
+
+            //------------- COMMANDS -------------//
+            $command = new Command();
+            $command->setCreatedAt(new \DateTime())
+                ->setUser($user);
+
+            $manager->persist($command);
+            $manager->flush();
+
+            //------------- DETAILS -------------//
+            for($j = 0; $j < 6; $j++)
+            {
+                $detail = new Detail();
+                $detail->setQuantity(mt_rand(1, 10))
+                    ->setProduct($product)
+                    ->setCommand($command);
+
+                $manager->persist($detail);
+                $manager->flush();
+            }
+
+        }
 
     }
 }
