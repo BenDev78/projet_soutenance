@@ -57,7 +57,7 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\File(
-     *     mimeTypes={"image/png", "image/svg+xml", "image/jpg"},
+     *     mimeTypes={"image/png", "image/svg+xml", "image/jpg", "image/jpeg"},
      *     mimeTypesMessage="Le type de fichier et incorrect {{ type }}, vous devez choisir un fichier de type {{ types }}",
      *     maxSize="2M", maxSizeMessage="Le fichier ne peut pas dépasser 2Mo",
      * )
@@ -66,6 +66,11 @@ class Product
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Length(
+     *     min="4",
+     *     max="4",
+     *     exactMessage="L'année doit comporter exactement {{ limit }}"
+     * )
      */
     private $year;
 
