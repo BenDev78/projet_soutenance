@@ -6,6 +6,7 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -21,26 +22,45 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *     max="255", maxMessage="Le nom de produit ne peut depasser {{ limit }} caractères"
+     * )
+     * @Assert\NotBlank(message="Vous avez oublié le nom du produit")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Vous avez oublié la description")
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Vous avez oublié le prix")
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive(
+     *     message="La valeur du litrage doit être positive"
+     * )
+     * @Assert\Length(
+     *     max="3", maxMessage="Cette valeur ne peut pas dépasser 3 caractères"
+     * )
+     * @Assert\NotBlank(message="Vous avez oublié le litrage")
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Image(
+     *     mimeTypes={"image/png", "image/svg+xml", "image/jpg"},
+     *     mimeTypesMessage="Le type de fichier et incorrect {{ type }}, vous devez choisir un fichier de type {{ types }}",
+     *     maxSize=2M, maxSizeMessage="Le fichier ne peut pas dépasser 2Mo",
+     *     # TODO : Lmiter les dimensions de l'image
+     * )
      */
     private $image;
 
