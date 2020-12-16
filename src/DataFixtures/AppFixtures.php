@@ -7,6 +7,7 @@ use App\Entity\Product;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class AppFixtures extends Fixture
 {
@@ -43,6 +44,19 @@ class AppFixtures extends Fixture
 
         //------------- USER -------------//
         $user = new User();
+        $user->setEmail('test@projet.fr');
+        $user->setPassword('password');
+        $user->setFirstname('prenom');
+        $user->setLastname('nom');
+        $user->setAddress('adresse');
+        $user->setPostalCode('12345');
+        $user->setCity('Ville');
+        $user->setPhone('0600000000');
+        $user->setRoles((array)'ROLE_USER');
+        $user->setcreatedAt(new \DateTime());
+
+        $manager->persist($user);
+        $manager->flush();
 
         // Création des produits
         for($i = 0; $i < 6; $i++)
