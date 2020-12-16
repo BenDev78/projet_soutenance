@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Command;
+use App\Entity\Detail;
 use App\Entity\Product;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -57,6 +59,29 @@ class AppFixtures extends Fixture
                 ')
                 ->setImage('https://via.placeholder.com/150')
                 ->setYear(2000 + $i);
+
+            $manager->persist($product);
+            $manager->flush();
+
+            //------------- REVIEWS -------------//
+
+
+            //------------- COMMANDS -------------//
+            $command = new Command();
+            $command->setCreatedAt(new \DateTime())
+                ->setUser($user);
+
+            $manager->persist($command);
+            $manager->flush();
+
+            //------------- DETAILS -------------//
+            $detail = new Detail();
+            $detail->setQuantity(2)
+                ->setProduct($product)
+                ->setCommand($command);
+
+            $manager->persist($detail);
+            $manager->flush();
         }
 
         for($i = 5; $i < 11; $i++)
@@ -71,9 +96,45 @@ class AppFixtures extends Fixture
                 ')
                 ->setImage('https://via.placeholder.com/150')
                 ->setYear(2000 + $i);
+
+            $manager->persist($product);
+            $manager->flush();
+
+            //------------- REVIEWS -------------//
+                for($i = 0; $i < 6; $i++)
+                {
+                    $review = new Review();
+                    $review->setProduct_id($product)
+                    ->setUser_id($user)
+                    ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
+                    ->setRating('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet');
+
+                    $manager->persist($review);
+                    $manager->flush();
+
+                }
+
+            //------------- COMMANDS -------------//
+            $command = new Command();
+            $command->setCreatedAt(new \DateTime())
+                ->setUser($user);
+
+            $manager->persist($command);
+            $manager->flush();
+
+            //------------- DETAILS -------------//
+            $detail = new Detail();
+            $detail->setQuantity(2)
+                ->setProduct($product)
+                ->setCommand($command);
+
+            $manager->persist($detail);
+            $manager->flush();
         }
 
-        //------------- REVIEW -------------//
+
+
+
 
     }
 }
