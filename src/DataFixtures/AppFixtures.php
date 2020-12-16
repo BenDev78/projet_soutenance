@@ -78,13 +78,13 @@ class AppFixtures extends Fixture
             $manager->flush();
 
             //------------- REVIEWS -------------//
-            for($i = 0; $i < 6; $i++)
+            for($r = 0; $r < 6; $r++)
             {
                 $review = new Review();
                 $review->setProduct($product)
                     ->setUser($user)
                     ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
-                    ->setRating('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet');
+                    ->setRating(mt_rand(1,5));
 
                 $manager->persist($review);
                 $manager->flush();
@@ -130,13 +130,13 @@ class AppFixtures extends Fixture
 
             //------------- REVIEWS -------------//
 
-            for($i = 0; $i < 6; $i++)
+            for($r = 0; $r < 6; $r++)
             {
                 $review = new Review();
                 $review->setProduct($product)
                     ->setUser($user)
                     ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
-                    ->setRating('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet');
+                    ->setRating(mt_rand(1,5));
 
                 $manager->persist($review);
                 $manager->flush();

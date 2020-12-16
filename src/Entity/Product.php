@@ -53,13 +53,13 @@ class Product
      */
     private $quantity;
 
+    # TODO : Lmiter les dimensions de l'image
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Image(
+     * @Assert\File(
      *     mimeTypes={"image/png", "image/svg+xml", "image/jpg"},
      *     mimeTypesMessage="Le type de fichier et incorrect {{ type }}, vous devez choisir un fichier de type {{ types }}",
-     *     maxSize=2M, maxSizeMessage="Le fichier ne peut pas dépasser 2Mo",
-     *     # TODO : Lmiter les dimensions de l'image
+     *     maxSize="2M", maxSizeMessage="Le fichier ne peut pas dépasser 2Mo",
      * )
      */
     private $image;
