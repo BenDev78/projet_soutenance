@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+reflexion class
+
+{% block body %}
+    <div class="container-fluid">
+        <h3 class="my-4 text-center">Enregistrer un produit</h3>
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Catégorie</th>
+                    <th>Nom</th>
+{#                    <th>Description</th>#}
+                    <th>Prix <small>€</small></th>
+                    <th>Quantité <small>cl</small></th>
+                    <th>Image</th>
+{#                    <th>Année</th>#}
+                    <th>Editer</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td class="align-middle">{{ product.id }}</td>
+                    <td class="align-middle">{{ product.category.name }}</td>
+                    <td class="align-middle">{{ product.name }}</td>
+{#                    <td class="align-middle">{{ product.description | slice(0, 40) }}</td>#}
+                    <td class="align-middle">{{ product.price }}</td>
+                    <td class="align-middle">{{ product.quantity }}</td>
+                    <td class="align-middle"><img src="{{ asset('uploads/images/' ~ product.image) }}" alt="{{ product.name }}" width="150px"></td>
+{#                    <td class="align-middle">{{ product.year }}</td>#}
+                    <td><a href="#"><i class="fas fa-pen action-2"></i></a></td>
+                    <td>
+                        <a href="#" onclick="return confirm('Voulez-vous vraiment supprimer cet article ?')">
+                            <i class="fas fa-times text-danger"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+
