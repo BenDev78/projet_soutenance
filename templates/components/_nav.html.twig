@@ -1,21 +1,13 @@
 <nav class="pt-30 pb-30 bg-light text-center navigation_1">
-
-    <div class="container px-xl-0">
-        <div class="row justify-content-center align-items-center f-16">
-            <div class="mb-20 mb-lg-0 col-lg-3 text-lg-left">
-                <a href="#" class="link color-main f-24 bold megrim">
-                    <i class="fal fa-wine-glass-alt"></i> Cognac Guy Bonnaud
-
     <div class="container-fluid px-5">
         <div class="row justify-content-center align-items-center f-18">
             <div class="mb-20 mb-lg-0 col-lg-3">
-                <a href="#" class="link color-main f-32 bold megrim">
+                <a href="#" class="link color-main f-24 bold megrim">
                     <i class="fal fa-wine-glass-alt action-2"></i> Cognac Guy Bonnaud
-
                 </a>
             </div>
             <div class="col-lg-6">
-                <a href="#" class="link mx-15{% if current_page == "home" %} action-2{% else%} color-main{% endif %}">
+                <a href="{{ path('default_index') }}" class="link mx-15{% if current_page == "home" %} action-2{% else%} color-main{% endif %}">
                     Accueil
                 </a>
                 <a href="#" class="link mx-15{% if current_page == "actu" %} action-2{% else%} color-main{% endif %}">
@@ -27,7 +19,7 @@
                 <a href="{{ path('default_shop') }}" class="link mx-15{% if current_page == "shop" %} action-2{% else%} color-main{% endif %}">
                     Shop
                 </a>
-                <a href="#" class="mx-15 link action-2">
+                <a href="#" class="mx-15 link color-main">
                     <i class="fas fa-search action-2">
                     </i>
                 </a>
@@ -36,9 +28,9 @@
 
                 {# FIXME : Décommenter après l'authentification faite #}
                 {# {% if is_granted('ROLE_ADMIN') %} #}
-                    <a href="#" class="link mr-20 color-main">
-                        Administration
-                    </a>
+                <a href="#" class="link mr-20 color-main">
+                    Administration
+                </a>
                 {# {% endif %} #}
                 <a href="#" class="link mr-20 color-main">
                     S'enregistrer
