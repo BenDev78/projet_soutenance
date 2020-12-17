@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\RegisterType;
+//use App\Form\RegistrationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 /**
  * @Route("/user")
@@ -31,19 +34,49 @@ class UserController extends AbstractController
         $user->setcreatedAt(new \DateTime());
 
         #Formulaire d inscription d'un utilisateur
-        $form = $this->createForm('App\Form\RegisterType')->handleRequest($request);
+        $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            # Encodage du mot de passe
+            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+        }
+        #TODO integrer en bdd ne fonctionne pas email can t be null
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        #TODO message de confirmation d inscription
+        #TODO redirection lors de l inscription vers page profil
+
+        return $this->render('user/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    /**
+     * Modification des données d'un utilisateur
+     * @Route("/profil/edit", name="user_profil_edit", methods={"GET|POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function editProfil(Request $request)
+    {
+        # Récupération des données du user connecté
+        $user = $this->getUser();
+
+        # Récupération du formulaire
+        $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
+
+        # Traitement du Formulaire
         if ($form->isSubmitted() && $form->isValid()) {
 
-            # Encodage du mot de passe
-            $user->setPassword(
-                $encoder->encodePassword(
-                    $user,
-                    $user->getPassword()
-                )
-            );
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
         }
-        return $this->render('user/create.html.twig', [
+
+        # Affichage dans la vue
+        return $this->render("user/profil-edit.html.twig", [
             'form' => $form->createView()
         ]);
     }

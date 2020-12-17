@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% set current_page = "login" %}
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <section class="bg-light form_2">
+        <div class="container px-xl-0">
+            <div class="row justify-content-center text-center text-md-left">
+                <div class="col-lg-5 col-md-6 col-sm-10">
+                    <form action="form-handler.php" method="post" class="pt-105 pb-100">
+                        <h2 class="mb-45 small">
+                            Se connecter
+                        </h2>
+                        <div>
+                            <div class="mb-10 f-14 semibold text-uppercase sp-20">
+                                Email
+                            </div>
+                            <input type="email" name="email" placeholder="Votre mail" required="required" class="input mb-25 w-full lg border-gray focus-action-1 color-heading placeholder-gray text-center text-md-left" data-kwimpalastatus="alive" data-kwimpalaid="1608126207603-44">
+                        </div>
+                        <div>
+                            <div class="mb-10 f-14 semibold text-uppercase sp-20">
+                                Mot de passe
+                            </div>
+                            <input type="password" name="password" placeholder="Votre mot de passe" required="required" class="input mb-25 w-full lg border-gray focus-action-1 color-heading placeholder-gray text-center text-md-left" data-kwimpalastatus="alive" data-kwimpalaid="1608126207603-42">
+                        </div>
+                        <div class="mt-25 d-flex flex-wrap align-items-center buttons">
+                            <button class="btn mr-20 mb-20 mb-xl-0 w-210 lg action-2">
+                                Connexion
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-lg-6 col-md-5 d-none d-md-block overflow-hidden img_holder">
+                    <img src="" alt="" class="h-full absolute img-fluid" srcset="">
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -29,7 +29,11 @@ class ShopController extends AbstractController
      */
     public function product(): Response
     {
-        return $this->render("shop/product.html.twig");
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+
+        return $this->render("shop/product.html.twig", [
+            'products' => $products
+        ]);
     }
 
 }
