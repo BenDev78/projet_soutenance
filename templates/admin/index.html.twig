@@ -3,5 +3,33 @@
 {% block title %}Panel d'aministration{% endblock %}
 
 {% block body %}
-
+    <div class="container">
+        <h3 class="my-4 text-center">Panel d'aministration</h3>
+        <div class="row justify-content-center">
+            <div class="card col-md-3 col-sm-12 mx-5 mb-3 border">
+                <div class="card-body">
+                    <h5 class="text-center mb-4">Gestion des utilisateurs</h5>
+                    <div class="text-center">
+                        <a href="{{ path('admin_users') }}" type="button" class="btn sm action-2 f-14">Accéder</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card col-md-3 col-sm-12 mx-5 mb-3 border">
+                <div class="card-body">
+                    <h5 class="text-center mb-4">Gestion des commandes</h5>
+                    <div class="text-center">
+                        <a href="{{ path('admin_commands') }}" type="button" class="btn sm action-2 f-14">Accéder</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card col-md-3 col-sm-12 mx-5 mb-3 border">
+                <div class="card-body">
+                    <h5 class="text-center mb-4">Gestion des produits</h5>
+                    <div class="text-center">
+                        <a href="{{ path('admin_products') }}" type="button" class="btn sm action-2 f-14">Accéder</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
