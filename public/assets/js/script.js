@@ -1082,3 +1082,7 @@ function SF_scripts(){
 		});
 	}
 }; // SF_scripts end
+
+$(document).ready(function() {
+
+})
