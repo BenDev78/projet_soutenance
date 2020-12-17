@@ -1,20 +1,59 @@
 {% extends "base.html.twig" %}
+{% set current_page = 'review' %}
 
 {% block body %}
 
-    <div class="container-fluid">
-        <h2 class="">DONNER VOTRE AVIS</h2>
+
+    <div class="container-fluid col-8">
+        <h2 class="text-center mb-45 small">DONNEZ VOTRE AVIS</h2>
     {# form_row(formproduct.name)#}
 
         {{ form_start(form) }}
 
-        {{ form_row(form.rating, {'attr': {'label': "Note Générale"}}) }}
-        {{ form_row(form.comment, {'attr': {'label': "Commentaire", 'placeholder': "Votre commentaire"}}) }}
-        {{ form_row(form.pseudo, {'attr': {'label': "Pseudo", 'placeholder': "ex: Pierre D."}}) }}
+        <div class="mb-10 f-14 semibold text-uppercase sp-20 d-flex">
 
-        <button class="btn action-2 md radius30">Enregister</button>
+            <label for="Note_Generale">Note Générale
 
-        {{ form_end(form) }}
+                <ul class="rating interactive-rating feedback d-flex list-unstyled justify-content-center">
+
+                     <li>
+                         <i class="far fa-star fa-sm action-2 f-18" title="Très mauvais"></i>
+                    </li>
+
+
+                    <li>
+                       <i class="far fa-star fa-sm action-2 f-18" title="Mauvais"></i>
+                    </li>
+
+                    <li>
+                        <i class="far fa-star fa-sm action-2 f-18" title="Bon"></i>
+                    </li>
+
+                    <li>
+                        <i class="far fa-star fa-sm action-2 f-18" title="Très bon"></i>
+                    </li>
+
+                    <li>
+                        <i class="far fa-star fa-sm action-2 f-18" title="Excellent"></i>
+                    </li>
+                </ul>
+            </label>
+        </div>
+
+
+
+        <div class="mb-10 f-14 semibold text-uppercase sp-20">
+            {{ form_row(form.comment) }}
+        </div>
+
+        <div class="mb-10 f-14 semibold text-uppercase sp-20">
+            {{ form_row(form.pseudo) }}
+        </div>
+
+        <div class="col text-center">
+            <button class="btn mr-20 mb-20 mb-xl-0 w-210 lg action-2 text-center">Envoyer</button>
+        </div>
+            {{ form_end(form) }}
 
     </div>
 {% endblock %}

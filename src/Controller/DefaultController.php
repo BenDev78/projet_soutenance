@@ -48,7 +48,10 @@ class DefaultController extends AbstractController
             $this->em->persist($review);
             $this->em->flush();
 
+
+
             return $this->redirectToRoute("default_index");
+
 
         }
 
