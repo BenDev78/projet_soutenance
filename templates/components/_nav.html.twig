@@ -28,7 +28,7 @@
 
                 {# FIXME : Décommenter après l'authentification faite #}
                 {# {% if is_granted('ROLE_ADMIN') %} #}
-                <a href="#" class="link mr-20 color-main">
+                <a href="{{ path('admin_dashboard') }}" class="link mr-20{% if current_page == "index_admin" %} action-2{% else%} color-main{% endif %}">
                     Administration
                 </a>
                 {# {% endif %} #}
