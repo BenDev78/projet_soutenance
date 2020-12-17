@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{% set current_page = 'commands_admin' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block body %}
+    <!-- reflexion class -->
+    <div class="container-fluid">
+        <h3 class="my-4 text-center">Liste des commandes</h3>
+        <div class="table-responsive mt-5">
+            <table id="commandsTable" class="table text-center">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Prénom client</th>
+                    <th>Nom client</th>
+                    <th>Date commande</th>
+                    <th>Détails</th>
+                    <th>Supprimer</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for command in commands %}
+                    <tr>
+                        <td class="align-middle">{{ command.id }}</td>
+                        <td class="align-middle">{{ command.user.firstname }}</td>
+                        <td class="align-middle">{{ command.user.lastname }}</td>
+                        <td class="align-middle">{{ command.createdAt | date('d/m/y H:m:s') }}</td>
+                        <td><a href="{{ path('admin_command_details', {'id' : command.id}) }}"><i class="fas fa-paperclip action-2"></i></a></td>
+                        <td>
+                            <a href="" onclick="return confirm('Voulez-vous vraiment supprimer cet article ?')">
+                                <i class="fas fa-times text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready( function () {
+                $('#commandsTable').DataTable({
+                    retrieve: true,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/French.json'
+                    }
+                });
+            } );
+        </script>
+    {% endblock %}
+
+{% endblock %}
+
+

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% set current_page = 'details_admin' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h3 class="my-4 text-center">Detail de la commande # <strong class="text-muted">{{ details[0].command.id }}</strong></h3>
+        <div class="card table-responsive-shadow">
+            <table class="table text-center class=align-middle">
+                <thead>
+                    <tr>
+                        <th># Produit</th>
+                        <th>Nom</th>
+                        <th>Image</th>
+                        <th>Quantité</th>
+                        <th>Prix unité</th>
+                        <th>Prix Produits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for detail in details %}
+                    <tr>
+                        <td class="align-middle">{{ detail.product.id }}</td>
+                        <td class="align-middle">{{ detail.product.name }}</td>
+                        <td class="align-middle">
+                            <a href="">
+                                <img src="{{ detail.product.image }}" alt="{{ detail.product.name }}">
+                            </a>
+                        </td>
+                        <td class="align-middle">{{ detail.quantity }}</td>
+                        <td class="align-middle">{{ detail.product.price | number_format(2, ',')}} €</td>
+                        {% set priceProducts = detail.product.price * detail.quantity %}
+                        <td class="align-middle">{{ priceProducts | number_format(2, ',')}} €</td>
+                    </tr>
+                {% endfor %}
+                    <tr>
+                        <td colspan="4"></td>
+                        <td colspan="1">Total :</td>
+                        <td colspan="1">{{ somme | number_format(2, ',') }} €</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-2">
+            <a href="{{ path('admin_commands') }}" class="action-2">Retour aux commandes</a>
+        </div>
+    </div>
+{% endblock %}
+
+

@@ -35,7 +35,8 @@ class CreateType extends AbstractType
                 'label' => 'Prix'
             ])
             ->add('image', FileType::class, [
-                'label' => 'Image du produit'
+                'label' => 'Image du produit',
+                'data_class' => null
             ])
             ->add('year', NumberType::class, [
                 'label' => 'Millésime'

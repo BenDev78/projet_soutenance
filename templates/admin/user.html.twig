@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+{% set current_page = 'products_admin' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+{% endblock %}
+
+
+{% block body %}
+    <!-- reflexion class -->
+    <div class="container-fluid">
+        <h3 class="my-4 text-center">liste des utilisateurs</h3>
+        <div class="table-responsive mt-5">
+            <table id="usersTable" class="table text-center">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>prénom</th>
+                    <th>Nom</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Adresse</th>
+                    <th>Code postal</th>
+                    <th>Ville</th>
+                    <th>Tél</th>
+                    <th>Supprimer</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td class="align-middle">{{ user.id }}</td>
+                        <td class="align-middle">{{ user.firstname }}</td>
+                        <td class="align-middle">{{ user.lastname }}</td>
+                        <td class="align-middle">{{ user.roles[0] }}</td>
+                        <td class="align-middle">{{ user.email }}</td>
+                        <td class="align-middle">{{ user.address }}</td>
+                        <td class="align-middle">{{ user.postalCode }}</td>
+                        <td class="align-middle">{{ user.city }}</td>
+                        <td class="align-middle">{{ user.phone }}</td>
+                        <td>
+                            <a href="{{ path('admin_user_delete') }}"
+                               onclick="return confirm('Voulez-vous vraiment supprimer cet article ?')">
+                                <i class="fas fa-times text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready( function () {
+                $('#usersTable').DataTable({
+                    retrieve: true,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/French.json'
+                    }
+                });
+            } );
+        </script>
+    {% endblock %}
+
+{% endblock %}
+
+
