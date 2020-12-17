@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationForm;
+use App\Form\RegisterType;
+//use App\Form\RegistrationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,13 +34,18 @@ class UserController extends AbstractController
         $user->setcreatedAt(new \DateTime());
 
         #Formulaire d inscription d'un utilisateur
-        $form = $this->createForm('App\Form\RegisterType')->handleRequest($request);
+        $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
             # Encodage du mot de passe
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
         }
+        #TODO integrer en bdd ne fonctionne pas email can t be null
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
         #TODO message de confirmation d inscription
         #TODO redirection lors de l inscription vers page profil
 
@@ -59,8 +65,7 @@ class UserController extends AbstractController
         $user = $this->getUser();
 
         # Récupération du formulaire
-        $form = $this->createForm('App\Form\ProfilType')
-            ->handleRequest($request);
+        $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
 
         # Traitement du Formulaire
         if ($form->isSubmitted() && $form->isValid()) {
