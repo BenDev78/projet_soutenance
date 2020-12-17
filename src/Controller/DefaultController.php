@@ -48,7 +48,7 @@ class DefaultController extends AbstractController
             $this->em->persist($review);
             $this->em->flush();
 
-            return $this->redirectToRoute("/index.html.twig");
+            return $this->redirectToRoute("/");
 
         }
 
