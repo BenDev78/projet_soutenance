@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\RegistrationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,6 +44,34 @@ class UserController extends AbstractController
         #TODO redirection lors de l inscription vers page profil
 
         return $this->render('user/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    /**
+     * Modification des données d'un utilisateur
+     * @Route("/profil/edit", name="user_profil_edit", methods={"GET|POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function editProfil(Request $request)
+    {
+        # Récupération des données du user connecté
+        $user = $this->getUser();
+
+        # Récupération du formulaire
+        $form = $this->createForm('App\Form\ProfilType')
+            ->handleRequest($request);
+
+        # Traitement du Formulaire
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+        }
+
+        # Affichage dans la vue
+        return $this->render("user/profil-edit.html.twig", [
             'form' => $form->createView()
         ]);
     }
