@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+
 /**
  * @Route("/user")
  */
@@ -33,16 +34,14 @@ class UserController extends AbstractController
         #Formulaire d inscription d'un utilisateur
         $form = $this->createForm('App\Form\RegisterType')->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted() && $form->isValid())
+        {
             # Encodage du mot de passe
-            $user->setPassword(
-                $encoder->encodePassword(
-                    $user,
-                    $user->getPassword()
-                )
-            );
+            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
         }
+        #TODO message de confirmation d inscription
+        #TODO redirection lors de l inscription vers page profil
+
         return $this->render('user/create.html.twig', [
             'form' => $form->createView()
         ]);
