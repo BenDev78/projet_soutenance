@@ -1,0 +1,122 @@
+<?php
+
+
+namespace App\Controller\Admin;
+
+
+use App\Entity\Product;
+use App\Form\CreateType;
+use App\Service\FileUploader;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * Class AdminProductController
+ * @Route("/admin/product")
+ * @package App\Controller\Admin
+ */
+class AdminProductController extends AbstractController
+{
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
+    /**
+     * @Route("/create", name="admin_product_create")
+     * @param Request $request
+     * @param FileUploader $fileUploader
+     * @return Response
+     */
+    public function create(Request $request, FileUploader $fileUploader): Response
+    {
+        $product = new Product();
+        $form = $this->createForm(CreateType::class, $product);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            /** @var UploadedFile $productFile */
+            $productFile = $form->get('image')->getData();
+            if ($productFile) {
+                $productFileName = $fileUploader->upload($productFile);
+                $product->setImage($productFileName);
+            }
+
+            $this->em->persist($product);
+            $this->em->flush();
+        }
+
+        return $this->render('admin/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/update/{id}", name="admin_product_update", methods={"GET|POST"})
+     * @param Product $product
+     * @param Request $request
+     * @param FileUploader $fileUploader
+     * @return Response
+     */
+    public function update(Product $product, Request $request, FileUploader $fileUploader): Response
+    {
+        # Récupération du l'image existante
+        $oldFile = new File($this->getParameter('images_directory').'/'.$product->getImage());
+        $oldFileName = $oldFile->getFilename();
+
+        $form = $this->createForm(CreateType::class, $product)->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $product->setImage($oldFileName);
+
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('image')->getData();
+
+            # Générer le nom de l'image | sécurisation du nom de l'image
+            if ($imageFile) {
+                # Supprime l'ancienne image si elle doit être modifiée
+                $filesystem = new Filesystem();
+                $filesystem->remove($this->getParameter('images_directory').'/'.$oldFileName);
+
+                $newFilename = $fileUploader->upload($imageFile);
+
+                # /!\ Permet d'insérer le nouveau nom de l'image dans la BDD /!\
+                $product->setImage($newFilename);
+            }
+
+            $this->em->flush();
+
+            return $this->redirectToRoute('admin_products');
+        }
+
+        return $this->render('admin/create.html.twig', [
+            'product' => $product,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="admin_product_delete", methods={"GET|POST"})
+     * @param Product $product
+     * @return Response
+     */
+    public function delete(Product $product): Response
+    {
+        $filesystem = new Filesystem();
+        $filesystem->remove($this->getParameter('images_directory').'/'.$product->getName());
+        
+        $this->em->remove($product);
+        $this->em->flush();
+        return $this->redirectToRoute('admin_products');
+    }
+}

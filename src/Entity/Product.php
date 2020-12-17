@@ -81,12 +81,12 @@ class Product
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="product", orphanRemoval=true)
      */
     private $reviews;
 
     /**
-     * @ORM\OneToMany(targetEntity=Detail::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=Detail::class, mappedBy="product", orphanRemoval=true)
      */
     private $details;
 
@@ -150,12 +150,12 @@ class Product
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage($image): self
     {
         $this->image = $image;
 
