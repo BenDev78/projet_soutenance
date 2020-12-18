@@ -43,20 +43,18 @@
                         <div class="mw-520 color-heading text-adaptive">
                             {{ product.description }}
                         </div>
-                            <div class="mt-20 d-inline-block quantity">
-                                <div class="mb-1 f-14 semibold text-uppercase sp-20 label action-2">
-                                    Quantity
-                                </div>
-                                <div class="h-40 d-flex align-items-stretch radius20 text-center quantity_selector">
-                                    <a class="link h-full color-heading control less">
-                                        -
-                                    </a>
-                                    <input name="quantity" value="1" min="1" max="9999" class="input noradius p-0 text-center">
-                                    <a class="link h-full color-heading control greater">
-                                        +
-                                    </a>
-                                </div>
+                        <div class="mt-20 d-inline-block quantity">
+                            <div class="mb-1 f-14 semibold text-uppercase sp-20 label action-2">
+                                Quantity
                             </div>
+                            <div class="h-40 d-flex align-items-stretch radius20 text-center quantity_selector">
+                                <a class="link h-full color-heading control less">
+                                    -
+                                </a>
+                                <input name="quantity" value="1" min="1" max="9999"
+                                       class="input noradius p-0 text-center">
+                                <a class="link h-full color-heading control greater">
+                                    +
                             <div class="mt-40 d-flex buttons">
                                 <button class="btn mr-20 sm action-1 medium f-16">
                                     Ajouter au panier
@@ -66,6 +64,12 @@
                                     Laisser un avis
                                 </a>
                             </div>
+                        </div>
+                        <div class="mt-40 d-flex flex-wrap align-items-center buttons">
+                            <a href="{{ path('add_to_cart', {'id' : product.id}) }}" class="btn mr-20 sm action-1 medium f-16">
+                                Ajouter au panier
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
