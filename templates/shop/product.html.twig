@@ -50,29 +50,27 @@
                             <a class="link h-full color-heading control less">
                                 -
                             </a>
-                            <input name="quantity" value="1" min="1" max="9999"
-                                   class="input noradius p-0 text-center">
+                            <input name="quantity" value="1" min="1" max="9999" class="input noradius p-0">
                             <a class="link h-full color-heading control greater">
                                 +
-                                <div class="mt-40 d-flex buttons">
-                                    <button class="btn mr-20 sm action-1 medium f-16">
-                                        Ajouter au panier
-                                    </button>
-
-                                    <a href="" class="btn mr-20 sm action-2 medium f-16">
-                                        Laisser un avis
-                                    </a>
-                                </div>
+                            </a>
                         </div>
-                        <div class="mt-40 d-flex flex-wrap align-items-center buttons">
-                            <a href="{{ path('add_to_cart', {'id' : product.id}) }}"
-                               class="btn mr-20 sm action-1 medium f-16">
+                    </div>
+                    <div class="mt-20 d-flex">
+                        <div class="buttons">
+                            <a href="#" class="btn mt-40 mr-20 sm action-2 medium f-16">
+                                Laisser un avis
+                            </a>
+                        </div>
+                        <div class="buttons">
+                            <a href="{{ path('add_to_cart', {'id' : product.id}) }}" class="btn mt-40 mr-20 sm action-1 medium f-16">
                                 Ajouter au panier
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
     <section class="pt-80 pb-80 bg-dark color-white testimonial_1">
         {% for review in product.reviews %}
