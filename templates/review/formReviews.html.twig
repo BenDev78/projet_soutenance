@@ -3,16 +3,11 @@
 
 {% block body %}
 
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-
     <div class="container-fluid col-8">
         <h2 class="text-center mb-45 small">DONNEZ VOTRE AVIS</h2>
-
-    {# Nom du produit #}
+        {# % for product in products % #}
+           {# product.name #}
+            {# % endfor % #}
 
         {{ form_start(form) }}
 

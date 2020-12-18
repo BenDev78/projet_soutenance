@@ -42,6 +42,7 @@ class ReviewController extends AbstractController
         $review->setProduct($product);
         $review->setUser($user);
 
+
         $form = $this->createForm(ReviewType::class, $review);
         $form -> handleRequest($request);
 
@@ -64,13 +65,19 @@ class ReviewController extends AbstractController
 
         return $this->render('review/formReviews.html.twig', ['form' => $form->createView()]);
 
+
     }
 
     #TODO
     #Nullable=true ne fonctionne pas pour le pseudo
     #Afficher le nom du produit en haut du formulaire dans la vue
-    #Afficher le addFlash à la soumission du formulaire
     #Ajouter le lien du formulaire review sur l'ensemble des produits
 
+    public function add_product_name(): Response
+    {
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+
+        return $this->render("review/formReview.html.twig", ['products'=> $products]);
+    }
 
 }
