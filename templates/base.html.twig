@@ -30,7 +30,17 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>{% endblock %}
 </head>
 <body>
-{% include 'components/_nav.html.twig' %}
+{#
+    Affiche la barre de navigation adminitrateur
+    uniquement si le block admin est défini
+#}
+
+{% if block('admin') is not defined %}
+    {% include 'components/_nav.html.twig' %}
+{% else %}
+    {% include 'components/_admin-nav.html.twig' %}
+{% endif %}
+
 {% block body %}{% endblock %}
 {% include 'components/_footer.html.twig' %}
 {% block javascripts %}

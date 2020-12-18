@@ -5,14 +5,10 @@ namespace App\Controller\Admin;
 use App\Entity\Command;
 use App\Entity\Product;
 use App\Entity\User;
-use App\Form\CreateType;
-use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -36,7 +32,15 @@ class AdminController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('admin/index.html.twig');
+        $usersCount = (string)$this->rowCount(User::class);
+        $commandsCount = (string)$this->rowCount(Command::class);
+        $productsCount = (string)$this->rowCount(Product::class);
+
+        return $this->render('admin/index.html.twig', [
+            'usersCount' => $usersCount,
+            'commandsCount' => $commandsCount,
+            'productsCount' => $productsCount
+        ]);
     }
 
     /**
@@ -76,6 +80,23 @@ class AdminController extends AbstractController
         return $this->render('admin/commands.html.twig', [
             'commands' => $commands
         ]);
+    }
+
+    /**
+     * Compte le nombre d'entrées d'une entité
+     * @param $entity
+     * @return int|mixed|string
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    private function rowCount($entity)
+    {
+        $data = $this->em->getRepository($entity);
+
+        return $data->createQueryBuilder('d')
+            ->select('count(d.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 }

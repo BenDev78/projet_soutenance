@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 {% set current_page = 'index_admin' %}
+{% block admin %}{% endblock %}
+
 {% block title %}Panel d'aministration{% endblock %}
 
 {% block body %}
@@ -9,7 +11,11 @@
             <div class="card col-md-3 col-sm-12 mx-5 mb-3 border">
                 <div class="card-body">
                     <h5 class="text-center mb-4">Gestion des utilisateurs</h5>
-                    <div class="text-center">
+                    <div class="row">
+                        <div class="col-3 action-2" style="font-size: 30px">{{ usersCount }}</div>
+                        <div class="col-9">Utilisateur(s) inscrit(s)</div>
+                    </div>
+                    <div class="text-center mt-2">
                         <a href="{{ path('admin_users') }}" type="button" class="btn sm action-2 f-14">Accéder</a>
                     </div>
                 </div>
@@ -17,7 +23,11 @@
             <div class="card col-md-3 col-sm-12 mx-5 mb-3 border">
                 <div class="card-body">
                     <h5 class="text-center mb-4">Gestion des commandes</h5>
-                    <div class="text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-3 action-2" style="font-size: 30px">{{ commandsCount }}</div>
+                        <div class="col-9">Commande(s) passée(s)</div>
+                    </div>
+                    <div class="text-center mt-2">
                         <a href="{{ path('admin_commands') }}" type="button" class="btn sm action-2 f-14">Accéder</a>
                     </div>
                 </div>
@@ -25,7 +35,11 @@
             <div class="card col-md-3 col-sm-12 mx-5 mb-3 border">
                 <div class="card-body">
                     <h5 class="text-center mb-4">Gestion des produits</h5>
-                    <div class="text-center">
+                    <div class="row">
+                        <div class="col-3 action-2" style="font-size: 30px">{{ productsCount }}</div>
+                        <div class="col-9">produit(s) enregistré(s)</div>
+                    </div>
+                    <div class="text-center mt-2">
                         <a href="{{ path('admin_products') }}" type="button" class="btn sm action-2 f-14">Accéder</a>
                     </div>
                 </div>
