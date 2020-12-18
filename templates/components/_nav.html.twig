@@ -32,7 +32,7 @@
                     Administration
                 </a>
                 {# {% endif %} #}
-                <a href="{{ path ('user_create') }}" class="link mr-20 color-main">
+                <a href="{{ path('user_create') }}" class="link mr-20 color-main">
                     S'enregistrer
                 </a>
 {#                mettre une condition pour si connecter alors on affiche le lien#}
@@ -42,7 +42,7 @@
                 <a href="{{ ('/login') }}" class="btn mr-20 sm action-2 f-16">
                     S'identifier
                 </a>
-                <a href="#">
+                <a href="{{ path('cart') }}">
                     <i class="fas fa-shopping-cart color-main f-20"></i>
                 </a>
             </div>
