@@ -234,57 +234,57 @@ function SF_scripts(){
 	}
 
 
-	// Ecommerce: Quantity selector
-	$(".quantity_selector .control").click(function(event){
-		event.preventDefault();
-		var _this = $(this);
-		var input = _this.parent().find("input");
-		var input_val = parseInt(input.val());
-		if(_this.hasClass("greater")){
-			if(input_val<parseInt(input.attr("max"))){
-				input.val(input_val+1);
-				input.trigger("change");
-			}
-		}
-		if(_this.hasClass("less")){
-			if(input_val>parseInt(input.attr("min"))){
-				input.val(input_val-1);
-				input.trigger("change");
-			}
-		}
-	});
+	// // Ecommerce: Quantity selector
+	// $(".quantity_selector .control").click(function(event){
+	// 	event.preventDefault();
+	// 	var _this = $(this);
+	// 	var input = _this.parent().find("input");
+	// 	var input_val = parseInt(input.val());
+	// 	if(_this.hasClass("greater")){
+	// 		if(input_val<parseInt(input.attr("max"))){+
+	// 			input.val(input_val+1);
+	// 			input.trigger("change");
+	// 		}
+	// 	}
+	// 	if(_this.hasClass("less")){
+	// 		if(input_val>parseInt(input.attr("min"))){
+	// 			input.val(input_val-1);
+	// 			input.trigger("change");
+	// 		}
+	// 	}
+	// });
 
-	// Ecommerce: Remove products from cart
-	$(".remove_product").click(function(event){
-		event.preventDefault();
-		var product = $(this).closest(".product");
-		console.log(product);
-		product.slideUp(300,function(){
-			product.remove();
-			if(typeof(count_totals_ecommerce_33)=="function"){
-				count_totals_ecommerce_33();
-			}
-			if(typeof(count_totals_ecommerce_36)=="function"){
-				count_totals_ecommerce_36();
-			}
-			if(typeof(count_totals_ecommerce_38)=="function"){
-				count_totals_ecommerce_38();
-			}
-		})
-	});
-
-	// Ecommerce: Set discount
-	$(".ecommerce_33 input[name=coupon]").change(function(){
-		if($(this).val()!=""){
-			var discount = $(".ecommerce_33 .discount").attr("data-discount");
-			$(".ecommerce_33 .discount .js-discount-value").text(discount);
-		}else{
-			$(".ecommerce_33 .discount .js-discount-value").text("0");
-		}
-		if(typeof(count_totals_ecommerce_33)=="function"){
-			count_totals_ecommerce_33();
-		}
-	});
+	// // Ecommerce: Remove products from cart
+	// $(".remove_product").click(function(event){
+	// 	event.preventDefault();
+	// 	var product = $(this).closest(".product");
+	// 	console.log(product);
+	// 	product.slideUp(300,function(){
+	// 		product.remove();
+	// 		if(typeof(count_totals_ecommerce_33)=="function"){
+	// 			count_totals_ecommerce_33();
+	// 		}
+	// 		if(typeof(count_totals_ecommerce_36)=="function"){
+	// 			count_totals_ecommerce_36();
+	// 		}
+	// 		if(typeof(count_totals_ecommerce_38)=="function"){
+	// 			count_totals_ecommerce_38();
+	// 		}
+	// 	})
+	// });
+	//
+	// // Ecommerce: Set discount
+	// $(".ecommerce_33 input[name=coupon]").change(function(){
+	// 	if($(this).val()!=""){
+	// 		var discount = $(".ecommerce_33 .discount").attr("data-discount");
+	// 		$(".ecommerce_33 .discount .js-discount-value").text(discount);
+	// 	}else{
+	// 		$(".ecommerce_33 .discount .js-discount-value").text("0");
+	// 	}
+	// 	if(typeof(count_totals_ecommerce_33)=="function"){
+	// 		count_totals_ecommerce_33();
+	// 	}
+	// });
 
 	// Ecommerce: Count total price
 	if($(".ecommerce_33 .product").length>0){
@@ -356,16 +356,11 @@ function SF_scripts(){
 		});
 		function count_totals_ecommerce_36(){
 			var total = 0;
-			var discount = 1;
-			if($(".ecommerce_36 input[name=coupon]").val()!=""){
-				discount = (100 - parseInt($(".ecommerce_36 input[name=coupon]").attr("data-discount")))/100;
-			}
 			$(".ecommerce_36 .product").each(function(){
 				var product = $(this);
 				var price = parseFloat(product.find(".product_price .js-product-price").text());
 				var quantity = parseInt(product.find("input[name=quantity]").val());
 				total = total + price*quantity;
-				total = Math.floor(total*discount);
 			});
 			$(".ecommerce_36 .total .js-total").text(total);
 		}
