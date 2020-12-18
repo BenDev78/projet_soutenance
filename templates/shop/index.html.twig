@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-lg-9 d-flex flex-wrap justify-content-between align-items-baseline">
                     <div class="color-heading f-14 semibold text-uppercase sp-20 total">
-                        <span class="action-1">6</span> Items
+                        <span class="action-1">{{ products|length }}</span> Items
                     </div>
                     <div class="sort_by">
 						<span class="color-heading f-14 semibold text-uppercase sp-20">
@@ -78,6 +78,7 @@
                     <div class="mt-10 d-inline-block d-lg-block category">
                         <a href="#" class="link color-heading lh-30">
                             filtre
+
                         </a>
                     </div>
                     <div class="mt-10 d-inline-block d-lg-block category">
@@ -108,7 +109,7 @@
                                    class="link mt-15 d-block color-main f-14 text-uppercase semibold sp-20 title">
                                     {{ product.name }}
                                 </a>
-                                <div class="mt-1 f-14 semibold sp-20 action-2 price">
+                                <div class="mt-1 f-18 semibold sp-20 action-2 price">
                                     {{ product.price|number_format(2, ',') }} €
                                 </div>
                                 <a href="#" class="btn mt-15 sm action-1 medium f-16">
