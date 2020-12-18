@@ -1,0 +1,14 @@
+<div class="mt-10 d-inline-block d-lg-block category">
+    {{ form_start(form, {attr: {'novalidate' : 'novalidate'}}) }}
+
+    {{ form_row(form.q) }}
+
+{#    <h5 class="mb-2">Notation</h5>#}
+{#    {{ form_row(form.rating) }}#}
+
+    <div class="form-group text-center">
+        <button class="btn sm action-2" type="submit">Rechercher</button>
+    </div>
+    {{ form_end(form) }}
+</div>
+

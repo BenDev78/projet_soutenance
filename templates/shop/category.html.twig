@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-lg-9 d-flex flex-wrap justify-content-between align-items-baseline">
                     <div class="color-heading f-14 semibold text-uppercase sp-20 total">
-                        <span class="action-1">{{ products|length }}</span> Produit(s)
+                        <span class="action-1">{{ category.products|length }}</span> <small>Produit(s)</small>
                     </div>
                     <div class="sort_by">
 						<span class="color-heading f-14 semibold text-uppercase sp-20">
@@ -31,10 +31,10 @@
                                         Tout
                                     </a>
                                 </div>
-                                {% for category in categories %}
+                                {% for c in categories %}
                                     <div class="py-1 px-15 link_holder">
-                                        <a href="{{ path('shop_category', {'alias' : category.alias}) }}" class="link action-1 semibold">
-                                            {{ category.name }}
+                                        <a href="{{ path('shop_category', {'alias' : c.alias}) }}" class="link action-1 semibold">
+                                            {{ c.name }}
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -49,10 +49,10 @@
                 </div>
                 <div class="col-lg-9 products">
                     <div class="row text-center">
-                        {% for product in products %}
+                        {% for product in category.products %}
                             <div class="mt-35 mb-35 col-md-4 col-sm-6 product">
                                 <a href="#" class="link img_link">
-                                    <img src="{{ asset('uploads/images/'~product.image) }}" alt=""
+                                    <img src="{{ asset('uploads/images/'~ product.image) }}" alt=""
                                          class="img-fluid h-400 radius10">
                                 </a>
                                 <a href="#"
