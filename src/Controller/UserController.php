@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ProfileType;
 use App\Form\RegisterType;
-//use App\Form\RegistrationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +25,6 @@ class UserController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-
     public function create(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         # Création d un utilisateur
@@ -36,19 +35,23 @@ class UserController extends AbstractController
         #Formulaire d inscription d'un utilisateur
         $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             # Encodage du mot de passe
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+
+            #TODO message de confirmation d inscription
+            $this->addFlash('success', 'Votre compte a bien été créé ! Connectez-vous maintenant !');
+
+            #enregistrement en BDD
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            #redirection lors de l inscription vers page connexion
+            return $this->redirectToRoute('app_login');
         }
-        #TODO integrer en bdd ne fonctionne pas email can t be null
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
 
-        #TODO message de confirmation d inscription
-        #TODO redirection lors de l inscription vers page profil
-
+        # vue du formulaire d inscription
         return $this->render('user/create.html.twig', [
             'form' => $form->createView()
         ]);
@@ -59,22 +62,22 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function editProfil(Request $request)
+    public function editProfil(Request $request): Response
     {
         # Récupération des données du user connecté
         $user = $this->getUser();
-
         # Récupération du formulaire
-        $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
+        $form = $this->createForm(ProfileType::class , $user)->handleRequest($request);
 
         # Traitement du Formulaire
         if ($form->isSubmitted() && $form->isValid()) {
+            #TODO message de confirmation
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-
+            #redirection lors de l inscription vers page acceuil
+            return $this->redirectToRoute('default_index');
         }
-
         # Affichage dans la vue
         return $this->render("user/profil-edit.html.twig", [
             'form' => $form->createView()

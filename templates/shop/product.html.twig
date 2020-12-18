@@ -4,6 +4,15 @@
 {% block title %}Cognac Guy Bonnaud{% endblock %}
 
 {% block body %}
+
+    {% for label, messages in app.flashes(['success', 'warning']) %}
+        {% for message in messages %}
+            <div class="alert-success">
+               <h1 class="bold">{{ message }}</h1>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     <section class="pt-100 pb-100 bg-light ecommerce_31">
         {% for product in products|slice(0,1) %}
             <div class="container px-xl-0">
@@ -24,7 +33,7 @@
                     </div>
                     <div class="col-lg-1">
                     </div>
-                    <div class="mt-30 mt-lg-0 col-xl-4 col-lg-5 col-md-8 col-sm-10 order-2 order-lg-0">
+                    <div class="mt-30 mt-lg-0 col-xl-6 col-lg-5 col-md-10 col-sm-10 order-2 order-lg-0">
                         <h2 class="mb-10 f-36">
                             {{ product.name }}
                         </h2>
@@ -34,65 +43,73 @@
                         <div class="mw-520 color-heading text-adaptive">
                             {{ product.description }}
                         </div>
-                            <div class="mt-20 d-inline-block quantity">
-                                <div class="mb-1 f-14 semibold text-uppercase sp-20 label action-2">
-                                    Quantity
-                                </div>
-                                <div class="h-40 d-flex align-items-stretch radius20 text-center quantity_selector">
-                                    <a class="link h-full color-heading control less">
-                                        -
-                                    </a>
-                                    <input name="quantity" value="1" min="1" max="9999" class="input noradius p-0 text-center">
-                                    <a class="link h-full color-heading control greater">
-                                        +
-                                    </a>
-                                </div>
+                        <div class="mt-20 d-inline-block quantity">
+                            <div class="mb-1 f-14 semibold text-uppercase sp-20 label action-2">
+                                Quantity
                             </div>
-                            <div class="mt-40 d-flex flex-wrap align-items-center buttons">
+                            <div class="h-40 d-flex align-items-stretch radius20 text-center quantity_selector">
+                                <a class="link h-full color-heading control less">
+                                    -
+                                </a>
+                                <input name="quantity" value="1" min="1" max="9999"
+                                       class="input noradius p-0 text-center">
+                                <a class="link h-full color-heading control greater">
+                                    +
+                            <div class="mt-40 d-flex buttons">
                                 <button class="btn mr-20 sm action-1 medium f-16">
                                     Ajouter au panier
                                 </button>
+
+                                <a href="" class="btn mr-20 sm action-2 medium f-16">
+                                    Laisser un avis
+                                </a>
                             </div>
+                        </div>
+                        <div class="mt-40 d-flex flex-wrap align-items-center buttons">
+                            <a href="{{ path('add_to_cart', {'id' : product.id}) }}" class="btn mr-20 sm action-1 medium f-16">
+                                Ajouter au panier
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </section>
-    <section class="pt-80 pb-80 bg-light testimonial_1">
+    <section class="pt-80 pb-80 bg-dark color-white testimonial_1">
         {% for review in reviews %}
-        <div class="container px-xl-0">
-            <div class="row justify-content-center">
-                <div class="col-xl-10 col-lg-11">
-                    <div class="hr bg-gray h-2">
+            <div class="container px-xl-0">
+                <div class="row justify-content-center">
+                    <div class="col-xl-10 col-lg-11">
+                        <div class="hr bg-gray h-2">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row pt-30 pb-50 inner" >
-                <div class="col-xl-2 col-lg-1">
-                </div>
-                <div class="col-md-1 col-sm-2">
-                    <i class="fas fa-quote-left f-36 color-gray">
-                    </i>
-                </div>
-                <div class="col-xl-7 col-lg-8 col-sm-10">
-                    <div class="pt-10 f-22 text-adaptive">
-                        {{ review.comment }}
+                <div class="row pt-30 pb-50 inner">
+                    <div class="col-xl-2 col-lg-1">
                     </div>
-                    <div class="mt-20 d-flex align-items-center author_info">
-                        <img src="i/testimonial_1_img.jpg" srcset="i/testimonial_1_img@2x.jpg 2x" alt="" class="w-60 h-60 radius_full">
-                        <div class="ml-15 color-heading f-14 semibold text-uppercase sp-20">
-                            {{ review.pseudo }}
+                    <div class="col-md-1 col-sm-2">
+                        <i class="fas fa-quote-left f-36 color-gray">
+                        </i>
+                    </div>
+                    <div class="col-xl-7 col-lg-8 col-sm-10">
+                        <div class="pt-10 f-22 text-adaptive">
+                            {{ review.comment }}
+                        </div>
+                        <div class="mt-20 d-flex align-items-center author_info">
+                            <img src="i/testimonial_1_img.jpg" alt="" class="radius_full">
+                            <div class="ml-15 f-14 semibold text-uppercase sp-20">
+                                {{ review.pseudo }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-xl-10 col-lg-11">
+                        <div class="hr bg-gray h-2">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-xl-10 col-lg-11">
-                    <div class="hr bg-gray h-2">
-                    </div>
-                </div>
-            </div>
-        </div>
         {% endfor %}
     </section>
 {% endblock %}
