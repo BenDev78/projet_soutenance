@@ -24,33 +24,6 @@
                         <br>
                         <div>
                             <div class="mb-10 f-14 semibold text-uppercase sp-20">
-                                {{ form_label(form.firstname, 'Votre prenom') }}
-                            </div>
-                            {{ form_errors(form.firstname) }}
-                            {{ form_widget(form.firstname) }}
-                            {{ form_help(form.firstname) }}
-                        </div>
-                        <br>
-                        <div>
-                            <div class="mb-10 f-14 semibold text-uppercase sp-20">
-                                {{ form_label(form.address, 'Votre adresse') }}
-                            </div>
-                            {{ form_errors(form.address) }}
-                            {{ form_widget(form.address) }}
-                            {{ form_help(form.address) }}
-                        </div>
-                        <br>
-                        <div>
-                            <div class="mb-10 f-14 semibold text-uppercase sp-20">
-                                {{ form_label(form.postal_code, 'Votre Nom') }}
-                            </div>
-                            {{ form_errors(form.postal_code) }}
-                            {{ form_widget(form.postal_code) }}
-                            {{ form_help(form.postal_code) }}
-                        </div>
-                        <br>
-                        <div>
-                            <div class="mb-10 f-14 semibold text-uppercase sp-20">
                                 {{ form_label(form.email, 'Votre mail') }}
                             </div>
                             {{ form_errors(form.email) }}
@@ -70,9 +43,8 @@
                             <button class="btn mr-20 mb-20 mb-xl-0 w-210 lg action-2">
                                 S'inscrire
                             </button>
-                            <div class="color-heading text-adaptive">
-                                <i>En cliquant, vous acceptez
-                                    <br>nos termes de politique et d'utilisation de notre site</i>
+                            <div class="color-heading text-adaptive"><br>
+                                <i>En cliquant, vous acceptez nos termes de politique et d'utilisation de notre site</i>
                             </div>
                         </div>
                     {{ form_end(form) }}
@@ -80,7 +52,7 @@
                 <div class="col-sm-1">
                 </div>
                 <div class="col-lg-6 col-md-5 d-none d-md-block overflow-hidden img_holder">
-                    <img src="uploads/pexelsmarkuswinkler5393084.jpg" alt="" class="h-full absolute img-fluid" srcset="">
+                    <img src="{{ asset('uploads/images/pexels-markus-winkler-5349246.jpg') }}" alt="" class="h-full absolute img-fluid" srcset="">
                 </div>
             </div>
         </div>
