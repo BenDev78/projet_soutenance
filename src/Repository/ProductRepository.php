@@ -19,6 +19,30 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function findSearch($search)
+    {
+        $query =  $this
+            ->createQueryBuilder('p')
+        ;
+
+        if(!empty($search->q))
+        {
+            $query = $query
+                ->andWhere('p.name like :q')
+                ->setParameter('q', "%{$search->q}%");
+        }
+
+        return $query->getQuery()->getResult();
+    }
+//SELECT p.id, p.name, ROUND(AVG(r.rating), 1) as rate
+//FROM product p, review r
+//WHERE p.id = r.product_id
+//GROUP BY p.;
+//
+//SELECT id
+//FROM avg_rating
+//WHERE rate BETWEEN 3 AND 3 +1;
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */
