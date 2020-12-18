@@ -89,6 +89,6 @@ class CartController extends AbstractController
     {
         $cart->remove();
 
-        return $this->redirectToRoute('default_shop');
+        return $this->redirectToRoute('shop_index');
     }
 }
