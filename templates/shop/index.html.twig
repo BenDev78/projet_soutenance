@@ -51,11 +51,11 @@
                     <div class="row text-center">
                         {% for product in products %}
                             <div class="mt-35 mb-35 col-md-4 col-sm-6 product">
-                                <a href="#" class="link img_link">
+                                <a href="{{ path('shop_product', {'id' : product.id}) }}" class="link img_link">
                                     <img src="{{ asset('uploads/images/'~product.image) }}" alt=""
                                          class="img-fluid h-400 radius10">
                                 </a>
-                                <a href="#"
+                                <a href="{{ path('shop_product', {'id' : product.id}) }}"
                                    class="link mt-15 d-block color-main f-18 text-uppercase semibold sp-20 title">
                                     {{ product.name }}
                                 </a>
