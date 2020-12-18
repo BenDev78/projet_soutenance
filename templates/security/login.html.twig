@@ -11,6 +11,13 @@
                         <h2 class="mb-45 small">
                             Se connecter
                         </h2>
+                        {% for label, messages in app.flashes(['success', 'warning']) %}
+                            {% for message in messages %}
+                                <div class="flash-{{ label }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
                         <div>
                             <div class="mb-10 f-14 semibold text-uppercase sp-20">
                                 Email
@@ -29,13 +36,13 @@
                             </button>
                         </div>
                     </form>
-                </div>
+                </div> <!--col-lg-5 col-md-6 col-sm-10 -->
                 <div class="col-sm-1">
                 </div>
                 <div class="col-lg-6 col-md-5 d-none d-md-block overflow-hidden img_holder">
                     <img src="" alt="" class="h-full absolute img-fluid" srcset="">
                 </div>
-            </div>
-        </div>
+            </div> <!--row justify-content-center text-center text-md-left -->
+        </div> <!--container px-xl-0 -->
     </section>
 {% endblock %}

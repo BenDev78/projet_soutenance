@@ -25,13 +25,14 @@ class Review
     private $product;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text", nullable=false)
      * @Assert\Length(min="3", max="255")
      */
     private $comment;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=0, max=5)
      */
     private $rating;
 
