@@ -5,84 +5,122 @@
 
 {% block body %}
 
-    <section class="container-fluid pt-100 pb-60 bg-light ecommerce_20">
-        <div class="container d-flex">
-            <h2 class="row mb-55 small text-center text-lg-left fixed">
-                Shop
-            </h2>
-            <div class="ml-50 mb-50 f-18 medium text-center text-lg-left d-flex categories">
-                <div class="d-inline-block d-lg-block">
-                    <a href="#" class="link px-15 color-heading lh-40 radius10 category">
-                        All
-                    </a>
+    <section class="pt-100 pb-70 bg-light ecommerce_5">
+        <div class="container px-xl-0">
+            <div class="row relative zi-1">
+                <div class="col-lg-3">
                 </div>
-                <div class="d-inline-block d-lg-block">
-                    <a href="#" class="link px-15 color-heading lh-40 radius10 category">
-                        Cognacs
-                    </a>
-                </div>
-                <div class="d-inline-block d-lg-block">
-                    <a href="#" class="link px-15 color-heading lh-40 radius10 category">
-                        Pineaux
-                    </a>
-                </div>
-                <div class="d-inline-block d-lg-block">
-                    <a href="#" class="link px-15 color-heading lh-40 radius10 category">
-                        Coffrets
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                {% for product in products %}
-                    <div class="col-md-6">
-                        <!-- Card -->
-                        <div class="card mb-70">
-                            <div class="view overlay text-center h-450">
-                                <span class="helper"></span>
-                                <img class="img-fluid w-300 rounded align-middle" src="{{ asset("uploads/images/"~product.image) }}"
-                                     alt="Sample">
-                                <a href="#">
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-                            <div class="card-body text-center">
-                                <h5 class="f-32">{{ product.name }}</h5>
-                                <p class="small text-muted text-uppercase mb-2">{{ product.category.name }}</p>
-                                <ul class="rating d-flex list-unstyled justify-content-center">
-                                    <li>
-                                        <i class="fas fa-star fa-sm action-1"></i>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-star fa-sm action-1"></i>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-star fa-sm action-1"></i>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-star fa-sm action-1"></i>
-                                    </li>
-                                    <li>
-                                        <i class="far fa-star fa-sm action-1"></i>
-                                    </li>
-                                </ul>
-                                <h6 class="mb-3">
-                                    <span class="action-3 f-24 mr-1">{{ product.price|number_format(2,',') }}€</span>
-                                </h6>
-                                <button type="button" class="btn btn-sm mr-20 mb-2 action-2">
-                                    <i class="fas fa-shopping-cart pr-2"></i>Ajouter au panier
-                                </button>
-                                <button type="button" class="btn btn-sm mb-2 color-main action-gray">
-                                    <i class="fas fa-info-circle pr-2"></i>Details
-                                </button>
+                <div class="col-lg-9 d-flex flex-wrap justify-content-between align-items-baseline">
+                    <div class="color-heading f-14 semibold text-uppercase sp-20 total" data-aos="fade-up"
+                         data-aos-delay="0">
+                        <span class="action-1">6</span> Items
+                    </div>
+                    <div class="sort_by" data-aos="fade-up" data-aos-delay="400">
+						<span class="color-heading f-14 semibold text-uppercase sp-20">
+							Classer par
+						</span>
+                        <div class="d-inline-block dropdown">
+                            <a href="#" class="link action-1 f-14 semibold text-uppercase sp-20 dropdown-toggle"
+                               id="ecommerce_5_dropdown" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                All
+                            </a>
+                            <div class="ml-0 bg-light px-0 pt-15 pb-15 radius16 dropdown-menu dropdown-menu-right"
+                                 aria-labelledby="ecommerce_5_dropdown">
+                                <div class="py-1 px-15 link_holder">
+                                    <a href="#" class="link action-1 semibold">
+                                        All
+                                    </a>
+                                </div>
+                                {% for category in categories %}
+                                    <div class="py-1 px-15 link_holder">
+                                        <a href="#" class="link action-1 semibold">
+                                            {{ category.name }}
+                                        </a>
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
-                        <!-- Card -->
                     </div>
-                {% endfor %}
+                </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="mt-35 col-lg-3 f-18 medium text-center text-lg-left categories" data-aos="fade-up"
+                     data-aos-delay="0">
+                    <div class="mt-10 d-inline-block d-lg-block category">
+                        <a href="#" class="link color-heading lh-30">
+                            filtre
+                        </a>
+                    </div>
+                    <div class="mt-10 d-inline-block d-lg-block category">
+                        <a href="#" class="link color-heading lh-30">
+                            filtre
+                        </a>
+                    </div>
+                    <div class="mt-10 d-inline-block d-lg-block category">
+                        <a href="#" class="link color-heading lh-30">
+                            filtre
+                        </a>
+                    </div>
+                    <div class="mt-10 d-inline-block d-lg-block category">
+                        <a href="#" class="link color-heading lh-30">
+                            filtre
+                        </a>
+                    </div>
+                    <div class="mt-10 d-inline-block d-lg-block category">
+                        <a href="#" class="link color-heading lh-30">
+                            filtre
+                        </a>
+                    </div>
+                    <div class="mt-10 d-inline-block d-lg-block category">
+                        <a href="#" class="link color-heading lh-30">
+                            filtre
+                        </a>
+                    </div>
+                    <div class="mt-10 d-inline-block d-lg-block category">
+                        <a href="#" class="link color-heading lh-30">
+                            filtre
+                        </a>
+                    </div>
+                    <div class="mt-10 d-inline-block d-lg-block category">
+                        <a href="#" class="link color-heading lh-30">
+                            filtre
+                        </a>
+                    </div>
+                    <div class="mt-10 d-inline-block d-lg-block category">
+                        <a href="#" class="link color-heading lh-30">
+                            filtre
+                        </a>
+                    </div>
+                    <div class="mt-10 d-inline-block d-lg-block category">
+                        <a href="#" class="link color-heading lh-30">
+                            filtre
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-9 products">
+                    <div class="row text-center">
+                        {% for product in products %}
+                            <div class="mt-35 mb-35 col-md-4 col-sm-6 product">
+                                <a href="#" class="link img_link">
+                                    <img src="{{ asset('uploads/images/'~product.image) }}" alt=""
+                                         class="img-fluid h-400 radius10">
+                                </a>
+                                <a href="#"
+                                   class="link mt-15 d-block color-main f-14 text-uppercase semibold sp-20 title">
+                                    {{ product.name }}
+                                </a>
+                                <div class="mt-1 f-14 semibold sp-20 action-2 price">
+                                    {{ product.price|number_format(2, ',') }} €
+                                </div>
+                                <a href="#" class="btn mt-15 sm action-1 medium f-16">
+                                    Afficher le Produit
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
