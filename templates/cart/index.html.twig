@@ -29,6 +29,7 @@
             </div>
 
             <!-- BOUCLE LIGNE DE PRODUIT -->
+            {% if cart|length > 0 %}
             {% set total = null %}
             {% for product in cart %}
                 <form method="GET"
@@ -123,5 +124,18 @@
                 </div>
             </div>
         </div>
+        {% else %}
+            <br>
+            <h4 class=" f-32 text-center">Votre panier est vide</h4>
+            <br>
+            <hr>
+            <a href="{{ path('shop_index') }}" class="link d-flex align-items-center action-1 f-18 medium">
+                <i class="fas fa-chevron-left action-1 f-12 mr-5">
+                </i>
+                <span>
+                     Retour au Shop
+                </span>
+            </a>
+        {% endif %}
     </section>
 {% endblock %}

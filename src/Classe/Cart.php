@@ -4,16 +4,20 @@
 namespace App\Classe;
 
 
+use App\Entity\Product;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class Cart
 {
 
     private $session;
+    private $entityManager;
 
-    public function __construct(SessionInterface $session)
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
     {
         $this->session = $session;
+        $this->entityManager = $entityManager;
     }
 
     public function get()
@@ -60,5 +64,29 @@ class Cart
 
         return $this->session->set('cart', $cart);
     }
+
+    public function getFull(): array
+    {
+        $cartComplete = [];
+
+        if ($this->get()) {
+            foreach ($this->get() as $id => $quantity) {
+                $product_object = $this->entityManager->getRepository(Product::class)->findOneById($id);
+
+                if (!$product_object) {
+                    $this->delete($id);
+                    continue;
+                }
+
+                $cartComplete[] = [
+                    'products' => $product_object,
+                    'quantities' => $quantity
+                ];
+            }
+        }
+
+        return $cartComplete;
+    }
+
 
 }

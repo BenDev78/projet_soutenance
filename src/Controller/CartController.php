@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Classe\Cart;
-use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,18 +25,8 @@ class CartController extends AbstractController
      */
     public function index(Cart $cart): Response
     {
-        $cartComplete = [];
-
-        foreach ($cart->get() as $id => $quantity) {
-            $cartComplete[] = [
-                'products' => $this->entityManager->getRepository(Product::class)->find($id),
-                'quantities' => $quantity
-            ];
-        }
-
-
         return $this->render('cart/index.html.twig', [
-            'cart' => $cartComplete
+            'cart' => $cart->getFull()
         ]);
     }
 
@@ -89,6 +78,6 @@ class CartController extends AbstractController
     {
         $cart->remove();
 
-        return $this->redirectToRoute('shop_index');
+        return $this->redirectToRoute('cart');
     }
 }
