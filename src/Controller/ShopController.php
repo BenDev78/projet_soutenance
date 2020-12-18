@@ -69,17 +69,14 @@ class ShopController extends AbstractController
     }
 
     /**
-     * @Route("/shop/product", name="shop_product", methods={"GET|POST"})
+     * @Route("/shop/product/{id}", name="shop_product", methods={"GET|POST"})
+     * @param Product $product
      * @return Response
      */
-    public function product(): Response
+    public function product(Product $product): Response
     {
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-        $reviews = $this->getDoctrine()->getRepository(Review::class)->findAll();
-
         return $this->render("shop/product.html.twig", [
-            'products' => $products,
-            'reviews' => $reviews
+            'product' => $product
         ]);
     }
 
