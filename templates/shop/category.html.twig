@@ -52,7 +52,7 @@
                         {% for product in category.products %}
                             <div class="mt-35 mb-35 col-md-4 col-sm-6 product">
                                 <a href="#" class="link img_link">
-                                    <img src="{{ asset('uploads/images/'~ product.image) }}" alt=""
+                                    <img src="{{ asset('uploads/images/'~ product.image) }}" alt="{{ product.name }}"
                                          class="img-fluid h-400 radius10">
                                 </a>
                                 <a href="#"
