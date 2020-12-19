@@ -6,6 +6,8 @@ use App\Entity\Category;
 use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -37,6 +39,13 @@ class CreateType extends AbstractType
             ->add('image', FileType::class, [
                 'label' => 'Image du produit',
                 'data_class' => null
+            ])
+            ->add('isBest', ChoiceType::class, [
+                'choices' => [
+                    'Mettre en avant' => '',
+                    'oui' => 1,
+                    'non' => 0
+                ]
             ])
             ->add('year', NumberType::class, [
                 'label' => 'Millésime'
