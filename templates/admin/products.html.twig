@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block body %}
-<!-- reflexion class -->
+    <!-- reflexion class -->
     <div class="container">
         <h3 class="my-4 text-center">Liste des produits</h3>
         <div class="table-responsive mt-5">
@@ -22,11 +22,11 @@
                     <th>#</th>
                     <th>Catégorie</th>
                     <th>Nom</th>
-                    {#                    <th>Description</th>#}
+                    {# <th>Description</th> #}
                     <th>Prix <small>€</small></th>
                     <th>Quantité <small>cl</small></th>
                     <th>Image</th>
-                    {#                    <th>Année</th>#}
+                    <th>En avant</th>
                     <th>Editer</th>
                     <th>Supprimer</th>
                 </tr>
@@ -37,14 +37,27 @@
                         <td class="align-middle">{{ product.id }}</td>
                         <td class="align-middle">{{ product.category.name }}</td>
                         <td class="align-middle">{{ product.name }}</td>
-                        {#                    <td class="align-middle">{{ product.description | slice(0, 40) }}</td>#}
                         <td class="align-middle">{{ product.price }}</td>
                         <td class="align-middle">{{ product.quantity }}</td>
-                        <td class="align-middle"><img src="{{ asset('uploads/images/' ~ product.image) }}" alt="{{ product.name }}" height="80px"></td>
-                        {#                    <td class="align-middle">{{ product.year }}</td>#}
-                        <td class="align-middle"><a href="{{ path('admin_product_update', {'id' : product.id}) }}"><i class="fas fa-pen action-2"></i></a></td>
                         <td class="align-middle">
-                            <a href="{{ path('admin_product_delete', {'id' : product.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cet article ?')">
+                            <img src="{{ asset('uploads/images/' ~ product.image) }}"
+                                 alt="{{ product.name }}" height="80px">
+                        </td>
+                        <td class="align-middle">
+                            {% if product.isBest %}
+                                <i class="fas fa-check-circle text-success"></i>
+                            {% else %}
+                                <i class="fas fa-times-circle text-danger"></i>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle">
+                            <a href="{{ path('admin_product_update', {'id' : product.id}) }}">
+                                <i class="fas fa-pen action-2"></i>
+                            </a>
+                        </td>
+                        <td class="align-middle">
+                            <a href="{{ path('admin_product_delete', {'id' : product.id}) }}"
+                               onclick="return confirm('Voulez-vous vraiment supprimer cet article ?')">
                                 <i class="fas fa-times text-danger"></i>
                             </a>
                         </td>
@@ -59,14 +72,14 @@
         {{ parent() }}
         <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
         <script>
-            $(document).ready( function () {
+            $(document).ready(function () {
                 $('#productsTable').DataTable({
                     retrieve: true,
                     language: {
                         url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/French.json'
                     }
                 });
-            } );
+            });
         </script>
     {% endblock %}
 
