@@ -39,6 +39,7 @@ class AdminProductController extends AbstractController
     public function create(Request $request, FileUploader $fileUploader): Response
     {
         $product = new Product();
+        $product->setIsBest(false);
         $form = $this->createForm(CreateType::class, $product);
         $form->handleRequest($request);
 
@@ -53,6 +54,8 @@ class AdminProductController extends AbstractController
 
             $this->em->persist($product);
             $this->em->flush();
+
+            return $this->redirectToRoute('admin_products');
         }
 
         return $this->render('admin/create.html.twig', [

@@ -90,6 +90,11 @@ class Product
      */
     private $details;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isBest;
+
 
     public function __construct()
     {
@@ -242,6 +247,18 @@ class Product
                 $detail->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsBest(): ?bool
+    {
+        return $this->isBest;
+    }
+
+    public function setIsBest(bool $isBest): self
+    {
+        $this->isBest = $isBest;
 
         return $this;
     }
