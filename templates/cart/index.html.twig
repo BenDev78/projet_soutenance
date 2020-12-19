@@ -14,11 +14,8 @@
                 </div>
             </div>
             <div class="mt-35 d-none d-md-flex row justify-content-center">
-                <div class="col-xl-4 col-md-5 action-2 f-14 semibold text-uppercase sp-20 pb-15 with_border">
+                <div class="col-xl-7 col-md-8 action-2 f-14 semibold text-uppercase sp-20 pb-15 with_border">
                     Produit
-                </div>
-                <div class="col-md-3 action-2 f-14 semibold text-uppercase sp-20 pb-15 with_border">
-                    Characteristiques
                 </div>
                 <div class="col-md-2 action-2 f-14 semibold text-uppercase sp-20 pb-15 with_border">
                     Quantités
@@ -32,17 +29,16 @@
             {% if cart|length > 0 %}
             {% set total = null %}
             {% for product in cart %}
-                <form method="GET"
-                      class="mt-30 mt-md-0 relative row justify-content-md-center align-items-stretch product">
-                    <div class="col-xl-4 col-md-5 col-11 d-flex align-items-center with_border title">
+                <form method="GET" class="mt-30 mt-md-0 relative row justify-content-md-center align-items-stretch product">
+                    <div class="col-md-2 col-11 d-flex align-items-center with_border variants">
+                        <div class="f-18 medium">
+                            <img src="{{ asset('uploads/images/' ~ product.products.image) }}" alt="{{ product.products.name }}" height="100px">
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-md-6 col-11 d-flex align-items-center with_border title">
                         <a href="#" class="link color-main f-18 medium">
                             {{ product.products.name }}
                         </a>
-                    </div>
-                    <div class="col-md-3 col-11 d-flex align-items-center with_border variants">
-                        <div class="f-18 medium">
-                            Année {{ product.products.year }}, {{ product.products.quantity }}cl
-                        </div>
                     </div>
                     <div class="mr-20 mr-md-0 col-md-2 col-auto d-flex align-items-center with_border">
                         <div class="relative quantity_selector">
