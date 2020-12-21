@@ -80,4 +80,24 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('cart');
     }
+
+    public function payer($cart)
+    {
+
+        // new Command()
+
+        /* foreach(item in cart)
+            {
+                  new detail();
+                  $detail->set(product)
+                        ->(quantity)
+                        ->setCommand($command)
+                  $command->addDetail()
+            }
+
+       $this->em->persist($command)
+        $this->em->flush()
+         */
+
+    }
 }
