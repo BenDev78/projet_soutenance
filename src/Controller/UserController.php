@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\ProfileType;
 use App\Form\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -83,5 +84,19 @@ class UserController extends AbstractController
         return $this->render("user/profil-edit.html.twig", [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @param User $user
+     *
+     */
+    public function delete(User $user)
+    {
+        $this->getDoctrine()->getManager()->remove($user);
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash('warning', 'Etes-vous sur de vouloir supprimer votre compte?');
+        #redirection vers la page par défaut
+        return $this->redirectToRoute('default_index');
     }
 }

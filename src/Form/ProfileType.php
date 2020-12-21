@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ProfileType extends AbstractType
 {
@@ -47,6 +48,7 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('phone', IntegerType::class, [
+                'constraints'=>new Length(10),
                 'attr' =>[
                     'placeholder' => 'Merci de saisir votre téléphone'
                 ]
