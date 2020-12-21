@@ -21,7 +21,6 @@
                             {{ form_widget(form.lastname) }}
                             {{ form_help(form.lastname) }}
                         </div>
-                        <br>
                         <div>
                             <div class="mb-10 f-14 semibold text-uppercase sp-20">
                                 {{ form_label(form.email, 'Votre mail') }}
@@ -30,15 +29,14 @@
                             {{ form_widget(form.email) }}
                             {{ form_help(form.email) }}
                         </div>
-                        <br>
                         <div>
                             <div class="mb-10 f-14 semibold text-uppercase sp-20">
-                                {{ form_label(form.password, 'Votre mot de passe') }}
                             </div>
                             {{ form_errors(form.password) }}
                             {{ form_widget(form.password) }}
                             {{ form_help(form.password) }}
                         </div>
+                        <div>
                         <div class="mt-25 d-flex flex-wrap align-items-center buttons">
                             <button class="btn mr-20 mb-20 mb-xl-0 w-210 lg action-2">
                                 S'inscrire

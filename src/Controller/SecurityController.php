@@ -16,9 +16,9 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+//         if ($this->getUser()) {
+//             return $this->redirectToRoute('');
+//         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -31,9 +31,9 @@ class SecurityController extends AbstractController
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout()
+    public function logout(): Response
     {
-
+        return $this->render('default/index.html.twig');
     }
     #TODO configurer le logout
 }
