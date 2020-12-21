@@ -40,6 +40,23 @@ class CartController extends AbstractController
     {
         $cart->add($id);
 
+        $this->addFlash('success', 'Votre produit a bien été ajouté au panier.');
+
+        return $this->redirectToRoute('shop_product', [
+            'id' => $id
+        ]);
+    }
+
+    /**
+     * @Route("/cart/increase/{id}", name="increase_cart")
+     * @param Cart $cart
+     * @param $id
+     * @return Response
+     */
+    public function increase(Cart $cart, $id): Response
+    {
+        $cart->add($id);
+
         return $this->redirectToRoute('cart');
     }
 
@@ -79,5 +96,25 @@ class CartController extends AbstractController
         $cart->remove();
 
         return $this->redirectToRoute('cart');
+    }
+
+    public function payer($cart)
+    {
+
+        // new Command()
+
+        /* foreach(item in cart)
+            {
+                  new detail();
+                  $detail->set(product)
+                        ->(quantity)
+                        ->setCommand($command)
+                  $command->addDetail()
+            }
+
+       $this->em->persist($command)
+        $this->em->flush()
+         */
+
     }
 }

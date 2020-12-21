@@ -9,12 +9,18 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <style>
+        .fas{
+            cursor: pointer;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
     <!-- reflexion class -->
     <div class="container">
         <h3 class="my-4 text-center">Liste des produits</h3>
+        <a href="{{ path('admin_product_create') }}" class="btn sm action-2 float-right text-capitalize mb-20">Ajouter</a>
         <div class="table-responsive mt-5">
             <table id="productsTable" class="table text-center">
                 <thead>
@@ -22,7 +28,6 @@
                     <th>#</th>
                     <th>Catégorie</th>
                     <th>Nom</th>
-                    {# <th>Description</th> #}
                     <th>Prix <small>€</small></th>
                     <th>Quantité <small>cl</small></th>
                     <th>Image</th>
@@ -43,11 +48,11 @@
                             <img src="{{ asset('uploads/images/' ~ product.image) }}"
                                  alt="{{ product.name }}" height="80px">
                         </td>
-                        <td class="align-middle">
+                        <td class="align-middle isBest">
                             {% if product.isBest %}
-                                <i class="fas fa-check-circle text-success"></i>
+                                <i data-id="{{ product.id }}" class="fas fa-check-circle text-success"></i>
                             {% else %}
-                                <i class="fas fa-times-circle text-danger"></i>
+                                <i data-id="{{ product.id }}" class="fas fa-times-circle text-danger"></i>
                             {% endif %}
                         </td>
                         <td class="align-middle">
@@ -67,22 +72,42 @@
             </table>
         </div>
     </div>
-
-    {% block javascripts %}
-        {{ parent() }}
-        <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#productsTable').DataTable({
-                    retrieve: true,
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/French.json'
-                    }
-                });
-            });
-        </script>
-    {% endblock %}
-
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#productsTable').DataTable({
+                retrieve: true,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/French.json'
+                }
+            });
+
+            $('.isBest').on('click', '.fas.fa-check-circle.text-success', function() {
+
+                $.ajax({
+                    url: `product/isbest/${$(this).attr('data-id')}`
+                });
+
+                $(this).replaceWith(
+                    `<i data-id="${$(this).attr('data-id')}" class="fas fa-times-circle text-danger"></i>`
+                );
+            });
+
+            $('.isBest').on('click', '.fas.fa-times-circle.text-danger', function() {
+
+                $.ajax({
+                    url: `product/isbest/${$(this).attr('data-id')}`
+                });
+
+                $(this).replaceWith(
+                    `<i data-id="${$(this).attr('data-id')}" class="fas fa-check-circle text-success"></i>`
+                );
+            });
+        });
+    </script>
+{% endblock %}
 

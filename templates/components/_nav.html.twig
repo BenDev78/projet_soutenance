@@ -40,8 +40,6 @@
                 <a href="{{ path ('user_profil_edit') }}" class="link mr-20 color-main">
                     Mon profil <small>({{ app.user.firstname }})</small>
                 </a>
-                {% endif %}
-                {% if not is_granted('ROLE_USER') %}
                 <a href="{{ ('/login') }}" class="btn mr-20 sm action-2 f-16">
                     S'identifier
                 </a>

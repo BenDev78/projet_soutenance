@@ -1,0 +1,21 @@
+{% apply inline_css %}
+    <style>
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1{
+            text-align: center;
+        }
+
+        .content{
+            min-width: 50%;
+            margin: 0 auto;
+        }
+    </style>
+{% endapply %}
+<h1 class="text-center display-4">Nouveau message de : {{ firstname }} {{ lastname }}</h1>
+
+<p>Objet: <strong>{{ subject }}</strong></p>
+
+<div class="content">{{ message }}</div>

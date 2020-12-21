@@ -880,7 +880,7 @@ input[type=radio] + label:before {
 }
 
 /* Alerts */
-.alert {
+/*.alert {
   display: none;
   left: 50%;
   transform: translateX(-50%);
@@ -904,12 +904,12 @@ input[type=radio] + label:before {
   border-color: #463328;
 }
 .alert-success {
-  background: #E96B24;
-  border-color: #E96B24;
+  background: #a4d66e;
+  border-color: #66914a;
 }
 .alert-danger {
-  background: #3F3A37;
-  border-color: #3F3A37;
+  background: #e54343;
+  border-color: #7a1c29;
 }
 .alert-warning, .alert-info {
   background: #ECBC10;
@@ -933,7 +933,7 @@ input[type=radio] + label:before {
 .alert .close:hover {
   color: #FFFFFF;
 }
-
+*/
 /* Google ReCaptcha */
 .grecaptcha-overlay {
   display: none;
