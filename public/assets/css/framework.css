@@ -880,7 +880,7 @@ input[type=radio] + label:before {
 }
 
 /* Alerts */
-.alert {
+/*.alert {
   display: none;
   left: 50%;
   transform: translateX(-50%);
@@ -933,7 +933,7 @@ input[type=radio] + label:before {
 .alert .close:hover {
   color: #FFFFFF;
 }
-
+*/
 /* Google ReCaptcha */
 .grecaptcha-overlay {
   display: none;
