@@ -52,9 +52,9 @@
             </table>
 
             <div class="row flex-column">
-                <div class="col-xl-3 col-md-5 mb-50 action-1">
-                    <i class="fas fa-times text-danger mr-5"></i>Vider mon panier
-                </div>
+                <a href="{{ path('remove_cart') }}" class="link col-xl-3 col-md-5 mb-50 action-1">
+                    <i class="fas fa-times mr-5"></i>Vider mon panier
+                </a>
                 <div class="col-xl-3 col-md-5 text-left mb-5 align-self-end">
                     <b>Nombre de produit :</b> <span class="action-1">{{ totalQuantities }}</span><br/>
                     <b>TVA 19,6% :</b> <span class="action-1">{% set totalHT = total - (total*0.804) %}
@@ -67,7 +67,12 @@
 
     {% else %}
         <hr>
-        <p><b>Votre panier est vide.</b></p>
+        <div class="text-center mt-50 mb-50">
+            <i class="fas fa-box-open f-72 action-2"></i>
+        </div>
+        <h4 class="text-center mb-50">Votre panier est vide.</h4>
+        <hr>
+        <a href="{{ path('shop_index') }}" class="link action-2 mr-5"><i class="fas fa-chevron-left f-12 mr-5"></i>Retour au Shop</a>
     {% endif %}
 </div>
 {% endblock %}
