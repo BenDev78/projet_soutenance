@@ -41,7 +41,9 @@ uniquement si le block admin est défini
     {% include 'components/_admin-nav.html.twig' %}
 {% endif %}
 
-{% block body %}{% endblock %}
+<main style="min-height: 55.9vh;">
+    {% block body %}{% endblock %}
+</main>
 {% include 'components/_footer.html.twig' %}
 {% block javascripts %}
     <!-- gReCaptcha popup (uncomment if you need a recaptcha integration) -->

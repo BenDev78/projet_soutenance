@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Classe\Cart;
+use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,17 +34,18 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/add/{id}", name="add_to_cart")
      * @param Cart $cart
-     * @param $id
+     * @param Product $product
      * @return Response
      */
-    public function add(Cart $cart, $id): Response
+    public function add(Cart $cart, Product $product): Response
     {
-        $cart->add($id);
+        $cart->add($product->getId());
 
         $this->addFlash('success', 'Votre produit a bien été ajouté au panier.');
 
         return $this->redirectToRoute('shop_product', [
-            'id' => $id
+            'id' => $product->getId(),
+            'slug' => $product->getSlug()
         ]);
     }
 
