@@ -37,10 +37,22 @@
                     <h5 class="text-center mb-4" style="min-height: 50px">Gestion des produits</h5>
                     <div class="row">
                         <div class="col-4 action-2" style="font-size: 30px">{{ productsCount }}</div>
-                        <div class="col-8">produit(s) enregistré(s)</div>
+                        <div class="col-8">Produit(s) enregistré(s)</div>
                     </div>
                     <div class="text-center mt-2">
                         <a href="{{ path('admin_products') }}" type="button" class="btn sm action-2 f-14">Accéder</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card col-md-3 col-sm-12 mx-5 mb-3 border">
+                <div class="card-body">
+                    <h5 class="text-center mb-4" style="min-height: 50px">Gestion des transporteurs</h5>
+                    <div class="row">
+                        <div class="col-4 action-2" style="font-size: 30px">{{ carriersCount }}</div>
+                        <div class="col-8">Transporteur(s) enregistré(s)</div>
+                    </div>
+                    <div class="text-center mt-2">
+                        <a href="{{ path('admin_carriers') }}" type="button" class="btn sm action-2 f-14">Accéder</a>
                     </div>
                 </div>
             </div>
