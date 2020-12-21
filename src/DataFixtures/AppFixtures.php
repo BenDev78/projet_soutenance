@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Carrier;
 use App\Entity\Category;
 use App\Entity\Command;
 use App\Entity\Detail;
@@ -29,6 +30,14 @@ class AppFixtures extends Fixture
 
         // $product = new Product();
         // $manager->persist($product);
+
+        //Création carrier
+        $carrier = new Carrier();
+        $carrier->setDescription('test')
+            ->setPrice(2)
+            ->setName('test');
+        $manager->persist($carrier);
+        $manager->flush();
 
         // Création des catégories
         $cognac = new Category();
@@ -66,6 +75,8 @@ class AppFixtures extends Fixture
         {
             $product = new Product();
             $product->setName('product '. $i)
+                ->setIsBest(0)
+                ->setSlug('test-'.$i)
                 ->setCategory($cognac)
                 ->setPrice(rand(10, 150))
                 ->setQuantity(75)
@@ -95,7 +106,9 @@ class AppFixtures extends Fixture
             //------------- COMMANDS -------------//
             $command = new Command();
             $command->setCreatedAt(new \DateTime())
-                ->setUser($user);
+                ->setUser($user)
+                ->setCarrier($carrier);
+
 
             $manager->persist($command);
             $manager->flush();
@@ -117,6 +130,8 @@ class AppFixtures extends Fixture
         {
             $product = new Product();
             $product->setName('product '. $i)
+                ->setIsBest(0)
+                ->setSlug('test-'.$i)
                 ->setCategory($pineau)
                 ->setPrice(rand(10, 150))
                 ->setQuantity(33)
@@ -147,7 +162,8 @@ class AppFixtures extends Fixture
             //------------- COMMANDS -------------//
             $command = new Command();
             $command->setCreatedAt(new \DateTime())
-                ->setUser($user);
+                ->setUser($user)
+                ->setCarrier($carrier);
 
             $manager->persist($command);
             $manager->flush();

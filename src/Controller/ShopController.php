@@ -69,7 +69,7 @@ class ShopController extends AbstractController
     }
 
     /**
-     * @Route("/shop/product/{id}", name="shop_product", methods={"GET|POST"})
+     * @Route("/shop/product/{slug}_{id}", name="shop_product", methods={"GET|POST"})
      * @param Product $product
      * @return Response
      */

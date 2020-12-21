@@ -35,6 +35,12 @@ class Command
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Carrier::class, inversedBy="commands")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $carrier;
+
     public function __construct()
     {
         $this->details = new ArrayCollection();
@@ -95,6 +101,18 @@ class Command
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCarrier(): ?Carrier
+    {
+        return $this->carrier;
+    }
+
+    public function setCarrier(?Carrier $carrier): self
+    {
+        $this->carrier = $carrier;
 
         return $this;
     }

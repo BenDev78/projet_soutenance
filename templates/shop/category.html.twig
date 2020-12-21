@@ -4,7 +4,7 @@
 {% block title %}Cognac Guy Bonnaud{% endblock %}
 
 {% block body %}
-
+    {% set current_category = app.request.get('alias') %}
     <section class="pt-100 pb-70 bg-light ecommerce_5">
         <div class="container px-xl-0">
             <div class="row relative zi-1">
@@ -22,7 +22,11 @@
                             <a href="#" class="link action-1 f-14 semibold text-uppercase sp-20 dropdown-toggle"
                                id="ecommerce_5_dropdown" data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="false">
-                                Tout
+                                {% if app.request.pathInfo() == '/shop' %}
+                                    Tous
+                                {% else %}
+                                    {{ current_category }}
+                                {% endif %}
                             </a>
                             <div class="ml-0 bg-light px-0 pt-15 pb-15 radius16 dropdown-menu dropdown-menu-right"
                                  aria-labelledby="ecommerce_5_dropdown">
@@ -32,11 +36,13 @@
                                     </a>
                                 </div>
                                 {% for c in categories %}
-                                    <div class="py-1 px-15 link_holder">
-                                        <a href="{{ path('shop_category', {'alias' : c.alias}) }}" class="link action-1 semibold">
-                                            {{ c.name }}
-                                        </a>
-                                    </div>
+                                    {% if current_category != c.alias %}
+                                        <div class="py-1 px-15 link_holder">
+                                            <a href="{{ path('shop_category', {'alias' : c.alias}) }}" class="link action-1 semibold">
+                                                {{ c.name }}
+                                            </a>
+                                        </div>
+                                    {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -51,18 +57,18 @@
                     <div class="row text-center">
                         {% for product in category.products %}
                             <div class="mt-35 mb-35 col-md-4 col-sm-6 product">
-                                <a href="{{ path('shop_product', {'id' : product.id}) }}" class="link img_link">
+                                <a href="{{ path('shop_product', {'id' : product.id, 'slug' : product.slug}) }}" class="link img_link">
                                     <img src="{{ asset('uploads/images/'~ product.image) }}" alt=""
                                          class="img-fluid h-400 radius10">
                                 </a>
-                                <a href="{{ path('shop_product', {'id' : product.id}) }}"
+                                <a href="{{ path('shop_product', {'id' : product.id, 'slug' : product.slug}) }}"
                                    class="link mt-15 d-block color-main f-18 text-uppercase semibold sp-20 title">
                                     {{ product.name }}
                                 </a>
                                 <div class="mt-1 f-16 semibold sp-20 action-2 price">
                                     {{ product.price|number_format(2, ',') }} €
                                 </div>
-                                <a href="{{ path('shop_product', {'id' : product.id}) }}" class="btn mt-15 sm action-1 text-capitalize medium f-16">
+                                <a href="{{ path('shop_product', {'id' : product.id, 'slug' : product.slug}) }}" class="btn mt-15 sm action-1 medium f-16">
                                     Afficher le Produit
                                 </a>
                             </div>

@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * Class AdminProductController
@@ -35,12 +36,15 @@ class AdminProductController extends AbstractController
      * @Route("/create", name="admin_product_create")
      * @param Request $request
      * @param FileUploader $fileUploader
+     * @param SluggerInterface $slugger
      * @return Response
      */
-    public function create(Request $request, FileUploader $fileUploader): Response
+    public function create(Request $request, FileUploader $fileUploader, SluggerInterface $slugger): Response
     {
         $product = new Product();
         $product->setIsBest(false);
+        $product->setSlug($slugger->slug('-', $product->getName()));
+
         $form = $this->createForm(CreateType::class, $product);
         $form->handleRequest($request);
 
@@ -68,9 +72,10 @@ class AdminProductController extends AbstractController
      * @param Product $product
      * @param Request $request
      * @param FileUploader $fileUploader
+     * @param SluggerInterface $slugger
      * @return Response
      */
-    public function update(Product $product, Request $request, FileUploader $fileUploader): Response
+    public function update(Product $product, Request $request, FileUploader $fileUploader, SluggerInterface $slugger): Response
     {
         # Récupération du l'image existante
         $oldFile = new File($this->getParameter('images_directory') . '/' . $product->getImage());
@@ -79,6 +84,7 @@ class AdminProductController extends AbstractController
         $form = $this->createForm(CreateType::class, $product)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $product->setImage($oldFileName);
 
             /** @var UploadedFile $imageFile */
