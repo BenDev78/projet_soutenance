@@ -40,6 +40,23 @@ class CartController extends AbstractController
     {
         $cart->add($id);
 
+        $this->addFlash('success', 'Votre produit a bien été ajouté au panier.');
+
+        return $this->redirectToRoute('shop_product', [
+            'id' => $id
+        ]);
+    }
+
+    /**
+     * @Route("/cart/increase/{id}", name="increase_cart")
+     * @param Cart $cart
+     * @param $id
+     * @return Response
+     */
+    public function increase(Cart $cart, $id): Response
+    {
+        $cart->add($id);
+
         return $this->redirectToRoute('cart');
     }
 

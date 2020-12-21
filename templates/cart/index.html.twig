@@ -4,134 +4,70 @@
 {% block title %}Hello CartController!{% endblock %}
 
 {% block body %}
-    <section class="pt-100 pb-100 bg-light ecommerce_36">
-        <div class="container px-xl-0">
-            <div class="row justify-content-center">
-                <div class="col-xl-12">
-                    <h2 class="f-32 pb-40">
-                        Mon Panier
-                    </h2>
-                </div>
-            </div>
-            <div class="mt-35 d-none d-md-flex row justify-content-center">
-                <div class="col-xl-7 col-md-8 action-2 f-14 semibold text-uppercase sp-20 pb-15 with_border">
-                    Produit
-                </div>
-                <div class="col-md-2 action-2 f-14 semibold text-uppercase sp-20 pb-15 with_border">
-                    Quantités
-                </div>
-                <div class="col-xl-2 col-md-2 action-2 f-14 semibold text-uppercase sp-20 pb-15 with_border">
-                    Prix
-                </div>
-            </div>
+<div class="container">
+    <h1>Mon panier</h1>
 
-            <!-- BOUCLE LIGNE DE PRODUIT -->
-            {% if cart|length > 0 %}
-            {% set total = null %}
-            {% for product in cart %}
-                <form method="GET" class="mt-30 mt-md-0 relative row justify-content-md-center align-items-stretch product">
-                    <div class="col-md-2 col-11 d-flex align-items-center with_border variants">
-                        <div class="f-18 medium">
-                            <img src="{{ asset('uploads/images/' ~ product.products.image) }}" alt="{{ product.products.name }}" height="100px">
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-md-6 col-11 d-flex align-items-center with_border title">
-                        <a href="#" class="link color-main f-18 medium">
-                            {{ product.products.name }}
-                        </a>
-                    </div>
-                    <div class="mr-20 mr-md-0 col-md-2 col-auto d-flex align-items-center with_border">
-                        <div class="relative quantity_selector">
-                            <a href="{{ path('decrease_cart', {'id' : product.products.id}) }}"
-                               class="absolute link color-heading lesser">
-                                <i class="fas fa-chevron-down">
-                                </i>
+    {% if cart|length > 0 %}
+
+            <table class="table mt-50 text-center">
+                <thead>
+                <tr class="action-2 f-20">
+                    <th scope="col">Produit</th>
+                    <th scope="col">Quantité</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Supprimer</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set total = null %}
+                {% set totalQuantities = null %}
+                {% for product in cart %}
+                    <tr>
+                        <th>
+                            <img src="{{ asset('uploads/images/' ~ product.products.image) }}" alt="{{ product.products.name }}"
+                                 height="100px"><br/>
+                        </th>
+                        <td class="align-middle f-20">
+                            <a href="{{ path('decrease_cart', { 'id' : product.products.id }) }}">
+                                <i class="fas fa-chevron-left action-1 f-18"></i>
                             </a>
-                            <div class="input w-100 pt-10 pl-20 pr-40 border-gray focus-action-1 color-main">{{ product.quantities }}</div>
-                            <a href="{{ path('add_to_cart', {'id' : product.products.id}) }}"
-                               class="absolute link control color-heading greater">
-                                <i class="fas fa-chevron-up">
-                                </i>
+                            <span class="d-inline-block px-2">{{ product.quantities }}</span>
+                            <a href="{{ path('increase_cart', { 'id' : product.products.id }) }}">
+                                <i class="fas fa-chevron-right action-1 f-18"></i>
                             </a>
-                        </div>
-                    </div>
-                    <div class="relative col-xl-2 col-md-2 col d-flex align-items-center with_border price_holder">
-                        <a href="{{ path('delete_to_cart', {'id' : product.products.id}) }}"
-                           class="absolute d-flex align-items-center justify-content-center remove_product">
-                            <svg width="12" height="12" viewBox="0 0 16 16" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15 1L1 15" stroke-width="2" stroke-linecap="round">
-                                </path>
-                                <path d="M1 1L15 15" stroke-width="2" stroke-linecap="round">
-                                </path>
-                            </svg>
-                        </a>
-                        <div class="f-14 semibold text-uppercase sp-20 product_price">
-							<span>
-								€
-							</span>
-                            <span class="js-product-price">
-                                {{ (product.products.price * product.quantities)|number_format(2, ',') }}
-							</span>
-                        </div>
-                    </div>
-                    <div class="d-md-none col-12 h-2 bg-gray hr">
-                    </div>
-                </form>
-                {% set total = total + (product.products.price * product.quantities) %}
-            {% endfor %}
+                        </td>
+                        <td class="align-middle f-18">{{ (product.products.price)|number_format(2, ',') }} €</td>
+                        <td class="align-middle f-18">{{ ((product.products.price * product.quantities ))|number_format(2, ',') }} €</td>
+                        <td class="align-middle">
+                            <a href="{{ path('delete_to_cart', { 'id' : product.products.id }) }}">
+                                <i class="fas fa-times text-danger f-18"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% set totalQuantities = totalQuantities + product.quantities %}
+                    {% set total = total + (product.products.price * product.quantities) %}
+                {% endfor %}
+                </tbody>
+            </table>
 
-            <!-- FIN BOUCLE LIGNE DE PRODUIT -->
+            <div class="row flex-column">
+                <div class="col-xl-3 col-md-5 mb-50 action-1">
+                    <i class="fas fa-times text-danger mr-5"></i>Vider mon panier
+                </div>
+                <div class="col-xl-3 col-md-5 text-left mb-5 align-self-end">
+                    <b>Nombre de produit :</b> <span class="action-1">{{ totalQuantities }}</span><br/>
+                    <b>TVA 19,6% :</b> <span class="action-1">{% set totalHT = total - (total*0.804) %}
+                        {{ totalHT|number_format(2, ',') }} €</span><br/>
+                    <b>Total de mon panier :</b> <span class="action-1">{{ total|number_format(2, ',') }} €</span>
+                    <a href="{{ path('cart') }}" class="btn btn-success btn-block mt-3 action-1">Valider mon panier</a>
+                </div>
+            </div>
 
-            <div class="col-xl-12 pr-5 pt-2 text-right">
-                <a href="{{ path('remove_cart') }}" class="color-main">Vider mon panier</a>
-            </div>
-            <div class="mt-25 row justify-content-center align-items-center">
-                <div class="col-xl-8 col-lg-9 col-sm-8">
-                </div>
-                <div class="mt-10 mt-sm-0 col-xl-2 col-lg-3 col-sm-4 f-14 semibold text-uppercase sp-20 text-sm-right">
-                    <div class="ml-25 f-16 ml-sm-0 d-inline-block color-heading">
-                        Total
-                    </div>
-                    <div class="ml-10 f-18 d-inline-block action-1 text-sm-left total">
-                        <span>
-                            €
-                        </span>
-                        <span>
-                            {{ total|number_format(2, ',') }}
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-20 row flex-column-reverse flex-sm-row justify-content-center align-items-center">
-                <div class="mt-10 mt-sm-0 col-xl-8 col-lg-9 col-md-8 col-sm-6">
-                    <a href="{{ path('shop_index') }}" class="link d-flex align-items-center action-2 f-18 medium">
-                        <i class="fas fa-chevron-left action-2 f-12 mr-5">
-                        </i>
-                        <span>
-								 Continuer mes achats
-							</span>
-                    </a>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <a href="#" class="btn w-full px-2 action-1 medium">
-                        Paiement
-                    </a>
-                </div>
-            </div>
-        </div>
-        {% else %}
-            <br>
-            <h4 class=" f-32 text-center">Votre panier est vide</h4>
-            <br>
-            <hr>
-            <a href="{{ path('shop_index') }}" class="link d-flex align-items-center action-1 f-18 medium">
-                <i class="fas fa-chevron-left action-1 f-12 mr-5">
-                </i>
-                <span>
-                     Retour au Shop
-                </span>
-            </a>
-        {% endif %}
-    </section>
+
+    {% else %}
+        <hr>
+        <p><b>Votre panier est vide.</b></p>
+    {% endif %}
+</div>
 {% endblock %}

@@ -1022,73 +1022,71 @@ input[type=radio] + label:before {
     height: 0
 }
 
-/*
-.alert {
-    display: none;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 970px;
-    color: #fff;
-    z-index: 2000
-}
+/*.alert {*/
+/*    display: none;*/
+/*    left: 50%;*/
+/*    transform: translateX(-50%);*/
+/*    width: 100%;*/
+/*    max-width: 970px;*/
+/*    color: #fff;*/
+/*    z-index: 2000*/
+/*}*/
 
-.alert-dismissable .close, .alert-dismissible .close {
-    top: 0
-}
+/*.alert-dismissable .close, .alert-dismissible .close {*/
+/*    top: 0*/
+/*}*/
 
-.alert.fixed-top {
-    margin-top: 1rem
-}
+/*.alert.fixed-top {*/
+/*    margin-top: 1rem*/
+/*}*/
 
-.alert-primary {
-    background: #9e8a73;
-    border-color: #9e8a73
-}
+/*.alert-primary {*/
+/*    background: #9e8a73;*/
+/*    border-color: #9e8a73*/
+/*}*/
 
-.alert-secondary {
-    background: #463328;
-    border-color: #463328
-}
+/*.alert-secondary {*/
+/*    background: #463328;*/
+/*    border-color: #463328*/
+/*}*/
 
-.alert-success {
-    background: #e96b24;
-    border-color: #e96b24
-}
+/*.alert-success {*/
+/*    background: #e96b24;*/
+/*    border-color: #e96b24*/
+/*}*/
 
-.alert-danger {
-    background: #3f3a37;
-    border-color: #3f3a37
-}
+/*.alert-danger {*/
+/*    background: #3f3a37;*/
+/*    border-color: #3f3a37*/
+/*}*/
 
-.alert-warning, .alert-info {
-    background: #ecbc10;
-    border-color: #ecbc10
-}
+/*.alert-warning, .alert-info {*/
+/*    background: #ecbc10;*/
+/*    border-color: #ecbc10*/
+/*}*/
 
-.alert-light {
-    background: #fff;
-    border-color: #fff;
-    color: #9e8a73
-}
+/*.alert-light {*/
+/*    background: #fff;*/
+/*    border-color: #fff;*/
+/*    color: #9e8a73*/
+/*}*/
 
-.alert-light.alert .close:hover {
-    color: #9e8a73
-}
+/*.alert-light.alert .close:hover {*/
+/*    color: #9e8a73*/
+/*}*/
 
-.alert-dark {
-    background: #574f4a;
-    border-color: #574f4a
-}
+/*.alert-dark {*/
+/*    background: #574f4a;*/
+/*    border-color: #574f4a*/
+/*}*/
 
-.alert .close {
-    text-shadow: none
-}
+/*.alert .close {*/
+/*    text-shadow: none*/
+/*}*/
 
-.alert .close:hover {
-    color: #fff
-}
-*/
+/*.alert .close:hover {*/
+/*    color: #fff*/
+/*}*/
 
 .grecaptcha-overlay {
     display: none;
