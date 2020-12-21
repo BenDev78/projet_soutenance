@@ -25,23 +25,32 @@
                 </a>
             </div>
             <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center align-items-center">
-
-                {# FIXME : Décommenter après l'authentification faite #}
-                {# {% if is_granted('ROLE_ADMIN') %} #}
+                {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('admin_dashboard') }}" class="link mr-20{% if current_page == "index_admin" %} action-2{% else%} color-main{% endif %}">
                     Administration
                 </a>
-                {# {% endif %} #}
+                {% endif %}
+                {% if not is_granted('ROLE_USER') %}
                 <a href="{{ path('user_create') }}" class="link mr-20 color-main">
-                    S'enregistrer
+                    S'inscrire
                 </a>
+                {% endif %}
 {#                mettre une condition pour si connecter alors on affiche le lien#}
+                {% if is_granted('ROLE_USER') %}
                 <a href="{{ path ('user_profil_edit') }}" class="link mr-20 color-main">
-                    Mon profil
+                    Mon profil <small>({{ app.user.firstname }})</small>
                 </a>
+                {% endif %}
+                {% if not is_granted('ROLE_USER') %}
                 <a href="{{ ('/login') }}" class="btn mr-20 sm action-2 f-16">
                     S'identifier
                 </a>
+                {% endif %}
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ ('/logout') }}" class="btn mr-20 sm action-2 f-16">
+                    Se déconnecter
+                </a>
+                {% endif %}
                 <a href="{{ path('cart') }}">
                     <i class="fas fa-shopping-cart color-main f-20"></i>
                 </a>

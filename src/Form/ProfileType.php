@@ -15,12 +15,42 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('address', TextType::class)
-            ->add('postal_code', IntegerType::class)
-            ->add('city', TextType::class)
-            ->add('phone', IntegerType::class)
+            ->add('firstname', TextType::class, [
+                'attr' =>[
+                    'placeholder' => 'Merci de saisir votre prénom'
+                ]
+            ])
+            ->add('lastname', TextType::class, [
+                'attr' =>[
+                    'placeholder' => 'Merci de saisir votre nom',
+
+                ]
+            ])
+            ->add('email', TextType::class, [
+                'attr' =>[
+                    'placeholder' => 'Merci de saisir votre mail',
+                ]
+            ])
+            ->add('address', TextType::class, [
+                'attr' =>[
+                    'placeholder' => 'Merci de saisir votre adresse'
+                ]
+            ])
+            ->add('postal_code', IntegerType::class, [
+                'attr' =>[
+                    'placeholder' => 'Merci de saisir votre code postal'
+                ]
+            ])
+            ->add('city', TextType::class, [
+                'attr' =>[
+                    'placeholder' => 'Merci de saisir votre ville'
+                ]
+            ])
+            ->add('phone', IntegerType::class, [
+                'attr' =>[
+                    'placeholder' => 'Merci de saisir votre téléphone'
+                ]
+            ])
         ;
     }
 
