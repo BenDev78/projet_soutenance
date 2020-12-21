@@ -35,7 +35,7 @@ class Carrier
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity=Command::class, mappedBy="carrier", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Command::class, mappedBy="carrier")
      */
     private $commands;
 
