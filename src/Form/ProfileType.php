@@ -6,6 +6,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -47,7 +48,7 @@ class ProfileType extends AbstractType
                     'placeholder' => 'Merci de saisir votre ville'
                 ]
             ])
-            ->add('phone', IntegerType::class, [
+            ->add('phone', TelType::class, [
                 'constraints'=>new Length(10),
                 'attr' =>[
                     'placeholder' => 'Merci de saisir votre téléphone'
