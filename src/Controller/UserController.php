@@ -39,13 +39,13 @@ class UserController extends AbstractController
             # Encodage du mot de passe
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
 
-            #TODO message de confirmation d inscription
-            $this->addFlash('success', 'Votre compte a bien été créé ! Connectez-vous maintenant !');
-
             #enregistrement en BDD
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            #message de confirmation d inscription
+            $this->addFlash('success', 'Votre compte a bien été créé ! Connectez-vous maintenant !');
 
             #redirection lors de l inscription vers page connexion
             return $this->redirectToRoute('app_login');
