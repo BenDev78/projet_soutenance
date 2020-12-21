@@ -39,13 +39,13 @@ class UserController extends AbstractController
             # Encodage du mot de passe
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
 
-            #TODO message de confirmation d inscription
-            $this->addFlash('success', 'Votre compte a bien été créé ! Connectez-vous maintenant !');
-
             #enregistrement en BDD
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            #Tmessage de confirmation d inscription
+            $this->addFlash('success', 'Votre compte a bien été créé ! Connectez-vous maintenant !');
 
             #redirection lors de l inscription vers page connexion
             return $this->redirectToRoute('app_login');
@@ -62,7 +62,7 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function editProfil(Request $request): Response
+    public function edit(Request $request): Response
     {
         # Récupération des données du user connecté
         $user = $this->getUser();
@@ -71,12 +71,15 @@ class UserController extends AbstractController
 
         # Traitement du Formulaire
         if ($form->isSubmitted() && $form->isValid()) {
-            #TODO message de confirmation
+
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+
+            $this->addFlash('success', 'Les modifications ont bien été effectuées !');
+
             #redirection lors de l inscription vers page acceuil
-            return $this->redirectToRoute('default_index');
+            return $this->redirectToRoute('user_profil_edit');
         }
         # Affichage dans la vue
         return $this->render("user/profil-edit.html.twig", [
