@@ -3,7 +3,7 @@
         <div class="row justify-content-center align-items-center f-18">
             <div class="mb-20 mb-lg-0 col-lg-3">
                 <a href="{{ path('default_index') }}" class="link color-main f-32 bold megrim">
-                    <i class="fal fa-wine-glass-alt action-2"></i> Cognac Guy Bonnaud
+                    <i class="fal fa-wine-glass-alt action-2"></i> Cognac Gu<span class="action-2">y</span> Bonnaud
                 </a>
             </div>
             <div class="col-lg-6">
@@ -25,25 +25,33 @@
                 </a>
             </div>
             <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center align-items-center">
-
-                {# FIXME : Décommenter après l'authentification faite #}
-                {# {% if is_granted('ROLE_ADMIN') %} #}
+                {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('admin_dashboard') }}" class="link mr-20{% if current_page == "index_admin" %} action-2{% else%} color-main{% endif %}">
                     Administration
                 </a>
-                {# {% endif %} #}
+                {% endif %}
+                {% if not is_granted('ROLE_USER') %}
                 <a href="{{ path('user_create') }}" class="link mr-20 color-main">
-                    S'enregistrer
+                    S'inscrire
                 </a>
-{#                mettre une condition pour si connecter alors on affiche le lien#}
+                {% endif %}
+                {% if is_granted('ROLE_USER') %}
                 <a href="{{ path ('user_profil_edit') }}" class="link mr-20 color-main">
-                    Mon profil
+                    Mon profil <small>({{ app.user.firstname }})</small>
                 </a>
-                <a href="{{ ('/login') }}" class="btn mr-20 sm action-2 text-capitalize f-16">
+                {% endif %}
+                {% if not is_granted('ROLE_USER') %}
+                <a href="{{ ('/login') }}" class="btn mr-20 sm action-2 f-16">
                     S'identifier
                 </a>
+                {% endif %}
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ ('/logout') }}" class="btn mr-20 sm action-2 f-16">
+                    Se déconnecter
+                </a>
+                {% endif %}
                 <a href="{{ path('cart') }}">
-                    <i class="fas fa-shopping-cart color-main f-20"></i>
+                    <i class="fas fa-shopping-cart color-main f-28"></i>
                 </a>
             </div>
         </div>

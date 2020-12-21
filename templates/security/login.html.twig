@@ -7,7 +7,7 @@
         <div class="container px-xl-0">
             <div class="row justify-content-center text-center text-md-left">
                 <div class="col-lg-5 col-md-6 col-sm-10">
-                    <form action="form-handler.php" method="post" class="pt-105 pb-100">
+                    <form method="post" class="pt-105 pb-100">
                         <h2 class="mb-45 small">
                             Se connecter
                         </h2>
@@ -30,6 +30,7 @@
                             </div>
                             <input type="password" name="password" placeholder="Votre mot de passe" required="required" class="input mb-25 w-full lg border-gray focus-action-1 color-heading placeholder-gray text-center text-md-left" data-kwimpalastatus="alive" data-kwimpalaid="1608126207603-42">
                         </div>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                         <div class="mt-25 d-flex flex-wrap align-items-center buttons">
                             <button class="btn mr-20 mb-20 mb-xl-0 w-210 lg action-2">
                                 Connexion
