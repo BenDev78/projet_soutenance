@@ -40,13 +40,6 @@ class CreateType extends AbstractType
                 'label' => 'Image du produit',
                 'data_class' => null
             ])
-            ->add('isBest', ChoiceType::class, [
-                'choices' => [
-                    'Mettre en avant' => '',
-                    'oui' => 1,
-                    'non' => 0
-                ]
-            ])
             ->add('year', NumberType::class, [
                 'label' => 'Millésime'
             ])
