@@ -5,13 +5,17 @@
 
 {% block body %}
 
-    {% for label, messages in app.flashes(['success', 'warning']) %}
-        {% for message in messages %}
-            <div class="alert-success">
-                <h1 class="bold">{{ message }}</h1>
-            </div>
-        {% endfor %}
-    {% endfor %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {% for label, messages in app.flashes(['success', 'warning']) %}
+                {% for message in messages %}
+                    <div class="text-center alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
 
     <section class="pt-100 pb-100 bg-light ecommerce_31">
         <div class="container px-xl-0">

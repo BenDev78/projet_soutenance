@@ -38,6 +38,15 @@ class Cart
         $this->session->set('cart', $cart);
     }
 
+    public function increase($id)
+    {
+        $cart = $this->session->get('cart', []);
+
+        $cart[$id]++;
+
+        $this->session->set('cart', $cart);
+    }
+
     public function decrease($id)
     {
         $cart = $this->session->get('cart', []);
