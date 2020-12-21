@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Classe\Cart;
+use App\Entity\Carrier;
+use App\Entity\Command;
+use App\Entity\Detail;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -100,9 +103,41 @@ class CartController extends AbstractController
         return $this->redirectToRoute('cart');
     }
 
-    public function payer($cart)
+    /**
+     * @Route("/newCommand", name="cart_newCommand")
+     * @param Cart $cart
+     * @return Response
+     */
+    public function newCommand(Cart $cart): Response
     {
+        $products = $cart->getFull();
 
+        $carriers = $this->entityManager->getRepository(Carrier::class)->findAll();
+
+        $command = new Command();
+        $command->setCreatedAt(new \DateTime())
+            ->setUser($this->getUser())
+            ->setCarrier($carriers[0])
+        ;
+
+        $this->entityManager->persist($command);
+        $this->entityManager->flush();
+
+        for($i = 0; $i < count($products); $i++) {
+            $detail = new Detail();
+            $detail->setProduct($products[$i]['products'])
+            ->setCommand($command)
+            ->setQuantity($products[$i]['quantities']);
+
+            $this->entityManager->persist($detail);
+            $this->entityManager->flush();
+
+        }
+
+        $cart->remove();
+
+
+//        dd($command->getDetails());
         // new Command()
 
         /* foreach(item in cart)
