@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Address;
 use App\Entity\Carrier;
 use App\Entity\Category;
 use App\Entity\Command;
@@ -55,19 +56,61 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         //------------- USER -------------//
-        $user = new User();
-        $user->setcreatedAt(new \DateTime());
-        $user->setRoles(['ROLE_USER']);
-        $user->setFirstname('Hubert')
+        $user1 = new User();
+        $user1->setcreatedAt(new \DateTime());
+        $user1->setRoles(['ROLE_USER']);
+        $user1->setFirstname('Hubert')
             ->setLastname('Dupont')
             ->setEmail('hubert@test.com')
             ->setPassword('test')
-            ->setAddress('40 rue des pommes tombées')
-            ->setPostalCode(78000)
-            ->setCity('Belin')
             ->setPhone('0606060606');
 
-        $manager->persist($user);
+        $user2 = new User();
+        $user2->setcreatedAt(new \DateTime());
+        $user2->setRoles(['ROLE_USER']);
+        $user2->setFirstname('Alfred')
+            ->setLastname('Edouard')
+            ->setEmail('alfred@test.com')
+            ->setPassword('test')
+            ->setPhone('0606060606');
+
+        $manager->persist($user1);
+        $manager->persist($user2);
+        $manager->flush();
+
+        //Création address
+        $address1 = new Address();
+        $address1->setUser($user1)
+            ->setCity('Pekin')
+            ->setAddress('10 rue des nouilles sautées')
+            ->setPostalCode('12345')
+            ->setCountry('Chine');
+
+        $address2 = new Address();
+        $address2->setUser($user1)
+            ->setCity('Tokyo')
+            ->setAddress('158 avenue des futomakis')
+            ->setPostalCode('12345')
+            ->setCountry('Japon');
+
+        $address3 = new Address();
+        $address3->setUser($user2)
+            ->setCity('Pekin')
+            ->setAddress('10 rue des nouilles sautées')
+            ->setPostalCode('12345')
+            ->setCountry('Chine');
+
+        $address4 = new Address();
+        $address4->setUser($user2)
+            ->setCity('Tokyo')
+            ->setAddress('158 avenue des futomakis')
+            ->setPostalCode('12345')
+            ->setCountry('Japon');
+
+        $manager->persist($address1);
+        $manager->persist($address2);
+        $manager->persist($address3);
+        $manager->persist($address4);
         $manager->flush();
 
         // Création des produits
@@ -94,7 +137,7 @@ class AppFixtures extends Fixture
             {
                 $review = new Review();
                 $review->setProduct($product)
-                    ->setUser($user)
+                    ->setUser($user1)
                     ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
                     ->setRating(mt_rand(1,5));
 
@@ -106,7 +149,7 @@ class AppFixtures extends Fixture
             //------------- COMMANDS -------------//
             $command = new Command();
             $command->setCreatedAt(new \DateTime())
-                ->setUser($user)
+                ->setUser($user1)
                 ->setCarrier($carrier);
 
 
@@ -150,7 +193,7 @@ class AppFixtures extends Fixture
             {
                 $review = new Review();
                 $review->setProduct($product)
-                    ->setUser($user)
+                    ->setUser($user2)
                     ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
                     ->setRating(mt_rand(1,5));
 
@@ -162,7 +205,7 @@ class AppFixtures extends Fixture
             //------------- COMMANDS -------------//
             $command = new Command();
             $command->setCreatedAt(new \DateTime())
-                ->setUser($user)
+                ->setUser($user2)
                 ->setCarrier($carrier);
 
             $manager->persist($command);
