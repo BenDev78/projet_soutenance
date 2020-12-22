@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Classe\Contact;
+use App\Entity\Command;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\ContactType;
@@ -80,14 +81,47 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/profil/{id}", name="default_profil", methods={"GET|POST"})
-     * @param User $user
+     * @Route("/profile", name="default_profile", methods={"GET|POST"})
      * @return Response
      */
-    public function profile(User $user): Response
+    public function profile(): Response
     {
-        return $this->render('user/profil.html.twig', [
-            'user' => $user
+        return $this->render('user/profil.html.twig');
+    }
+
+    /**
+     * @Route("/profile/commands", name="default_profile_commands", methods={"GET|POST"})
+     * @return Response
+     */
+    public function commands(): Response
+    {
+        return $this->render('user/commandes-profile.html.twig');
+    }
+
+    /**
+     * @Route("/profile/addresses", name="default_profile_addresses", methods={"GET|POST"})
+     * @return Response
+     */
+    public function addresses(): Response
+    {
+        return $this->render('user/addresses-profile.html.twig');
+    }
+
+    /**
+     * @Route("/profile/command/{id}", name="default_profil_command")
+     * @param Command $command
+     * @return Response
+     */
+    public function command(Command $command): Response
+    {
+
+        if($command->getUser() !== $this->getUser()) {
+            $this->addFlash('warning', 'Vous n\'avez pas accès à cette commande !');
+            return $this->redirectToRoute('default_index');
+        }
+
+        return $this->render('user/detail-command.hmtl.twig', [
+            'command' => $command
         ]);
     }
 

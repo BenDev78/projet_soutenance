@@ -36,7 +36,7 @@
                 </a>
                 {% endif %}
                 {% if is_granted('ROLE_USER') %}
-                <a href="" class="link mr-20 color-main">
+                <a href="{{ path('default_profile') }}" class="link mr-20 color-main">
                     Mon profil <small>({{ app.user.firstname }})</small>
                 </a>
                 {% endif %}

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% set current_page = "address_create" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+
+            <h3 class="text-center mb-4">Enregistrez une adresse</h3>
+
+            {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="mb-10 f-14 semibold text-uppercase sp-20">
+                        {{ form_label(form.name, 'Nom de l\'adresse') }}
+                    </div>
+                    {{ form_errors(form.name) }}
+                    {{ form_widget(form.name) }}
+                    {{ form_help(form.name) }}
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="mb-10 f-14 semibold text-uppercase sp-20">
+                        {{ form_label(form.address, 'Adresse') }}
+                    </div>
+                    {{ form_errors(form.address) }}
+                    {{ form_widget(form.address) }}
+                    {{ form_help(form.address) }}
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-10 f-14 semibold text-uppercase sp-20">
+                        {{ form_label(form.postalCode, 'Code postal') }}
+                    </div>
+                    {{ form_errors(form.postalCode) }}
+                    {{ form_widget(form.postalCode) }}
+                    {{ form_help(form.postalCode) }}
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="mb-10 f-14 semibold text-uppercase sp-20">
+                        {{ form_label(form.city, 'Ville') }}
+                    </div>
+                    {{ form_errors(form.city) }}
+                    {{ form_widget(form.city) }}
+                    {{ form_help(form.city) }}
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-10 f-14 semibold text-uppercase sp-20">
+                        {{ form_label(form.country, 'Pays') }}
+                    </div>
+                    {{ form_errors(form.country) }}
+                    {{ form_widget(form.country) }}
+                    {{ form_help(form.country) }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn sm action-2">Enregistrer</button>
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}
+
+
