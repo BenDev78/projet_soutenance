@@ -25,9 +25,6 @@
                     <th>Nom</th>
                     <th>Role</th>
                     <th>Email</th>
-                    <th>Adresse</th>
-                    <th>Code postal</th>
-                    <th>Ville</th>
                     <th>Tél</th>
                     <th>Supprimer</th>
                 </tr>
@@ -40,9 +37,6 @@
                         <td class="align-middle">{{ user.lastname }}</td>
                         <td class="align-middle">{{ user.roles[0] }}</td>
                         <td class="align-middle">{{ user.email }}</td>
-                        <td class="align-middle">{{ user.address }}</td>
-                        <td class="align-middle">{{ user.postalCode }}</td>
-                        <td class="align-middle">{{ user.city }}</td>
                         <td class="align-middle">{{ user.phone }}</td>
                         <td>
                             <a href="{{ path('admin_user_delete', {'id' : user.id}) }}"
