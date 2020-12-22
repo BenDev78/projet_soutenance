@@ -39,6 +39,11 @@ class Carrier
      */
     private $commands;
 
+    public function __toString()
+    {
+        return '[r1]'.$this->getName().'[br][r2]'.$this->getDescription().'[br][r4]'.number_format($this->getPrice(),2, ',', '.').' €[r5][r3]';
+    }
+
     public function __construct()
     {
         $this->commands = new ArrayCollection();
