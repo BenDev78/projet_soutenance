@@ -132,5 +132,4 @@ class Address
 
         return $this;
     }
-
 }
