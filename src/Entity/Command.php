@@ -41,6 +41,16 @@ class Command
      */
     private $carrier;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Address;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPaid;
+
     public function __construct()
     {
         $this->details = new ArrayCollection();
@@ -113,6 +123,30 @@ class Command
     public function setCarrier(?Carrier $carrier): self
     {
         $this->carrier = $carrier;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->Address;
+    }
+
+    public function setAddress(?string $Address): self
+    {
+        $this->Address = $Address;
+
+        return $this;
+    }
+
+    public function getIsPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $isPaid): self
+    {
+        $this->isPaid = $isPaid;
 
         return $this;
     }

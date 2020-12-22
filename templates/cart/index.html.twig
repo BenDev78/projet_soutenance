@@ -60,7 +60,7 @@
                     <b>TVA 19,6% :</b> <span class="action-1">{% set totalHT = total - (total*0.804) %}
                         {{ totalHT|number_format(2, ',') }} €</span><br/>
                     <b>Total de mon panier :</b> <span class="action-1">{{ total|number_format(2, ',') }} €</span>
-                    <a href="{{ path('new_command') }}" class="btn btn-success btn-block mt-3 action-1">Valider mon panier</a>
+                    <a href="{{ path('command_index') }}" class="btn btn-success btn-block mt-3 action-1">Valider mon panier</a>
                 </div>
             </div>
     {% else %}
