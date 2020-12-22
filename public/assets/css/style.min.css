@@ -5116,7 +5116,7 @@ b, strong {
     font-size: 12px
 }
 
-.lesser {
+.less {
     right: 20px;
     top: 55%;
     width: 16px;
@@ -5125,9 +5125,9 @@ b, strong {
     font-size: 12px
 }
 
-/*.ecommerce_36 .quantity_selector .control.greater {*/
-/*    transform: translateY(-100%)*/
-/*}*/
+.ecommerce_36 .quantity_selector .control.greater {
+    transform: translateY(-100%)
+}
 
 .ecommerce_36 .remove_product {
     width: 45px;
