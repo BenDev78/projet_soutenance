@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Classe\Contact;
 use App\Entity\Product;
+use App\Entity\User;
 use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -75,6 +76,18 @@ class DefaultController extends AbstractController
 
         return $this->render('default/contact.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/profil/{id}", name="default_profil", methods={"GET|POST"})
+     * @param User $user
+     * @return Response
+     */
+    public function profile(User $user): Response
+    {
+        return $this->render('user/profil.html.twig', [
+            'user' => $user
         ]);
     }
 

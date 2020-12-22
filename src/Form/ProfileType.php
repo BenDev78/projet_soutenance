@@ -33,21 +33,6 @@ class ProfileType extends AbstractType
                     'placeholder' => 'Merci de saisir votre mail',
                 ]
             ])
-            ->add('address', TextType::class, [
-                'attr' =>[
-                    'placeholder' => 'Merci de saisir votre adresse'
-                ]
-            ])
-            ->add('postal_code', IntegerType::class, [
-                'attr' =>[
-                    'placeholder' => 'Merci de saisir votre code postal'
-                ]
-            ])
-            ->add('city', TextType::class, [
-                'attr' =>[
-                    'placeholder' => 'Merci de saisir votre ville'
-                ]
-            ])
             ->add('phone', TelType::class, [
                 'constraints'=>new Length(10),
                 'attr' =>[
