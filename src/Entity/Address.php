@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Address
 {
+//    todo validation address
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -42,6 +43,11 @@ class Address
      * @ORM\Column(type="string", length=255)
      */
     private $country;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
     public function getId(): ?int
     {
@@ -104,6 +110,18 @@ class Address
     public function setCountry(string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

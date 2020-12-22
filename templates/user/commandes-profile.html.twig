@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% set current_page = "profil" %}
+{% block title %}
+    Mon profil
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .infos li {
+            margin-bottom: 15px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    <h3 class="text-center">Mes commandes</h3>
+    <div class="container">
+        <hr class="mb-5">
+        <div class="row">
+            {% include 'components/_user_nav.html.twig' %}
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="card">
+                        <table class="table-borderless text-center">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Transporteur</th>
+                                <th>Détail</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for command in app.user.commands %}
+                                <tr class="text-secondary">
+                                    <td>{{ command.id }}</td>
+                                    <td>{{ command.createdAt | date('d/m/y H:m:s')}}</td>
+                                    <td>{{ command.carrier.name }}</td>
+                                    <td>
+                                        <a href="{{ path('default_profil_command', {'id' : command.id}) }}">
+                                            <i class="fas fa-paperclip action-2" style="cursor: pointer;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
