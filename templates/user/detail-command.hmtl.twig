@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+{% set current_page = "detail_command" %}
+{% block title %}
+    Mon profil
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .infos li {
+            margin-bottom: 15px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    <h3 class="text-center">Detail de la commande <strong class="text-muted"><em>#{{ command.id }}</em></strong></h3>
+    <div class="container">
+        <hr class="mb-5">
+        <div class="row">
+            {% include 'components/_user_nav.html.twig' %}
+            <div class="col-md-7">
+                <div class="row">
+                    <table class="table-borderless text-center shadow">
+                        <thead class="mb-2">
+                        <tr class="border-bottom">
+                            <th>Produit</th>
+                            <th>Image</th>
+                            <th>quantity</th>
+                            <th>Prix unité</th>
+                            <th>Prix Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% set totalproduct = null %}
+                        {% set total = null %}
+
+                        {% for detail in command.details %}
+                            {% set totalProduct = detail.quantity * detail.product.price %}
+                            {% set total = total + totalProduct %}
+                            <tr class="text-secondary border-bottom">
+                                <td class="align-middle">
+                                    <a href="{{ path('shop_product', {'id' : detail.product.id, 'slug' : detail.product.slug}) }}" class="link action-2">
+                                        {{ detail.product.name }}
+                                    </a>
+                                </td>
+                                <td class="align-middle"><img src="{{ asset('uploads/images/' ~ detail.product.image) }}" class="py-2" alt="{{ detail.product.name }}" width="75px"></td>
+                                <td class="align-middle">{{ detail.quantity }}</td>
+                                <td class="align-middle">€ {{ detail.product.price | number_format(2, ',')}}</td>
+                                <td class="align-middle">€ {{ totalProduct | number_format(2, ',')}}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            {% set tva = total - (total*0.804) %}
+                            {% set totalHt = total - tva %}
+                            <td colspan="3"></td>
+                            <td colspan="1" class="text-left pt-2">TVA 19,6% :</td>
+                            <td colspan="1" class="text-left pt-2">€ {{ tva | number_format(2, ',')}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="1" class="text-left">Total HT :</td>
+                            <td colspan="1" class="text-left">€ {{ totalHt | number_format(2, ',')}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="1" class="text-left">Total TTC :</td>
+                            <td colspan="1" class="text-left">€ {{ total | number_format(2, ',') }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

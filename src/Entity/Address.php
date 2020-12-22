@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Address
 {
+//    todo validation address
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -131,5 +132,4 @@ class Address
 
         return $this;
     }
-
 }

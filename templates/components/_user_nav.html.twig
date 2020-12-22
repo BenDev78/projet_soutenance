@@ -1,0 +1,37 @@
+<div class="col-md-5 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                     class="rounded-circle" width="150">
+                <div class="mt-3">
+                    <h4 class="mb-4">{{ app.user.firstname }} {{ app.user.lastname | upper }}</h4>
+                </div>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="{{ path('default_profile') }}"
+                       class="link {% if app.request.pathInfo() == '/profile' %} action-2 {% else %} color-main {% endif %}">
+                        Informations
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ path('default_profile_addresses') }}"
+                       class="link {% if app.request.pathInfo() == '/profile/addresses' %} action-2 {% else %} color-main {% endif %}">
+                        Adresses
+                    </a>
+                <li class="list-group-item">
+                    <a href="{{ path('default_profile_commands') }}"
+                       class="link {% if app.request.pathInfo() == '/profile/commands' or current_page == 'detail_command' %} action-2 {% else %} color-main {% endif %}">
+                        Commandes
+                    </a>
+                <li class="list-group-item">
+                    <a href=""
+                       class="link {% if app.request.pathInfo() == '/profile/commentaires' %} action-2 {% else %} color-main {% endif %}">
+                        Commentaires
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
