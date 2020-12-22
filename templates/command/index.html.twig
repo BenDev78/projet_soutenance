@@ -6,8 +6,10 @@
     {{ parent() }}
     <style>
         .form-check {
-            padding: 0; !important
+            padding: 0;
+        !important
         }
+
         .form-check-input {
             color: #98400f;
         }
@@ -15,41 +17,47 @@
 {% endblock %}
 {% block body %}
     <div class="container">
-        <h2 class="text-center mb-5">Commande</h2>
+        <h3 class="text-center mb-5">Commande</h3>
         <p>Choisissez vos préférences avant de passer votre commande.</p>
         <hr>
-        <div class="row mx-auto">
-            <div class="col-md-6">
+        <div class="row align-self-end">
+            <div class="text-center mb-5 mt-2">
+                <h5>Récap de ma commande</h5><br/>
+                <p>Retrouvez le récapitulatif de vos produits.</p>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="scroll-div">
+
+                    <div class="order-summary">
+                        {% for key,product in cart %}
+                            <div class="row {% if key > 0 %}mt-2{% endif %}">
+                                <div class="col-2">
+                                    <img src="{{ asset('/uploads/images/'~ product.products.image) }}"
+                                         alt="{{ product.products.name }}"
+                                         height="100px">
+                                </div>
+                                <div class="col-8 my-auto">
+                                    {{ product.products.name }}
+                                </div>
+                                <div class="col-2 my-auto">
+                                    x {{ product.quantities }}
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3 col-sm-12">
                 {% set formHtml %}
                     {{ form_start(form, {action:path('new_command')}) }}
-                    <a href="address_create" class="link action-1">Ajouter une nouvelle adresse</a>
+                    <a href="{{ path('address_create') }}" class="link action-1">Ajouter une nouvelle adresse</a>
                     {{ form_end(form) }}
                 {% endset %}
                 {{ formHtml|replace({'[br]' : '<br/>', '[r1]' : '<div class="card border-grey action-2 mb-3" style="min-width: 18rem;"><div class="card-header">', '[r2]' : '</div><div class="card-body color-main">', '[r3]' : '</div>', '[r4]' : '<span class="action-1">', '[r5]' : '</span>'})|raw }}
             </div>
-            <div class="col-md-6">
-                <div class="text-center">
-                    <b>Récap de ma commande</b><br/>
-                    <p>Retrouvez le récapitulatif de vos produits.</p>
-                </div>
-                <div class="order-summary">
-                    {% for key,product in cart %}
-                        <div class="row {% if key > 0 %}mt-2{% endif %}">
-                            <div class="col-2">
-                                <img src="{{ asset('/uploads/images/'~ product.products.image) }}" alt="{{ product.products.name }}"
-                                     height="100px">
-                            </div>
-                            <div class="col-8 my-auto">
-                                {{ product.products.name }}
-                            </div>
-                            <div class="col-2 my-auto">
-                                x {{ product.quantities }}
-                            </div>
-                        </div>
-                        <hr>
-                    {% endfor %}
-                </div>
-            </div>
+
         </div>
     </div>
 

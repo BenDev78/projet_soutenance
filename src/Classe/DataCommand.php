@@ -27,7 +27,7 @@ class DataCommand extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
                 'attr' => [
-                    'class' => 'mb-5'
+                    'class' => 'mb-3'
                 ]
             ])
             ->add('carriers', EntityType::class, [
