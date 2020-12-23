@@ -52,6 +52,11 @@ class Review
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $report;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +130,18 @@ class Review
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getReport(): ?int
+    {
+        return $this->report;
+    }
+
+    public function setReport(?int $report): self
+    {
+        $this->report = $report;
 
         return $this;
     }

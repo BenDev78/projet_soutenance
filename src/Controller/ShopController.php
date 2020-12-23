@@ -97,7 +97,12 @@ class ShopController extends AbstractController
             $sumReviews += $reviews[$i]->getRating();
         }
 
-        $avg = round($sumReviews / $count[0], 1);
+        $avg = null;
+
+        if($sumReviews > 0)
+        {
+            $avg = round($sumReviews / $count[0], 1);
+        }
 
         return $this->render("shop/product.html.twig", [
             'product' => $product,
@@ -105,8 +110,6 @@ class ShopController extends AbstractController
             'count' => $count
         ]);
     }
-
-
 
     /**
      * Compte le nombre d'entrées d'une entité
