@@ -17,27 +17,26 @@
                             <div class="mb-10 f-14 semibold text-uppercase sp-20">
                                 {{ form_label(form.lastname, 'Votre Nom') }}
                             </div>
-                            {{ form_errors(form.lastname) }}
-                            {{ form_widget(form.lastname) }}
-                            {{ form_help(form.lastname) }}
-                        </div>
+                                {{ form_errors(form.lastname) }}
+                                {{ form_widget(form.lastname) }}
+                                {{ form_help(form.lastname) }}
+                            </div>
                         <div>
                             <div class="mb-10 f-14 semibold text-uppercase sp-20">
                                 {{ form_label(form.email, 'Votre mail') }}
                             </div>
-                            {{ form_errors(form.email) }}
-                            {{ form_widget(form.email) }}
-                            {{ form_help(form.email) }}
-                        </div>
+                                {{ form_errors(form.email) }}
+                                {{ form_widget(form.email) }}
+                                {{ form_help(form.email) }}
+                            </div>
                         <div>
                             <div class="mb-10 f-14 semibold text-uppercase sp-20">
                             </div>
-                            {{ form_errors(form.password) }}
-                            {{ form_widget(form.password) }}
-                            {{ form_help(form.password) }}
-                            <small><i>Votre mot de passe doit contenir au moins une majuscule et un chiffre</i></small>
+                                {{ form_errors(form.password) }}
+                                {{ form_widget(form.password) }}
+                                {{ form_help(form.password) }}
+                            <small><i>Votre mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial</i></small>
                         </div>
-                        <div>
                         <div class="mt-25 d-flex flex-wrap align-items-center buttons">
                             <button class="btn mr-20 mb-20 mb-xl-0 w-210 lg action-2">
                                 S'inscrire
@@ -47,13 +46,13 @@
                             </div>
                         </div>
                     {{ form_end(form) }}
-                </div>
+                </div><!--<div class="col-lg-5 col-md-6 col-sm-10"> -->
                 <div class="col-sm-1">
                 </div>
                 <div class="col-lg-6 col-md-5 d-none d-md-block overflow-hidden img_holder">
-                    <img src="{{ asset('uploads/images/pexels-markus-winkler-5349246.jpg') }}" alt="" class="h-full absolute img-fluid" srcset="">
+                    <img src="{{ 'uploads/images/pexels-markus-winkler-5349246.jpg' }}" alt="" class="h-full absolute img-fluid" srcset="">
                 </div>
-            </div>
-        </div>
-    </section>
+            </div><!--<div class="row justify-content-center text-center text-md-left"> -->
+        </div> <!--<div class="container px-xl-0"> -->
+    </section> <!--<section class="bg-light form_2"> -->
 {% endblock %}

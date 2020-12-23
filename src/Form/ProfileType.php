@@ -5,12 +5,12 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
+
 
 class ProfileType extends AbstractType
 {
@@ -34,7 +34,6 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('phone', TelType::class, [
-                'constraints'=>new Length(10),
                 'attr' =>[
                     'placeholder' => 'Merci de saisir votre téléphone'
                 ]
