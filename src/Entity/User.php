@@ -61,7 +61,10 @@ class User implements UserInterface
 
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\Regex(
+     *  pattern="/[0-9]{10}/"
+     *  )
      */
     private $phone;
 
