@@ -36,7 +36,7 @@ uniquement si le block admin est défini
 #}
 
 {% if block('admin') is not defined %}
-    {% include 'components/_nav.html.twig' %}
+    {% include 'components/_nav_new.html.twig' %}
 {% else %}
     {% include 'components/_admin-nav.html.twig' %}
 {% endif %}

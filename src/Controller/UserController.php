@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\User;
 use App\Form\ProfileType;
 use App\Form\RegisterType;
@@ -43,6 +44,17 @@ class UserController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            $content = "Bonjour ".$user->getLastname()."<br>Bienvenue sur notre boutique de vente de Cognac 100% français ! <br>Vous pouvez dès à présent vous connecter et faire vos achats en cliquant sur <a href='https://localhost:8000/shop'>ici !</a>";
+
+            $mail = new Mail();
+            $mail->send(
+                $user->getEmail(),
+                $user->getLastname(),
+                'Confirmation d\'incription',
+                $content,
+                $user->getLastname()
+            );
 
             #Tmessage de confirmation d inscription
             $this->addFlash('success', 'Votre compte a bien été créé ! Connectez-vous maintenant !');

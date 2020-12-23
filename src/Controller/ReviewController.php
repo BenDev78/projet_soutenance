@@ -41,6 +41,7 @@ class ReviewController extends AbstractController
         $review = new Review();
         $review->setProduct($product);
         $review->setUser($user);
+        $review->setCreatedAt(new \DateTime());
 
 
         $form = $this->createForm(ReviewType::class, $review);

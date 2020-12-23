@@ -34,7 +34,10 @@
                         <td class="align-middle">{{ command.user.firstname }}</td>
                         <td class="align-middle">{{ command.user.lastname }}</td>
                         <td class="align-middle">{{ command.createdAt | date('d/m/y H:m:s') }}</td>
-                        <td><a href="{{ path('admin_command_details', {'id' : command.id}) }}"><i class="fas fa-paperclip action-2"></i></a></td>
+                        <td><a href="{{ path('admin_command_details', {'id' : command.id}) }}">
+                                <i class="fas fa-paperclip action-2"></i>
+                            </a>
+                        </td>
                         <td>
                             <a href="" onclick="return confirm('Voulez-vous vraiment supprimer cet article ?')">
                                 <i class="fas fa-times text-danger"></i>

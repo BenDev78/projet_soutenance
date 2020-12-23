@@ -13,40 +13,57 @@
 
 
 {% block body %}
+    <!-- Flash Message -->
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {% for label, messages in app.flashes(['success', 'warning']) %}
+                {% for message in messages %}
+                    <div class="text-center alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
     <!-- reflexion class -->
     <div class="container">
-        <h3 class="my-4 text-center">liste des utilisateurs</h3>
+        <h3 class="my-4 text-center">Liste des commentaires de <strong class="text-muted">{{ user.firstName }} {{ user.lastName }}</strong></h3>
         <div class="table-responsive mt-5">
             <table id="usersTable" class="table text-center">
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>prénom</th>
-                    <th>Nom</th>
-                    <th>Role</th>
-                    <th>Email</th>
-                    <th>Tél</th>
+                    <th># Produit</th>
+                    <th>Nom Produit</th>
+                    <th>Date</th>
+                    <th>Utilisateur</th>
+                    <th>Commentaire</th>
+                    <th>Note</th>
+                    <th>Pseudo</th>
                     <th>Commentiares</th>
                     <th>Supprimer</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for user in users %}
+                {% for review in user.reviews %}
                     <tr>
-                        <td class="align-middle">{{ user.id }}</td>
+                        <td class="align-middle">{{ review.id }}</td>
+                        <td class="align-middle">{{ review.product.id }}</td>
+                        <td class="align-middle">{{ review.product.name }}</td>
+                        <td class="align-middle">{{ review.createdAt | date('d/m/y') }}</td>
                         <td class="align-middle">{{ user.firstname }}</td>
-                        <td class="align-middle">{{ user.lastname }}</td>
-                        <td class="align-middle">{{ user.roles[0] }}</td>
-                        <td class="align-middle">{{ user.email }}</td>
-                        <td class="align-middle">{{ user.phone }}</td>
+                        <td class="align-middle">{{ review.comment }}</td>
+                        <td class="align-middle">{{ review.rating }}</td>
+                        <td class="align-middle">{{ review.pseudo ? review.pseudo : 'anonyme' }}</td>
                         <td class="align-middle">
-                            <a href="{{ path('admin_user_reviews', {'id' : user.id}) }}">
+                            <a href="{{ path('admin_user_review', {'id' : review.id}) }}">
                                 <i class="fas fa-paperclip action-2"></i>
                             </a>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <a href="{{ path('admin_user_delete', {'id' : user.id}) }}"
-                               onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?')">
+                               onclick="return confirm('Voulez-vous vraiment supprimer ce commentaire ?')">
                                 <i class="fas fa-times text-danger"></i>
                             </a>
                         </td>
@@ -73,5 +90,6 @@
     {% endblock %}
 
 {% endblock %}
+
 
 
