@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Entity\Review;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,6 +19,28 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
+
+    public function countReviews($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT COUNT(r.rating)
+            FROM product p, review r
+            WHERE p.id = r.product_id
+            AND p.id = ?
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchNumeric();
+    }
+
+/*SELECT p.id, AVG(r.rating)
+FROM product p, review r
+WHERE p.id = r.product_id
+AND p.id = 5;*/
 
     public function findSearch($search)
     {

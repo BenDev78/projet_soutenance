@@ -37,7 +37,7 @@ class ReviewController extends AbstractController
     {
         #Remplacer "$user = $this->>getDoctrine etc" par ligne ci-dessous lorsque les logins seront fonctionnels
         #$user = $this->getUser();
-        $user = $this->getDoctrine()->getRepository(User::class)->find(1);
+        $user = $this->getDoctrine()->getRepository(User::class)->find(5);
         $review = new Review();
         $review->setProduct($product);
         $review->setUser($user);
@@ -50,7 +50,8 @@ class ReviewController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            if($review->getPseudo() == null)
+//            dd($review);
+            if(is_null($review->getPseudo()))
             {
                 $review->setPseudo("Un utilisateur");
             }
@@ -60,20 +61,29 @@ class ReviewController extends AbstractController
 
             $this->addFlash('success', 'Votre avis a bien été envoyé, merci!');
 
-            return $this->redirectToRoute("shop_product");
+            return $this->redirectToRoute("shop_product", [
+                'id' => $product->getId(),
+                'slug' => $product->getSlug()
+            ]);
 
         }
 
-        return $this->render('review/formReviews.html.twig', ['form' => $form->createView()]);
-
+        return $this->render('review/formReviews.html.twig', [
+            'form' => $form->createView(),
+            'product' => $product
+        ]);
 
     }
 
     #TODO
     #Nullable=true ne fonctionne pas pour le pseudo
-    #Afficher le nom du produit en haut du formulaire dans la vue
-    #Ajouter le lien du formulaire review sur l'ensemble des produits
+    #faire page allProductReview avec Kpn paginator pour permettre de selectionner le nombre de commentaires à afficher/page
 
+
+    /**
+     *
+     * @return Response
+     */
     public function add_product_name(): Response
     {
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
@@ -81,4 +91,18 @@ class ReviewController extends AbstractController
         return $this->render("review/formReview.html.twig", ['products'=> $products]);
     }
 
+
+    /**
+     * @Route("/allProductReviews/{id}", name="all_product_reviews", methods={"GET|POST"})
+     * @return Response
+     */
+    public function show_all_product_reviews(): Response
+    {
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        $reviews = $this->getDoctrine()->getRepository(Review::class)->findAll();
+
+        return $this->render("review/allProductReviews.html.twig", ['reviews' =>$reviews, 'products' => $products]);
+    }
+
 }
+

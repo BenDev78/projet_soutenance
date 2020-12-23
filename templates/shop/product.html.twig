@@ -40,9 +40,29 @@
                     <h2 class="mb-10 f-36">
                         {{ product.name }}
                     </h2>
+
                     <div class="mb-25 f-24 medium price action-2">
                         {{ (product.price / 100)|number_format(2,',') }} €
                     </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="rating">
+                                <span><i class="fas fa-star{{ avg > 0 and avg > 0.9 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ avg > 0 and avg > 1.9 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ avg > 0 and avg > 2.9 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ avg > 0 and avg > 3.9 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ avg > 0 and avg > 4 ? ' action-2' : '' }}"></i></span>
+                                <span><small>({{ avg }})</small> sur {{ count[0] }} avis</span>
+                            </div>
+
+                        </div>
+                        <div>
+                            <a href="{{ path('all_product_reviews', {'id' : product.id}) }}">Voir les avis</a>
+                        </div>
+
+                    </div>
+
                     <div class="mw-520 color-heading text-adaptive">
                         {{ product.description }}
                     </div>
@@ -58,7 +78,7 @@
                     </div>
                     <div class="mt-20 d-flex">
                         <div class="buttons">
-                            <a href="#" class="btn mt-40 mr-20 sm action-2 medium f-16">
+                            <a href="{{ path('product_review', {'id' : product.id}) }}" class="btn mt-40 mr-20 sm action-2 medium f-16">
                                 Laisser un avis
                             </a>
                         </div>

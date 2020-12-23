@@ -1,13 +1,12 @@
 {% extends "base.html.twig" %}
 {% set current_page = 'review' %}
 
+{% block title %}Formulaire d'avis produit{% endblock %}
+
 {% block body %}
 
     <div class="container-fluid col-8">
-        <h2 class="text-center mb-45 small">DONNEZ VOTRE AVIS</h2>
-        {# % for product in products % #}
-           {# product.name #}
-            {# % endfor % #}
+        <h2 class="text-center mb-45 small">DONNEZ VOTRE AVIS | {{ product.name }}</h2>
 
         {{ form_start(form) }}
 
