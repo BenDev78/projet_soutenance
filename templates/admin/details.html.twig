@@ -32,8 +32,8 @@
                             </a>
                         </td>
                         <td class="align-middle">{{ detail.quantity }}</td>
-                        <td class="align-middle">{{ detail.product.price | number_format(2, ',')}} €</td>
-                        {% set priceProducts = detail.product.price * detail.quantity %}
+                        <td class="align-middle">{{ (detail.product.price / 100) | number_format(2, ',')}} €</td>
+                        {% set priceProducts = (detail.product.price * detail.quantity) / 100 %}
                         <td class="align-middle">{{ priceProducts | number_format(2, ',')}} €</td>
                     </tr>
                 {% endfor %}
