@@ -81,6 +81,7 @@ class AppFixtures extends Fixture
         //Création address
         $address1 = new Address();
         $address1->setUser($user1)
+            ->setName('maison')
             ->setCity('Pekin')
             ->setAddress('10 rue des nouilles sautées')
             ->setPostalCode('12345')
@@ -88,6 +89,7 @@ class AppFixtures extends Fixture
 
         $address2 = new Address();
         $address2->setUser($user1)
+            ->setName('maison')
             ->setCity('Tokyo')
             ->setAddress('158 avenue des futomakis')
             ->setPostalCode('12345')
@@ -95,6 +97,7 @@ class AppFixtures extends Fixture
 
         $address3 = new Address();
         $address3->setUser($user2)
+            ->setName('maison')
             ->setCity('Pekin')
             ->setAddress('10 rue des nouilles sautées')
             ->setPostalCode('12345')
@@ -102,6 +105,7 @@ class AppFixtures extends Fixture
 
         $address4 = new Address();
         $address4->setUser($user2)
+            ->setName('maison')
             ->setCity('Tokyo')
             ->setAddress('158 avenue des futomakis')
             ->setPostalCode('12345')
@@ -149,6 +153,8 @@ class AppFixtures extends Fixture
             //------------- COMMANDS -------------//
             $command = new Command();
             $command->setCreatedAt(new \DateTime())
+                ->setIsPaid(0)
+                ->setAddress($address1)
                 ->setUser($user1)
                 ->setCarrier($carrier);
 
@@ -205,6 +211,8 @@ class AppFixtures extends Fixture
             //------------- COMMANDS -------------//
             $command = new Command();
             $command->setCreatedAt(new \DateTime())
+                ->setIsPaid(0)
+                ->setAddress($address3)
                 ->setUser($user2)
                 ->setCarrier($carrier);
 

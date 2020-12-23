@@ -40,9 +40,27 @@
                     <h2 class="mb-10 f-36">
                         {{ product.name }}
                     </h2>
+
                     <div class="mb-25 f-24 medium price action-2">
                         {{ product.price|number_format(2,',') }} €
                     </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="rating">
+                                <span><i class="fas fa-star{{ review.rating > 0 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ review.rating > 1 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ review.rating > 2 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ review.rating > 3 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ review.rating > 4 ? ' action-2' : '' }}"></i></span>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="{{ path('all_product_reviews', {'id' : product.id}) }}">Voir les avis</a>
+                        </div>
+
+                    </div>
+
                     <div class="mw-520 color-heading text-adaptive">
                         {{ product.description }}
                     </div>
