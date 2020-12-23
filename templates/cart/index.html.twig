@@ -37,8 +37,8 @@
                                 <i class="fas fa-chevron-right action-1 f-18"></i>
                             </a>
                         </td>
-                        <td class="align-middle f-18">{{ (product.products.price)|number_format(2, ',') }} €</td>
-                        <td class="align-middle f-18">{{ ((product.products.price * product.quantities ))|number_format(2, ',') }} €</td>
+                        <td class="align-middle f-18">{{ ((product.products.price / 100))|number_format(2, ',') }} €</td>
+                        <td class="align-middle f-18">{{ ((product.products.price * product.quantities ) / 100)|number_format(2, ',') }} €</td>
                         <td class="align-middle">
                             <a href="{{ path('delete_to_cart', { 'id' : product.products.id }) }}">
                                 <i class="fas fa-times text-danger f-18"></i>
@@ -46,7 +46,7 @@
                         </td>
                     </tr>
                     {% set totalQuantities = totalQuantities + product.quantities %}
-                    {% set total = total + (product.products.price * product.quantities) %}
+                    {% set total = total + ((product.products.price / 100) * product.quantities) %}
                 {% endfor %}
                 </tbody>
             </table>
