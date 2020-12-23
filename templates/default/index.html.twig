@@ -4,6 +4,18 @@
 {% block title %}Cognac Guy Bonnaud{% endblock %}
 
 {% block body %}
+    <!-- Flash Message -->
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {% for label, messages in app.flashes(['success', 'warning']) %}
+                {% for message in messages %}
+                    <div class="text-center alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
     <!-- Content 6 -->
     <section class="pt-125 pb-105 bg-dark color-filter-dark-5 content_6" data-bg-src="{{ asset('assets/i/grapes-3550733.jpg') }}">
         <div class="container px-xl-0 text-center color-white">
@@ -24,7 +36,7 @@
         <div class="container px-xl-0">
             <div class="mb-40 row justify-content-between align-items-end">
                 <h3 class="col-md-9 col-sm-8">
-                    Recommendations
+                    Recommandations
                 </h3>
                 <div class="col-md-3 col-sm-4 action-3 f-14 bold text-uppercase sp-20 text-sm-right">
                     June 20, 2020
@@ -42,21 +54,21 @@
                 </a>
                 <div class="col-lg-6 pt-4 pt-lg-0">
                     <h4 class="text-center">Nos meilleurs produits</h4>
-                    <div class="row align-items-start">
+                    <div class="row align-items-start text-center">
                         {% for product in products | slice(0, 4) %}
                             <div class="mt-35 mb-35 col-md-6 col-sm-6 product">
-                                <a href="{{ path('shop_product', {'id' : product.id}) }}" class="link img_link">
+                                <a href="{{ path('shop_product', {'id' : product.id, 'slug' : product.slug}) }}" class="link img_link">
                                     <img src="{{ asset('uploads/images/' ~ product.image) }}" alt="{{ product.name }}"
                                          class="img-fluid h-200 radius10">
                                 </a>
-                                <a href="{{ path('shop_product', {'id' : product.id}) }}"
+                                <a href="{{ path('shop_product', {'id' : product.id, 'slug' : product.slug}) }}"
                                    class="link mt-15 d-block color-main f-18 text-uppercase semibold sp-20 title">
                                     {{ product.name }}
                                 </a>
                                 <div class="mt-1 f-16 semibold sp-20 action-2 price">
                                     {{ product.price|number_format(2, ',') }} €
                                 </div>
-                                <a href="{{ path('shop_product', {'id' : product.id}) }}" class="btn mt-15 sm action-1 medium f-16">
+                                <a href="{{ path('shop_product', {'id' : product.id, 'slug' : product.slug}) }}" class="btn mt-15 sm action-1 medium f-16">
                                     Voir &nbsp;<i class="far fa-hand-point-right"></i>
                                 </a>
                             </div>

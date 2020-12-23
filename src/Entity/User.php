@@ -38,7 +38,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=105)
+     * @ORM\Column(type="string", length=105, nullable=true)
      */
     private $firstname;
 
@@ -52,20 +52,6 @@ class User implements UserInterface
      */
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $address;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $postalCode;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $city;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
@@ -82,10 +68,17 @@ class User implements UserInterface
      */
     private $commands;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Address::class, mappedBy="user")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $addresses;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
         $this->commands = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,42 +195,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): self
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    public function getPostalCode(): ?int
-    {
-        return $this->postalCode;
-    }
-
-    public function setPostalCode(int $postalCode): self
-    {
-        $this->postalCode = $postalCode;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
     public function getPhone(): ?int
     {
         return $this->phone;
@@ -304,6 +261,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($command->getUser() === $this) {
                 $command->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Address[]
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Address $address): self
+    {
+        if (!$this->addresses->contains($address)) {
+            $this->addresses[] = $address;
+            $address->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): self
+    {
+        if ($this->addresses->removeElement($address)) {
+            // set the owning side to null (unless already changed)
+            if ($address->getUser() === $this) {
+                $address->setUser(null);
             }
         }
 

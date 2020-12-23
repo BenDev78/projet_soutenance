@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% set current_page = 'create_carrier_admin' %}
+{% block admin %}{% endblock %}
+
+{% block title %}{% endblock %}
+
+
+{% block body %}
+    <div class="container">
+        <h3 class="text-center mt-20">Enregistrer un transporteur</h3>
+        <div class="row justify-content-center">
+            <div class="col-xl-4 mt-5 shadow p-3 mb-5 color-main rounded">
+                {{ form(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

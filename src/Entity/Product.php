@@ -59,7 +59,7 @@ class Product
      * @Assert\File(
      *     mimeTypes={"image/png", "image/svg+xml", "image/jpg", "image/jpeg"},
      *     mimeTypesMessage="Le type de fichier et incorrect {{ type }}, vous devez choisir un fichier de type {{ types }}",
-     *     maxSize="2M", maxSizeMessage="Le fichier ne peut pas dépasser 2Mo",
+     *     maxSize="2M", maxSizeMessage="Le fichier ne peut pas dépasser 2Mo"
      * )
      */
     private $image;
@@ -94,6 +94,11 @@ class Product
      * @ORM\Column(type="boolean")
      */
     private $isBest;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
 
     public function __construct()
@@ -259,6 +264,18 @@ class Product
     public function setIsBest(bool $isBest): self
     {
         $this->isBest = $isBest;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

@@ -28,7 +28,7 @@
                         <td class="align-middle">{{ detail.product.name }}</td>
                         <td class="align-middle">
                             <a href="">
-                                <img src="{{ detail.product.image }}" alt="{{ detail.product.name }}">
+                                <img src="{{ asset('uploads/images/' ~ detail.product.image) }}" alt="{{ detail.product.name }}" width="75px">
                             </a>
                         </td>
                         <td class="align-middle">{{ detail.quantity }}</td>

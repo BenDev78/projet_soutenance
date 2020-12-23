@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Carrier;
 use App\Entity\Command;
 use App\Entity\Product;
 use App\Entity\User;
@@ -35,11 +36,13 @@ class AdminController extends AbstractController
         $usersCount = (string)$this->rowCount(User::class);
         $commandsCount = (string)$this->rowCount(Command::class);
         $productsCount = (string)$this->rowCount(Product::class);
+        $carriersCount = (string)$this->rowCount(Carrier::class);
 
         return $this->render('admin/index.html.twig', [
             'usersCount' => $usersCount,
             'commandsCount' => $commandsCount,
-            'productsCount' => $productsCount
+            'productsCount' => $productsCount,
+            'carriersCount' => $carriersCount,
         ]);
     }
 
@@ -79,6 +82,19 @@ class AdminController extends AbstractController
 
         return $this->render('admin/commands.html.twig', [
             'commands' => $commands
+        ]);
+    }
+
+    /**
+     * @Route("/carriers", name="admin_carriers", methods={"GET"})
+     * @return Response
+     */
+    public function allCarrier(): Response
+    {
+        $carriers = $this->getDoctrine()->getRepository(Carrier::class)->findAll();
+
+        return $this->render('admin/carrier.html.twig', [
+           'carriers' => $carriers
         ]);
     }
 

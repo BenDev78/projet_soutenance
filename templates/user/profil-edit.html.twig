@@ -12,7 +12,15 @@
                     <h2 class="mb-45 small">
                         Mes informations
                     </h2>
-                    <div>
+                    {% for label, messages in app.flashes(['success', 'warning']) %}
+                        {% for message in messages %}
+                            <div class="flash-{{ label }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    <p class="pl-4"><a href="{{ path('default_profile') }}" class="link action-2">Retour à mon profil</a></p>
+                    <div id="disabledTextInput">
                         <div class="mb-10 f-14 semibold text-uppercase sp-20">
                             {{ form_label(form.lastname, 'Votre Nom') }}
                         </div>
@@ -32,28 +40,13 @@
                     <br>
                     <div>
                         <div class="mb-10 f-14 semibold text-uppercase sp-20">
-                            {{ form_label(form.address, 'Votre adresse') }}
+                            {{ form_label(form.email, 'Votre mail') }}
                         </div>
-                        {{ form_errors(form.address) }}
-                        {{ form_widget(form.address) }}
-                        {{ form_help(form.address) }}
+                        {{ form_errors(form.email) }}
+                        {{ form_widget(form.email) }}
+                        {{ form_help(form.email) }}
                     </div>
-                    <div>
-                        <div class="mb-10 f-14 semibold text-uppercase sp-20">
-                            {{ form_label(form.postal_code, 'Votre code postal') }}
-                        </div>
-                        {{ form_errors(form.postal_code) }}
-                        {{ form_widget(form.postal_code) }}
-                        {{ form_help(form.postal_code) }}
-                    </div>
-                    <div>
-                        <div class="mb-10 f-14 semibold text-uppercase sp-20">
-                            {{ form_label(form.city, 'Votre Ville') }}
-                        </div>
-                        {{ form_errors(form.city) }}
-                        {{ form_widget(form.city) }}
-                        {{ form_help(form.city) }}
-                    </div>
+                    <br>
                     <div>
                         <div class="mb-10 f-14 semibold text-uppercase sp-20">
                             {{ form_label(form.phone, 'Votre téléphone') }}
@@ -62,6 +55,7 @@
                         {{ form_widget(form.phone) }}
                         {{ form_help(form.phone) }}
                     </div>
+                    <br>
                     <div class="mt-25 d-flex flex-wrap align-items-center buttons">
                         <button class="btn mr-20 mb-20 mb-xl-0 w-210 lg action-2">
                             Enregistrer

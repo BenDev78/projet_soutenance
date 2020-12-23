@@ -12,9 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * Class AdminProductController
@@ -34,17 +36,19 @@ class AdminProductController extends AbstractController
      * @Route("/create", name="admin_product_create")
      * @param Request $request
      * @param FileUploader $fileUploader
+     * @param SluggerInterface $slugger
      * @return Response
      */
-    public function create(Request $request, FileUploader $fileUploader): Response
+    public function create(Request $request, FileUploader $fileUploader, SluggerInterface $slugger): Response
     {
         $product = new Product();
         $product->setIsBest(false);
+        $product->setSlug($slugger->slug('-', $product->getName()));
+
         $form = $this->createForm(CreateType::class, $product);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $productFile */
             $productFile = $form->get('image')->getData();
             if ($productFile) {
@@ -58,7 +62,7 @@ class AdminProductController extends AbstractController
             return $this->redirectToRoute('admin_products');
         }
 
-        return $this->render('admin/create.html.twig', [
+        return $this->render('admin/create_product.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -68,18 +72,19 @@ class AdminProductController extends AbstractController
      * @param Product $product
      * @param Request $request
      * @param FileUploader $fileUploader
+     * @param SluggerInterface $slugger
      * @return Response
      */
-    public function update(Product $product, Request $request, FileUploader $fileUploader): Response
+    public function update(Product $product, Request $request, FileUploader $fileUploader, SluggerInterface $slugger): Response
     {
         # Récupération du l'image existante
-        $oldFile = new File($this->getParameter('images_directory').'/'.$product->getImage());
+        $oldFile = new File($this->getParameter('images_directory') . '/' . $product->getImage());
         $oldFileName = $oldFile->getFilename();
 
         $form = $this->createForm(CreateType::class, $product)->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
+
             $product->setImage($oldFileName);
 
             /** @var UploadedFile $imageFile */
@@ -89,7 +94,7 @@ class AdminProductController extends AbstractController
             if ($imageFile) {
                 # Supprime l'ancienne image si elle doit être modifiée
                 $filesystem = new Filesystem();
-                $filesystem->remove($this->getParameter('images_directory').'/'.$oldFileName);
+                $filesystem->remove($this->getParameter('images_directory') . '/' . $oldFileName);
 
                 $newFilename = $fileUploader->upload($imageFile);
 
@@ -102,10 +107,22 @@ class AdminProductController extends AbstractController
             return $this->redirectToRoute('admin_products');
         }
 
-        return $this->render('admin/create.html.twig', [
+        return $this->render('admin/create_product.html.twig', [
             'product' => $product,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/isbest/{id}", name="admin_isbest_product", methods={"GET|POST"})
+     * @param Product $product
+     * @return JsonResponse
+     */
+    public function isBest(Product $product): JsonResponse
+    {
+        $product->setIsBest(!$product->getIsBest());
+        $this->em->flush();
+        return $this->json(['success' => true]);
     }
 
     /**
@@ -116,8 +133,8 @@ class AdminProductController extends AbstractController
     public function delete(Product $product): Response
     {
         $filesystem = new Filesystem();
-        $filesystem->remove($this->getParameter('images_directory').'/'.$product->getName());
-        
+        $filesystem->remove($this->getParameter('images_directory') . '/' . $product->getName());
+
         $this->em->remove($product);
         $this->em->flush();
         return $this->redirectToRoute('admin_products');

@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+{% set current_page = "contact" %}
+
+{% block title %}
+    Nous contacter
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+
+        .map-container {
+            overflow: hidden;
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+        }
+
+        .map-container iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+
+        .icone{
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            position: relative;
+            background-color: #9e8a73;
+        }
+
+        .fas.fa-phone, .fas.fa-map-marker-alt{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                {% for label, messages in app.flashes(['success', 'warning']) %}
+                    {% for message in messages %}
+                        <div class="text-center alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <h3 class="my-4 text-center">Ecrivez-nous</h3>
+                {{ form_start(form, {attr : {novalidate: 'novalidate'}}) }}
+                {{ form_row(form.firstname) }}
+                {{ form_row(form.lastname) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.subject) }}
+                {{ form_row(form.message) }}
+                <button class="btn sm action-2 w-full">Envoyer</button>
+                {{ form_end(form) }}
+            </div>
+            <div class="col-md-7">
+                <h3 class="my-4 text-center">Où nous trouver</h3>
+
+                <!--Google map-->
+                <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 400px">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22246.84161445186!2d-0.02261757677941074!3d45.814158231314416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48009dee0adc4d81%3A0xab9b62945f8b110c!2sLes%20Cailleti%C3%A8res%2C%2016170%20Genac-Bignac!5e0!3m2!1sfr!2sfr!4v1608544502938!5m2!1sfr!2sfr"
+                            height="450" frameborder="0" style="border:0;" allowfullscreen=""
+                            aria-hidden="false" tabindex="0"></iframe>
+                </div>
+                <!--Google Maps-->
+                <div class="row text-center mt-4">
+                    <div class="col-md-6">
+                        <div class="icone d-inline-block color-white shadow mb-2">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h5>Téléphone</h5>
+                        <hr>
+                        <p>05 45 21 73 30</p>
+                        <p>09 77 34 37 62</p>
+                        <p>06 28 29 29 28</p>
+                        <h5>Fax</h5>
+                        <hr>
+                        <p>05 45 21 73 30</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="icone d-inline-block color-white shadow mb-2">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <p>Cognac Guy BONNAUD</p>
+                        <p>Les Cailletières 16170 Gourville</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+

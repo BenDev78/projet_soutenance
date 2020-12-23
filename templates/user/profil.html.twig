@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% set current_page = "profil" %}
+{% block title %}
+    Mon profil
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .infos li {
+            margin-bottom: 15px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h3 class="text-center mb-5">Bienvenue sur votre profile <span class="text-muted"><em>{{ app.user.firstname }}</em></span>
+    </h3>
+    <div class="container">
+        <div class="row">
+            {% include 'components/_user_nav.html.twig' %}
+            <div class="col-md-7">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Nom Complet</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ app.user.firstname }} {{ app.user.lastname }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ app.user.email }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Téléphone</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ app.user.phone }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="pl-4"><a href="{{ path('user_profil_edit') }}" class="link action-2">Modifier mes informations</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

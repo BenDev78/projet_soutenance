@@ -4,11 +4,40 @@
 
 
 .megrim {
-  font-family: 'Megrim', cursive;
+    font-family: 'Megrim', cursive;
 }
 
 .helper {
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
+
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.scroll-div {
+    overflow-y: scroll;
+    max-height: 800px;
+    overflow-x: hidden;
+}
+
+/* Let's get this party started */
+.scroll-div::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+.scroll-div::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+.scroll-div::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #ECBC10;
+}
+.scroll-div::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255,0,0,0.4);
 }

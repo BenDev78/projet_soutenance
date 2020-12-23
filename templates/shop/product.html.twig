@@ -5,13 +5,17 @@
 
 {% block body %}
 
-    {% for label, messages in app.flashes(['success', 'warning']) %}
-        {% for message in messages %}
-            <div class="alert-success">
-                <h1 class="bold">{{ message }}</h1>
-            </div>
-        {% endfor %}
-    {% endfor %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {% for label, messages in app.flashes(['success', 'warning']) %}
+                {% for message in messages %}
+                    <div class="text-center alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
 
     <section class="pt-100 pb-100 bg-light ecommerce_31">
         <div class="container px-xl-0">
@@ -42,18 +46,14 @@
                     <div class="mw-520 color-heading text-adaptive">
                         {{ product.description }}
                     </div>
-                    <div class="mt-20 d-inline-block quantity">
-                        <div class="mb-1 f-14 semibold text-uppercase sp-20 label action-2">
+                    <div class="mt-20 quantity">
+                        <div class="mb-1 f-14 semibold text-uppercase sp-20 label action-1">
                             Quantity
                         </div>
-                        <div class="h-40 d-flex align-items-stretch radius20 text-center quantity_selector">
-                            <a class="link h-full color-heading control less">
-                                -
-                            </a>
-                            <input name="quantity" value="1" min="1" max="9999" class="input noradius p-0">
-                            <a class="link h-full color-heading control greater">
-                                +
-                            </a>
+                        <div class="number-input md-number-input">
+                            <i class="fas fa-minus minus"></i>
+                            <span class="quantity_input">1</span>
+                            <i class="fas fa-plus plus"></i>
                         </div>
                     </div>
                     <div class="mt-20 d-flex">
@@ -110,3 +110,5 @@
         {% endfor %}
     </section>
 {% endblock %}
+
+
