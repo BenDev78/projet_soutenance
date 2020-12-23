@@ -49,7 +49,8 @@ class ReviewController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            if($review->getPseudo() == null)
+//            dd($review);
+            if(is_null($review->getPseudo()))
             {
                 $review->setPseudo("Un utilisateur");
             }
@@ -63,8 +64,10 @@ class ReviewController extends AbstractController
 
         }
 
-        return $this->render('review/formReviews.html.twig', ['form' => $form->createView()]);
-
+        return $this->render('review/formReviews.html.twig', [
+            'form' => $form->createView(),
+            'product' => $product
+        ]);
 
     }
 
@@ -73,6 +76,10 @@ class ReviewController extends AbstractController
     #Afficher le nom du produit en haut du formulaire dans la vue
     #Ajouter le lien du formulaire review sur l'ensemble des produits
 
+    /**
+     *
+     * @return Response
+     */
     public function add_product_name(): Response
     {
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
