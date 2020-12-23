@@ -56,7 +56,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @assert
      * @Assert\Regex(
      *  pattern="/[0-9]{10}/"
      *  )
