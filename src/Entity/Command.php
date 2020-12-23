@@ -25,7 +25,7 @@ class Command
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Detail::class, mappedBy="command")
+     * @ORM\OneToMany(targetEntity=Detail::class, mappedBy="command", orphanRemoval=true)
      */
     private $details;
 

@@ -30,7 +30,7 @@ class Detail
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Command::class, inversedBy="details")
+     * @ORM\ManyToOne(targetEntity=Command::class, inversedBy="details", cascade={"persist", "remove"})
      */
     private $command;
 
