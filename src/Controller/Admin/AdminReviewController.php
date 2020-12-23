@@ -49,14 +49,14 @@ class AdminReviewController extends AbstractController
             ->html('
             <p>
             Bonjour,
-            
+
             Suite à de nombreux signalement et après analyuse de nos équipes, votre commentaire a été supprimé parqu\'il ne respecte pas notre charte d\'utilisateurs.
-            
+
             Vous pouvez toujours non contacter <a href="https://localhost:8000/contact">ici</a> si vous jugez cette décision injuste.
-            
+
             Bien cordialement,
-            
-            l\'Administration  
+
+            l\'Administration
             </p>
             ')
         ;
@@ -66,5 +66,15 @@ class AdminReviewController extends AbstractController
         return $this->redirectToRoute("admin_user_reviews", [
             'id' => $user->getId()
         ]);
+    }
+
+
+    /**
+     * @Route("/report/{id}")
+     * @param Review $review
+     */
+    public function report(Review $review)
+    {
+
     }
 }

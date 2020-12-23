@@ -4,21 +4,41 @@
 {% block body %}
 
     <div class="container">
-        <h3>Review #{{ reviews.id }}</h3>
+        <h3 class="text-center mt-4">Liste des avis du produis {{ product.name }}</h3>
         <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="rating">
-                    <span><i class="fas fa-star{{ reviews.rating > 0 ? ' action-2' : '' }}"></i></span>
-                    <span><i class="fas fa-star{{ reviews.rating > 1 ? ' action-2' : '' }}"></i></span>
-                    <span><i class="fas fa-star{{ reviews.rating > 2 ? ' action-2' : '' }}"></i></span>
-                    <span><i class="fas fa-star{{ reviews.rating > 3 ? ' action-2' : '' }}"></i></span>
-                    <span><i class="fas fa-star{{ reviews.rating > 4 ? ' action-2' : '' }}"></i></span>
+            {% for review in product.reviews %}
+                <div class="card col-md-6 mx-auto mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title d-inline-block mr-2">{{ review.pseudo ? review.pseudo : 'anonyme' }}</h5>
+                        <span>le : <u>{{ review.createdAt | date('d/m/y H:m:s') }}</u></span>
+                        <div>
+                            <span><i class="fas fa-star{{ review.rating > 0 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ review.rating > 1 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ review.rating > 2 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ review.rating > 3 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ review.rating > 4 ? ' action-2' : '' }}"></i></span>
+                        </div>
+                        <p class="card-text">
+                            {{ review.comment ? review.comment : '' }}
+                        </p>
+                        <p class="card-link link text-danger report">Signaler un abus</p>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 
 {% endblock %}
 
-
-
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('.report').click(() => {
+                $.ajax({
+                    url:
+                })
+            })
+        })
+    </script>
+{% endblock %}

@@ -44,30 +44,15 @@ class DefaultController extends AbstractController
     /**
      * @Route("/contact", name="default_contact", methods={"GET|POST"})
      * @param Request $request
-     * @param MailerInterface $mailer
      * @return Response
-     * @throws TransportExceptionInterface
      */
-    public function contact(Request $request, MailerInterface $mailer): Response
+    public function contact(Request $request): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact)->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $email = (new TemplatedEmail())
-                ->from(new Address($contact->getEmail(), $contact->getFirstname()))
-                ->to('94edbdcabe-d0b5d2@inbox.mailtrap.io')
-                ->htmlTemplate('emails/contact.html.twig')
-                ->context([
-                    'firstname' => $contact->getFirstname(),
-                    'lastname' => $contact->getLastname(),
-                    'subject' => $contact->getSubject(),
-                    'message' => $contact->getMessage()
-                ])
-            ;
-
-            $mailer->send($email);
 
             $this->addFlash('success', 'Votre email a bien été envoyé, nous vous répondrons dans les plus brefs délais.');
 
