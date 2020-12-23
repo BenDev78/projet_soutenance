@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -37,29 +38,32 @@ class SecurityController extends AbstractController
     {
         return $this->render('default/index.html.twig');
     }
+
     /**
      * @Route("/delete_user/{id}", name="delete_user")
-     * @param $id
+     * @param User $user
+     * @param TokenStorageInterface $tokenStorage
      * @return Response
      */
-    public function deleteUser($id): Response
+    public function deleteUser(User $user, TokenStorageInterface $tokenStorage, SessionInterface $session): Response
     {
-        $currentUserId = $this->getUser()->getId();
-        if ($currentUserId == $id) {
-            $session = $this->get('session');
-            $session = new Session();
-            $session->invalidate();
-
-            $em = $this->getDoctrine()->getManager();
-            $usrRepo = $em->getRepository(User::class);
-
-            $user = $usrRepo->find($id);
-            $em->remove($user);
-            $em->flush();
-
-            $this->addFlash('success', 'Votre compte utilisateur a bien été supprimé !');
-
+        if($user !== $this->getUser()) {
+            $this->addFlash('warning', 'Vous ne pouvez pas supprimer ce membre!');
+            return $this->redirectToRoute('default_index');
         }
-        return $this->redirectToRoute('app_login');
+
+        // force manual logout of logged in user
+        $this->get('security.token_storage')->setToken(null);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($user);
+        $em->flush();
+
+        $session->invalidate(0);
+
+        $this->addFlash('success', 'Votre compte utilisateur a bien été supprimé !');
+
+        return $this->redirectToRoute('default_index');
     }
 }

@@ -41,7 +41,7 @@ class Carrier
 
     public function __toString()
     {
-        return '[r1]'.$this->getName().'[br][r2]'.$this->getDescription().'[br][r4]'.number_format($this->getPrice(),2, ',', '.').' €[r5][r3]';
+        return '[r1]'.$this->getName().'[br][r2]'.$this->getDescription().'[br][r4]'.number_format($this->getPrice()/100,2, ',', '.').' €[r5][r3]';
     }
 
     public function __construct()

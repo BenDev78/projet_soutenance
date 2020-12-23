@@ -32,7 +32,7 @@
                         <td class="align-middle">{{ carrier.id }}</td>
                         <td class="align-middle">{{ carrier.name }}</td>
                         <td class="align-middle">{{ carrier.description }}</td>
-                        <td class="align-middle">{{ carrier.price }}</td>
+                        <td class="align-middle">{{ carrier.price / 100 }}</td>
                         <td><a href="{{ path('admin_carrier_update', {'id' : carrier.id}) }}"><i
                                         class="fas fa-pen action-2"></i></a></td>
                         <td class="align-middle">

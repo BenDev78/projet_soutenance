@@ -41,6 +41,7 @@ class ReviewController extends AbstractController
         $review = new Review();
         $review->setProduct($product);
         $review->setUser($user);
+        $review->setCreatedAt(new \DateTime());
 
 
         $form = $this->createForm(ReviewType::class, $review);
@@ -90,6 +91,7 @@ class ReviewController extends AbstractController
         return $this->render("review/formReview.html.twig", ['products'=> $products]);
     }
 
+
     /**
      * @Route("/allProductReviews/{id}", name="all_product_reviews", methods={"GET|POST"})
      * @return Response
@@ -103,3 +105,4 @@ class ReviewController extends AbstractController
     }
 
 }
+

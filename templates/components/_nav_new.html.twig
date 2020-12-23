@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light pt-30 pb-30 text-center">
+    <div class="mb-20 mb-lg-0 col-lg-3">
+        <a href="{{ path('default_index') }}" class="link color-main f-32 bold megrim">
+            <i class="fal fa-wine-glass-alt action-2"></i> Cognac Gu<span class="action-2">y</span> Bonnaud
+        </a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item active">
+                <a href="{{ path('default_index') }}"
+                   class="link mx-15{% if current_page == "home" %} action-2{% else %} color-main{% endif %}">
+                    Accueil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#"
+                   class="link mx-15{% if current_page == "actu" %} action-2{% else %} color-main{% endif %}">
+                    Actualités
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#"
+                   class="link mx-15{% if current_page == "history" %} action-2{% else %} color-main{% endif %}">
+                    Notre histoire
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('shop_index') }}"
+                   class="link mx-15{% if current_page == "shop" %} action-2{% else %} color-main{% endif %}">
+                    Shop
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a href="{{ path('admin_dashboard') }}"
+                       class="link mr-20{% if current_page == "index_admin" %} action-2{% else %} color-main{% endif %}">
+                        Administration
+                    </a>
+                </li>
+            {% endif %}
+            {% if not is_granted('ROLE_USER') %}
+                <li class="nav-item">
+                    <a href="{{ path('user_create') }}" class="link mr-20 color-main">
+                        S'inscrire
+                    </a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_USER') %}
+                <li class="nav-item">
+                    <a href="{{ path('default_profile') }}" class="link mr-20 color-main">
+                        Mon profil <small>({{ app.user.firstname }})</small>
+                    </a>
+                </li>
+            {% endif %}
+            {% if not is_granted('ROLE_USER') %}
+                <li class="nav-item">
+                    <a href="{{ ('/login') }}" class="btn mr-20 sm action-2 f-16">
+                        S'identifier
+                    </a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_USER') %}
+                <li class="nav-item">
+                    <a href="{{ ('/logout') }}" class="btn mr-20 sm action-2 f-16">
+                        <span class="f-12">Se déconnecter</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

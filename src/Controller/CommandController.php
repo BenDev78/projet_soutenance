@@ -4,14 +4,9 @@ namespace App\Controller;
 
 use App\Classe\Cart;
 use App\Classe\DataCommand;
-use App\Classe\OrderType;
-use App\Entity\Carrier;
 use App\Entity\Command;
 use App\Entity\Detail;
 use Doctrine\ORM\EntityManagerInterface;
-use Stripe\Checkout\Session;
-use Stripe\Exception\ApiErrorException;
-use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,7 +52,7 @@ class CommandController extends AbstractController
     }
 
     /**
-     * @Route("/command/confirm", name="new_command")
+     * @Route("/command/confirm", name="new_command", methods={"POST"})
      * @param Cart $cart
      * @param Request $request
      * @return Response
@@ -65,9 +60,9 @@ class CommandController extends AbstractController
     public function new(Cart $cart, Request $request): Response
     {
         //Pas d'adresses en bdd
-//        if (!$this->getUser()->getAddresses()->getValues()) {
-//            return $this->redirectToRoute('address_create');
-//        }
+        if (!$this->getUser()->getAddresses()->getValues()) {
+            return $this->redirectToRoute('address_create');
+        }
 
         //Creation des cartes d'adresse client
         $form = $this->createForm(DataCommand::class, null, [
@@ -85,10 +80,10 @@ class CommandController extends AbstractController
             $address_content .= '<br/>'.$address->getPostalCode().' '.$address->getCity();
             $address_content .= '<br/>'.$address->getCountry();
 
-
-
             // Enregistrer ma commande
             $command = new Command();
+            $reference = $date->format('dmY').'-'.uniqid();
+            $command->setReference($reference);
             $command->setUser($this->getUser())
                 ->setCreatedAt($date)
                 ->setCarrier($carriers)
@@ -96,22 +91,25 @@ class CommandController extends AbstractController
                 ->setIsPaid(0);
             $this->entityManager->persist($command);
 
-
+            // Enregistrer les Détails
             foreach ($cart->getFull() as $product) {
-                // Enregistrer les Détails
-            $detail = new Detail();
-            $detail->setCommand($command)
-                ->setProduct($product['products'])
-                ->setQuantity($product['quantities']);
-            $this->entityManager->persist($detail);
+                $detail = new Detail();
+                $detail->setCommand($command)
+                    ->setProduct($product['products'])
+                    ->setQuantity($product['quantities']);
+                $this->entityManager->persist($detail);
             }
 
             $this->entityManager->flush();
+
+            return $this->render('command/add.html.twig', [
+                'cart' => $cart->getFull(),
+                'carriers' => $carriers,
+                'address' => $address,
+                'addressContent' => $address_content,
+                'reference' => $command->getReference()
+            ]);
         }
-
-        return $this->render('command/add.html.twig', [
-            'cart' => $cart->getFull()
-        ]);
-
+        return $this->redirectToRoute('cart');
     }
 }

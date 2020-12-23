@@ -51,6 +51,7 @@
                     </div>
                 </div>
                 <p class="pl-4"><a href="{{ path('user_profil_edit') }}" class="link action-2">Modifier mes informations</a></p>
+                <p class="pl-4"><a href="{{ path('delete_user', {'id' : app.user.id}) }}" class="link text-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer votre compte ? (cette action est irréversible)')">Supprimer mon compte</a></p>
             </div>
         </div>
     </div>

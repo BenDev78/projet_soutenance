@@ -36,7 +36,7 @@ class Product
     private $description;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Vous avez oublié le prix")
      */
     private $price;
