@@ -48,12 +48,14 @@
                     <div class="container">
                         <div class="row">
                             <div class="rating">
-                                <span><i class="fas fa-star{{ review.rating > 0 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ review.rating > 1 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ review.rating > 2 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ review.rating > 3 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ review.rating > 4 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ avg > 0 and avg > 0.9 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ avg > 0 and avg > 1.9 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ avg > 0 and avg > 2.9 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ avg > 0 and avg > 3.9 ? ' action-2' : '' }}"></i></span>
+                                <span><i class="fas fa-star{{ avg > 0 and avg > 4 ? ' action-2' : '' }}"></i></span>
+                                <span><small>({{ avg }})</small> sur {{ count[0] }} avis</span>
                             </div>
+
                         </div>
                         <div>
                             <a href="{{ path('all_product_reviews', {'id' : product.id}) }}">Voir les avis</a>

@@ -9,6 +9,9 @@ use App\Entity\Product;
 use App\Entity\Review;
 use App\Form\SearchType;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +20,14 @@ use Tightenco\Collect\Support\Collection;
 
 class ShopController extends AbstractController
 {
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em= $em;
+    }
+
+
     /**
      * @Route("/shop", name="shop_index", methods={"GET|POST"})
      * @param Request $request
@@ -75,9 +86,43 @@ class ShopController extends AbstractController
      */
     public function product(Product $product): Response
     {
+        $reviews = $product->getReviews();
+
+        $count = $this->em->getRepository(Product::class)->countReviews($product->getId());
+
+        $sumReviews = null;
+
+        for($i = 0;$i < count($reviews); $i ++)
+        {
+            $sumReviews += $reviews[$i]->getRating();
+        }
+
+        $avg = round($sumReviews / $count[0], 1);
+
         return $this->render("shop/product.html.twig", [
-            'product' => $product
+            'product' => $product,
+            'avg' => $avg,
+            'count' => $count
         ]);
+    }
+
+
+
+    /**
+     * Compte le nombre d'entrées d'une entité
+     * @param $entity
+     * @return int|mixed|string
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    private function rowCount($entity)
+    {
+        $data = $this->em->getRepository($entity);
+
+        return $data->createQueryBuilder('d')
+            ->select('count(d.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 }

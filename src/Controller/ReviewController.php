@@ -76,7 +76,8 @@ class ReviewController extends AbstractController
 
     #TODO
     #Nullable=true ne fonctionne pas pour le pseudo
-    #Ajouter le lien du formulaire review sur l'ensemble des produits
+    #faire page allProductReview avec Kpn paginator pour permettre de selectionner le nombre de commentaires à afficher/page
+
 
     /**
      *
