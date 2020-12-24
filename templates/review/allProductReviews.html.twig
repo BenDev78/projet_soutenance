@@ -7,7 +7,7 @@
         <h3 class="text-center mt-4">Liste des avis du produis {{ product.name }}</h3>
         <div class="row">
             {% for review in product.reviews %}
-                <div class="card col-md-6 mx-auto mt-4">
+                <article class="card col-md-8 mx-auto mt-4 ">
                     <div class="card-body">
                         <h5 class="card-title d-inline-block mr-2">{{ review.pseudo ? review.pseudo : 'anonyme' }}</h5>
                         <span>le : <u>{{ review.createdAt | date('d/m/y H:m:s') }}</u></span>
@@ -21,9 +21,11 @@
                         <p class="card-text">
                             {{ review.comment ? review.comment : '' }}
                         </p>
-                        <p class="card-link link text-danger report">Signaler un abus</p>
+                        <p class="card-link link text-danger report d-inline-block mr-5" style="cursor: pointer;">
+                            <span data-id="{{ review.id }}" class="text-danger">Signaler un abus</span>
+                        </p>
                     </div>
-                </div>
+                </article>
             {% endfor %}
         </div>
     </div>
@@ -34,11 +36,29 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
-            $('.report').click(() => {
+
+            $('.report').on('click', '.text-danger', function() {
+
                 $.ajax({
-                    url:
-                })
-            })
+                    url: `/report/${$(this).attr('data-id')}`,
+
+                    success: data => {
+                        if(data.success)
+                        {
+                            alert('Le commentaire a bien été signalé.');
+                        } else
+                        {
+                            alert('Vous avez déjà signalé ce commentaire.');
+                        }
+                    },
+
+                    error: () => {
+                        alert('Une erreur est survenue, veuillez réessayer ultérireurement.')
+                    }
+
+                });
+
+            });
         })
     </script>
 {% endblock %}
