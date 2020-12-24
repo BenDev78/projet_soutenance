@@ -5,11 +5,13 @@ namespace App\Controller;
 
 
 use App\Entity\Product;
+use App\Entity\Report;
 use App\Entity\Review;
 use App\Entity\User;
 use App\Form\ReviewType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -91,7 +93,7 @@ class ReviewController extends AbstractController
 
 
     /**
-     * @Route("/allProductReviews/{id}", name="all_product_reviews", methods={"GET|POST"})
+     * @Route("product/{id}/reviews", name="all_product_reviews", methods={"GET|POST"})
      * @param Product $product
      * @return Response
      */
@@ -100,5 +102,36 @@ class ReviewController extends AbstractController
         return $this->render("review/allProductReviews.html.twig", ['product' => $product]);
     }
 
+    /**
+     * @Route("/report/{id}")
+     * @param Review $review
+     * @return JsonResponse
+     */
+    public function report(Review $review): JsonResponse
+    {
+        $user = $review->getUser();
+
+        # check if a user has already report a review
+        $is_already_reported = $this->em->getRepository(Report::class)->searchUser($user, $review);
+
+        if($is_already_reported)
+        {
+            return $this->json(['success' => false]);
+        }
+
+        $report = new Report();
+        $report->setUser($review->getUser())
+            ->setReview($review);
+
+        $this->em->persist($report);
+        $this->em->flush();
+
+        if($this->em->getRepository(Report::class)->countReports($review) >= 10)
+        {
+            dd('ok');
+        }
+
+        return $this->json(['success' => true]);
+    }
 }
 

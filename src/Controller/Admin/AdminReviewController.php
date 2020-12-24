@@ -8,6 +8,7 @@ use App\Classe\Mail;
 use App\Entity\Review;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -68,13 +69,4 @@ class AdminReviewController extends AbstractController
         ]);
     }
 
-
-    /**
-     * @Route("/report/{id}")
-     * @param Review $review
-     */
-    public function report(Review $review)
-    {
-
-    }
 }
