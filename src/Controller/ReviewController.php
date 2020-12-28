@@ -82,6 +82,7 @@ class ReviewController extends AbstractController
     #Nullable=true ne fonctionne pas pour le pseudo
     #faire page allProductReview avec Kpn paginator pour permettre de selectionner le nombre de commentaires à afficher/page
 
+
     /**
      * @IsGranted("ROLE_USER")
      * @Route("product/{id}/reviews", name="all_product_reviews", methods={"GET|POST"})
