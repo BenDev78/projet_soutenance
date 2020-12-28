@@ -42,7 +42,7 @@
                     </h2>
 
                     <div class="mb-25 f-24 medium price action-2">
-                        {{ product.price|number_format(2,',') }} €
+                        {{ (product.price / 100)|number_format(2,',') }} €
                     </div>
 
                     <div class="container">
@@ -71,9 +71,9 @@
                             Quantity
                         </div>
                         <div class="number-input md-number-input">
-                            <i class="fas fa-minus minus"></i>
-                            <span class="quantity_input">1</span>
-                            <i class="fas fa-plus plus"></i>
+                            <i class="fas fa-minus"></i>
+                            <span class="quantity_input mx-5">1</span>
+                            <i class="fas fa-plus"></i>
                         </div>
                     </div>
                     <div class="mt-20 d-flex">

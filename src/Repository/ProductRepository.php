@@ -59,7 +59,7 @@ AND p.id = 5;*/
     }
 //SELECT p.id, p.name, ROUND(AVG(r.rating), 1) as rate
 //FROM product p, review r
-//WHERE p.id = r.product_id
+//WHERE p.id = r.product_id 
 //GROUP BY p.;
 //
 //SELECT id

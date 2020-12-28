@@ -36,7 +36,7 @@ uniquement si le block admin est défini
 #}
 
 {% if block('admin') is not defined %}
-    {% include 'components/_nav.html.twig' %}
+    {% include 'components/_nav_new.html.twig' %}
 {% else %}
     {% include 'components/_admin-nav.html.twig' %}
 {% endif %}
@@ -46,6 +46,7 @@ uniquement si le block admin est défini
 </main>
 {% include 'components/_footer.html.twig' %}
 {% block javascripts %}
+    <script src="https://js.stripe.com/v3/"></script>
     <!-- gReCaptcha popup (uncomment if you need a recaptcha integration) -->
     <!--
     <div class="bg-dark op-8 grecaptcha-overlay"></div>
