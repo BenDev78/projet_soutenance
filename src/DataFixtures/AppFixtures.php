@@ -143,7 +143,9 @@ class AppFixtures extends Fixture
                 $review->setProduct($product)
                     ->setUser($user1)
                     ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
-                    ->setRating(mt_rand(1,5));
+                    ->setRating(mt_rand(1,5))
+                    ->setCreatedAt(new \DateTime())
+                ;
 
                 $manager->persist($review);
                 $manager->flush();
@@ -151,8 +153,10 @@ class AppFixtures extends Fixture
             }
 
             //------------- COMMANDS -------------//
+            $date = new \DateTime();
             $command = new Command();
             $command->setCreatedAt(new \DateTime())
+                ->setReference($date->format('dmY').'-'.uniqid())
                 ->setIsPaid(0)
                 ->setAddress($address1)
                 ->setUser($user1)
@@ -203,14 +207,16 @@ class AppFixtures extends Fixture
                     ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
                     ->setRating(mt_rand(1,5))
                     ->setCreatedAt(new \DateTime());
+
                 $manager->persist($review);
                 $manager->flush();
-
             }
 
             //------------- COMMANDS -------------//
+            $date = new \DateTime();
             $command = new Command();
             $command->setCreatedAt(new \DateTime())
+                ->setReference($date->format('dmY').'-'.uniqid())
                 ->setIsPaid(0)
                 ->setAddress($address3)
                 ->setUser($user2)

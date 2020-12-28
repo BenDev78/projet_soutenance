@@ -4,17 +4,20 @@
 namespace App\Controller;
 
 
+use App\Classe\Mail;
 use App\Entity\Product;
 use App\Entity\Report;
 use App\Entity\Review;
 use App\Entity\User;
 use App\Form\ReviewType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 class ReviewController extends AbstractController
 {
@@ -30,7 +33,8 @@ class ReviewController extends AbstractController
 
     /**
      * Création du formulaire d'avis produit
-     * @Route("/review/{id}", name="product_review", methods={"GET|POST"})
+     * @IsGranted("ROLE_USER")
+     * @Route("/review/{id}", name="form_review", methods={"GET|POST"})
      * @param Request $request
      * @param Product $product
      * @return Response
@@ -40,7 +44,11 @@ class ReviewController extends AbstractController
         #Remplacer "$user = $this->>getDoctrine etc" par ligne ci-dessous lorsque les logins seront fonctionnels
         $review = new Review();
         $review->setProduct($product);
+
         $review->setUser($user);
+        $review->setUser($this->getUser());
+        $review->setCreatedAt(new \DateTime());
+
         $review->setUser($this->getUser());
         $review->setCreatedAt(new \DateTime());
 
@@ -52,12 +60,6 @@ class ReviewController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-//            dd($review);
-            if(is_null($review->getPseudo()))
-            {
-                $review->setPseudo("Un utilisateur");
-            }
-
             $this->em->persist($review);
             $this->em->flush();
 
@@ -83,10 +85,11 @@ class ReviewController extends AbstractController
 
 
     /**
+
      *
      * @return Response
      */
-    public function add_product_name(): Response
+    public function product_name(): Response
     {
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
 
@@ -95,13 +98,23 @@ class ReviewController extends AbstractController
 
 
     /**
-     * @Route("product/{id}/reviews", name="all_product_reviews", methods={"GET|POST"})
+     * @IsGranted("ROLE_USER")
+
+     * @Route("product/{id}/reviews", name="product_reviews", methods={"GET|POST"})
      * @param Product $product
      * @return Response
      */
-    public function show_all_product_reviews(Product $product): Response
+    public function product_reviews(Request $request, Product $product, PaginatorInterface $paginator ): Response
     {
-        return $this->render("review/allProductReviews.html.twig", ['product' => $product]);
+        $product_reviews = $this->getDoctrine()->getRepository(Review::class)->findAll();
+        $page_reviews = $paginator->paginate(
+            $product_reviews,
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        return $this->render("review/productReviews.html.twig", ['page_reviews' => $page_reviews]);
+
     }
 
     /**
@@ -128,15 +141,18 @@ class ReviewController extends AbstractController
         $this->em->persist($report);
         $this->em->flush();
 
-        if($this->em->getRepository(Report::class)->countReports($review) >= 10)
+        if($this->em->getRepository(Report::class)->countReports($review) >= 1)
         {
-            dd('ok');
+            $mail = new Mail();
+            $mail->send(
+                'leson.benjamin78@gmail.com',
+                'Leson-Larivée',
+                'Signalement d\'un commentaire',
+                "Bonjour Benjamin,"."<br><br> Le commentaire <strong>".$review->getId()." du produit '".$review->getProduct()->getName()."'</strong> écrit par l'utilisateur".$user->getId()." a été signalé par plusieurs utilisateurs, merci de bien vouloir faire le nécéssaire.<br><br>L'équipe Cognac Guy Bonnaud"
+            );
         }
 
         return $this->json(['success' => true]);
     }
 }
-
-
-
 
