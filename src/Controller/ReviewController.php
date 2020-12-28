@@ -40,12 +40,11 @@ class ReviewController extends AbstractController
         #Remplacer "$user = $this->>getDoctrine etc" par ligne ci-dessous lorsque les logins seront fonctionnels
         $review = new Review();
         $review->setProduct($product);
-<<<<<<< HEAD
         $review->setUser($user);
-=======
+
         $review->setUser($this->getUser());
         $review->setCreatedAt(new \DateTime());
->>>>>>> 029bcf7e3ec21bc1f4837c4d456663ddab50b2ef
+
 
 
         $form = $this->createForm(ReviewType::class, $review);
@@ -95,10 +94,7 @@ class ReviewController extends AbstractController
         return $this->render("review/formReview.html.twig", ['products'=> $products]);
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 029bcf7e3ec21bc1f4837c4d456663ddab50b2ef
     /**
      * @Route("product/{id}/reviews", name="all_product_reviews", methods={"GET|POST"})
      * @param Product $product
@@ -109,9 +105,8 @@ class ReviewController extends AbstractController
         return $this->render("review/allProductReviews.html.twig", ['product' => $product]);
     }
 
-<<<<<<< HEAD
 }
-=======
+
     /**
      * @Route("/report/{id}")
      * @param Review $review
@@ -145,4 +140,4 @@ class ReviewController extends AbstractController
     }
 }
 
->>>>>>> 029bcf7e3ec21bc1f4837c4d456663ddab50b2ef
+
