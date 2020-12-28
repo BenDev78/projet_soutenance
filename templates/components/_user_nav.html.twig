@@ -26,8 +26,8 @@
                         Commandes
                     </a>
                 <li class="list-group-item">
-                    <a href=""
-                       class="link {% if app.request.pathInfo() == '/profile/commentaires' %} action-2 {% else %} color-main {% endif %}">
+                    <a href="{{ path('default_profile_reviews') }}"
+                       class="link {% if app.request.pathInfo() == '/profile/reviews' or current_page == 'detail_reviews' %} action-2 {% else %} color-main {% endif %}">
                         Commentaires
                     </a>
                 </li>
