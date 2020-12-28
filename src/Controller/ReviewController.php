@@ -41,7 +41,6 @@ class ReviewController extends AbstractController
         $review = new Review();
         $review->setProduct($product);
         $review->setUser($user);
-
         $review->setUser($this->getUser());
         $review->setCreatedAt(new \DateTime());
 
@@ -105,8 +104,6 @@ class ReviewController extends AbstractController
         return $this->render("review/allProductReviews.html.twig", ['product' => $product]);
     }
 
-}
-
     /**
      * @Route("/report/{id}")
      * @param Review $review
@@ -139,5 +136,7 @@ class ReviewController extends AbstractController
         return $this->json(['success' => true]);
     }
 }
+
+
 
 
