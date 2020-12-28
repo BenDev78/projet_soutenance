@@ -8,7 +8,6 @@ use App\Classe\Cart;
 use App\Entity\Address;
 use App\Form\AddressType;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -107,6 +106,6 @@ class AddressController extends AbstractController
             return $this->redirectToRoute('command_index');
         }
 
-        return $this->redirectToRoute('default_profile');
+        return $this->redirectToRoute('default_profile_addresses');
     }
 }
