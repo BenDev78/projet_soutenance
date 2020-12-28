@@ -50,7 +50,7 @@ class Review
     private $pseudo;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
@@ -58,7 +58,6 @@ class Review
      * @ORM\OneToMany(targetEntity=Report::class, mappedBy="review")
      */
     private $reports;
-    
 
     public function __construct()
     {
@@ -171,6 +170,5 @@ class Review
 
         return $this;
     }
-
 
 }
