@@ -44,7 +44,7 @@ class AdminReviewController extends AbstractController
             $user,
             $userEmail,
             'Suppression de commentaire',
-            "Bonjour ".$user->getFirstname().' '.$user->getLastname().",<br><br> Suite à de nombreux signalement de votre commentaire sur notre produit <strong>".$review->getProduct()->getName()."</strong>, un admistrateur à juger bon de le supprimer car il ne respecte pas notre charte d'utilisateur.<br><br> Vous pouvez toujours nous contracter <a href='https://localhost:8000/contact'>ici</a> si vous trouvez notre décision injuste.<br><br> Nous vous remercion de votre compréhension, <br><br> l'équipe Cognac Guy Bonnaud"
+            "Bonjour ".$user->getFirstname().' '.$user->getLastname().",<br><br> Suite à de nombreux signalements de votre commentaire sur notre produit <strong>".$review->getProduct()->getName()."</strong>, un admistrateur à juger bon de le supprimer car il ne respecte pas notre charte d'utilisateur.<br><br> Vous pouvez toujours nous contracter <a href='https://localhost:8000/contact'>ici</a> si vous trouvez notre décision injuste.<br><br> Nous vous remercion de votre compréhension, <br><br> l'équipe Cognac Guy Bonnaud"
         );
 
         return $this->redirectToRoute("admin_user_reviews", [

@@ -55,7 +55,7 @@ class Review
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Report::class, mappedBy="review", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Report::class, mappedBy="review")
      */
     private $reports;
     

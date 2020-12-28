@@ -39,6 +39,11 @@ class Carrier
      */
     private $commands;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
     public function __toString()
     {
         return '[r1]'.$this->getName().'[br][r2]'.$this->getDescription().'[br][r4]'.number_format($this->getPrice()/100,2, ',', '.').' €[r5][r3]';
@@ -116,6 +121,18 @@ class Carrier
                 $command->setCarrier(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

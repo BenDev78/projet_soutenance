@@ -56,6 +56,11 @@ class Command
      */
     private $reference;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $stripeSessionID;
+
     public function __construct()
     {
         $this->details = new ArrayCollection();
@@ -164,6 +169,18 @@ class Command
     public function setReference(string $reference): self
     {
         $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getStripeSessionID(): ?string
+    {
+        return $this->stripeSessionID;
+    }
+
+    public function setStripeSessionID(?string $stripeSessionID): self
+    {
+        $this->stripeSessionID = $stripeSessionID;
 
         return $this;
     }

@@ -1,8 +1,19 @@
 {% extends 'base.html.twig' %}
-{% set current_page 'success' %}
+{% set current_page = 'success' %}
 
-{% block title %}{% endblock %}
+{% block title %}Cognac Guy Bonnaud{% endblock %}
 
 {% block body %}
-
+    <div class="container">
+        <br>
+        <h2>Confirmation de commande</h2><br>
+        <p>Félicitations {{ command.user.firstname }} {{ command.user.lastname }} pour votre commande !<br><br>
+            Nous vous remercions pour votre commande n°<strong>{{ command.reference }}</strong>.<br>
+            Une confirmation vient de vous etre envoyé par mail à l'adresse <strong>{{ command.user.email }}</strong>.
+        </p>
+        <hr>
+        <p>
+            Votre commande sera livrée par <strong>{{ command.carrier.name }}</strong> à l'adresse : <br>{{ command.address|raw }}.
+        </p>
+    </div>
 {% endblock %}

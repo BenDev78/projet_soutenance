@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
 
 class ReviewController extends AbstractController
 {
@@ -34,7 +33,7 @@ class ReviewController extends AbstractController
     /**
      * Création du formulaire d'avis produit
      * @IsGranted("ROLE_USER")
-     * @Route("/review/{id}", name="form_review", methods={"GET|POST"})
+     * @Route("/review/{id}", name="product_review", methods={"GET|POST"})
      * @param Request $request
      * @param Product $product
      * @return Response
@@ -44,14 +43,8 @@ class ReviewController extends AbstractController
         #Remplacer "$user = $this->>getDoctrine etc" par ligne ci-dessous lorsque les logins seront fonctionnels
         $review = new Review();
         $review->setProduct($product);
-
-        $review->setUser($user);
         $review->setUser($this->getUser());
         $review->setCreatedAt(new \DateTime());
-
-        $review->setUser($this->getUser());
-        $review->setCreatedAt(new \DateTime());
-
 
 
         $form = $this->createForm(ReviewType::class, $review);
@@ -60,6 +53,12 @@ class ReviewController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+//            dd($review);
+            if(is_null($review->getPseudo()))
+            {
+                $review->setPseudo("Un utilisateur");
+            }
+
             $this->em->persist($review);
             $this->em->flush();
 
@@ -85,36 +84,14 @@ class ReviewController extends AbstractController
 
 
     /**
-
-     *
-     * @return Response
-     */
-    public function product_name(): Response
-    {
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-
-        return $this->render("review/formReview.html.twig", ['products'=> $products]);
-    }
-
-
-    /**
      * @IsGranted("ROLE_USER")
-
-     * @Route("product/{id}/reviews", name="product_reviews", methods={"GET|POST"})
+     * @Route("product/{id}/reviews", name="all_product_reviews", methods={"GET|POST"})
      * @param Product $product
      * @return Response
      */
-    public function product_reviews(Request $request, Product $product, PaginatorInterface $paginator ): Response
+    public function show_all_product_reviews(Product $product): Response
     {
-        $product_reviews = $this->getDoctrine()->getRepository(Review::class)->findAll();
-        $page_reviews = $paginator->paginate(
-            $product_reviews,
-            $request->query->getInt('page', 1),
-            10
-        );
-
-        return $this->render("review/productReviews.html.twig", ['page_reviews' => $page_reviews]);
-
+        return $this->render("review/allProductReviews.html.twig", ['product' => $product]);
     }
 
     /**
