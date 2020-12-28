@@ -12,12 +12,12 @@ class Cart
 {
 
     private $session;
-    private $entityManager;
+    private $em;
 
-    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
+    public function __construct(EntityManagerInterface $em, SessionInterface $session)
     {
         $this->session = $session;
-        $this->entityManager = $entityManager;
+        $this->em = $em;
     }
 
     public function get()
@@ -25,14 +25,14 @@ class Cart
         return $this->session->get('cart');
     }
 
-    public function add($id)
+    public function add($id, $quantity)
     {
         $cart = $this->session->get('cart', []);
 
-        if (!empty($cart[$id])) {
-            $cart[$id]++;
+        if(!empty($cart[$id])) {
+            $cart[$id]+= $quantity;
         } else {
-            $cart[$id] = 1;
+            $cart[$id] = $quantity;
         }
 
         $this->session->set('cart', $cart);
@@ -80,7 +80,7 @@ class Cart
 
         if ($this->get()) {
             foreach ($this->get() as $id => $quantity) {
-                $product_object = $this->entityManager->getRepository(Product::class)->findOneById($id);
+                $product_object = $this->em->getRepository(Product::class)->findOneById($id);
 
                 if (!$product_object) {
                     $this->delete($id);

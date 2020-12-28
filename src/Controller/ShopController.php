@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 
+use App\Classe\Cart;
 use App\Data\SearchData;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\Review;
+use App\Form\QuantitySelectorType;
 use App\Form\SearchType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,7 +18,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Tightenco\Collect\Support\Collection;
 
 class ShopController extends AbstractController
 {
@@ -82,9 +83,11 @@ class ShopController extends AbstractController
     /**
      * @Route("/shop/product/{slug}_{id}", name="shop_product", methods={"GET|POST"})
      * @param Product $product
+     * @param Request $request
+     * @param Cart $cart
      * @return Response
      */
-    public function product(Product $product): Response
+    public function product(Product $product, Request $request, Cart $cart): Response
     {
         $reviews = $product->getReviews();
 
@@ -104,10 +107,26 @@ class ShopController extends AbstractController
             $avg = round($sumReviews / $count[0], 1);
         }
 
+        $form = $this->createForm(QuantitySelectorType::class)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $data = $form->getData();
+            $cart->add($product->getId(), $data['quantity']);
+
+            $this->addFlash('success', 'Votre produit a bien été ajouté au panier.');
+
+            return $this->redirectToRoute('shop_product', [
+                'id' => $product->getId(),
+                'slug' => $product->getSlug()
+            ]);
+        }
+
         return $this->render("shop/product.html.twig", [
             'product' => $product,
             'avg' => $avg,
-            'count' => $count
+            'count' => $count,
+            'form' => $form->createView()
         ]);
     }
 

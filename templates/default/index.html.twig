@@ -16,8 +16,8 @@
             {% endfor %}
         </div>
     </div>
-    <!-- Content 6 -->
-    <section class="pt-125 pb-105 bg-dark color-filter-dark-5 content_6" data-bg-src="{{ asset('assets/i/grapes-3550733.jpg') }}">
+    <!-- Content -->
+    <section class="pt-125 pb-105 bg-dark color-filter-dark-5" data-bg-src="{{ asset('assets/i/grapes-3550733.jpg') }}">
         <div class="container px-xl-0 text-center color-white">
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-10">
@@ -66,7 +66,7 @@
                                     {{ product.name }}
                                 </a>
                                 <div class="mt-1 f-16 semibold sp-20 action-2 price">
-                                    {{ product.price|number_format(2, ',') }} €
+                                    {{ (product.price / 100)|number_format(2, ',') }} €
                                 </div>
                                 <a href="{{ path('shop_product', {'id' : product.id, 'slug' : product.slug}) }}" class="btn mt-15 sm action-1 medium f-16">
                                     Voir &nbsp;<i class="far fa-hand-point-right"></i>
