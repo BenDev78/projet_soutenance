@@ -4,12 +4,14 @@
 namespace App\Controller;
 
 
+use App\Classe\Mail;
 use App\Entity\Product;
 use App\Entity\Report;
 use App\Entity\Review;
 use App\Entity\User;
 use App\Form\ReviewType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +32,7 @@ class ReviewController extends AbstractController
 
     /**
      * Création du formulaire d'avis produit
+     * @IsGranted("ROLE_USER")
      * @Route("/review/{id}", name="product_review", methods={"GET|POST"})
      * @param Request $request
      * @param Product $product
@@ -42,6 +45,7 @@ class ReviewController extends AbstractController
         $review->setProduct($product);
         $review->setUser($this->getUser());
         $review->setCreatedAt(new \DateTime());
+
 
         $form = $this->createForm(ReviewType::class, $review);
         $form -> handleRequest($request);
@@ -80,17 +84,7 @@ class ReviewController extends AbstractController
 
 
     /**
-     *
-     * @return Response
-     */
-    public function add_product_name(): Response
-    {
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-
-        return $this->render("review/formReview.html.twig", ['products'=> $products]);
-    }
-
-    /**
+     * @IsGranted("ROLE_USER")
      * @Route("product/{id}/reviews", name="all_product_reviews", methods={"GET|POST"})
      * @param Product $product
      * @return Response
@@ -124,11 +118,18 @@ class ReviewController extends AbstractController
         $this->em->persist($report);
         $this->em->flush();
 
-        if($this->em->getRepository(Report::class)->countReports($review) >= 10)
+        if($this->em->getRepository(Report::class)->countReports($review) >= 1)
         {
-            dd('ok');
+            $mail = new Mail();
+            $mail->send(
+                'leson.benjamin78@gmail.com',
+                'Leson-Larivée',
+                'Signalement d\'un commentaire',
+                "Bonjour Benjamin,"."<br><br> Le commentaire <strong>".$review->getId()." du produit '".$review->getProduct()->getName()."'</strong> écrit par l'utilisateur".$user->getId()." a été signalé par plusieurs utilisateurs, merci de bien vouloir faire le nécéssaire.<br><br>L'équipe Cognac Guy Bonnaud"
+            );
         }
 
         return $this->json(['success' => true]);
     }
 }
+

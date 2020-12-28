@@ -69,7 +69,7 @@ class User implements UserInterface
     private $phone;
 
     /**
-     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="user", orphanRemoval=true)
      */
     private $reviews;
 

@@ -53,7 +53,6 @@ class UserController extends AbstractController
                 $user->getLastname(),
                 'Confirmation d\'incription',
                 $content,
-                $user->getLastname()
             );
 
             #Tmessage de confirmation d inscription
