@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% set current_page = 'product_reviews' %}
+{% set current_page = 'all_product_reviews' %}
 
 {% block body %}
 
@@ -30,7 +30,6 @@
                     </div>
                 </article>
             {% endfor %}
-            {{ knp_pagination_render(page_reviews) }}
         </div>
     </div>
 

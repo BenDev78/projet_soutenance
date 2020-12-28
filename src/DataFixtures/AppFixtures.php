@@ -206,7 +206,8 @@ class AppFixtures extends Fixture
                     ->setUser($user2)
                     ->setComment('Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet. Lorem ipsum sin dolor amet')
                     ->setRating(mt_rand(1,5))
-                    ->setCreatedAt(new \DateTime());
+                    ->setCreatedAt(new \DateTime())
+                ;
 
                 $manager->persist($review);
                 $manager->flush();
