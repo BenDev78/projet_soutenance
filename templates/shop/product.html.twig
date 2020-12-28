@@ -45,22 +45,19 @@
                         {{ (product.price / 100)|number_format(2,',') }} €
                     </div>
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="rating">
-                                <span><i class="fas fa-star{{ avg > 0 and avg > 0.9 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ avg > 0 and avg > 1.9 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ avg > 0 and avg > 2.9 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ avg > 0 and avg > 3.9 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ avg > 0 and avg > 4 ? ' action-2' : '' }}"></i></span>
-                                <span><small>({{ avg }})</small> sur {{ count[0] }} avis</span>
-                            </div>
-
+                    <div class="row">
+                        <div class="rating">
+                            <span><i class="fas fa-star{{ avg > 0 and avg > 0.9 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ avg > 0 and avg > 1.9 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ avg > 0 and avg > 2.9 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ avg > 0 and avg > 3.9 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ avg > 0 and avg > 4 ? ' action-2' : '' }}"></i></span>
+                            <span><small>({{ avg }})</small> sur {{ count[0] }} avis</span>
                         </div>
-                        <div>
-                            <a href="{{ path('all_product_reviews', {'id' : product.id}) }}">Voir les avis</a>
-                        </div>
+                    </div>
 
+                    <div>
+                        <a href="{{ path('all_product_reviews', {'id' : product.id}) }}">Voir les avis</a>
                     </div>
 
                     <div class="mw-520 color-heading text-adaptive">
@@ -113,7 +110,6 @@
                             {{ review.comment }}
                         </div>
                         <div class="mt-20 d-flex align-items-center author_info">
-                            <img src="i/testimonial_1_img.jpg" alt="" class="radius_full">
                             <div class="ml-15 f-14 semibold text-uppercase sp-20">
                                 {{ review.pseudo }}
                             </div>

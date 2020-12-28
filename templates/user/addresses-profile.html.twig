@@ -15,33 +15,40 @@
 
 
 {% block body %}
-    <h3 class="text-center">Mes commandes</span>
+    <h3 class="text-center mt-2">Mes adresses
     </h3>
     <div class="container">
         <hr class="mb-5">
         <div class="row">
             {% include 'components/_user_nav.html.twig' %}
             <div class="col-md-7 col-sm-12">
-                <div class="row">
-                    <div class="card col-md-6 mr-md-0 ml-md-0 col-sm-11 mr-sm-auto ml-sm-auto">
-                        {% set count = 1 %}
-                        {% for address in app.user.addresses %}
-                            <div class="card-body">
-                                <h5 class="card-title text-center mb-4">Adresse {{ count }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ address.name }}</h6>
-                                <p class="card-text text-secondary">{{ address.address }}</p>
-                                <p class="card-text text-secondary">{{ address.city }} {{ address.postalCode }}</p>
-                                <p class="card-text text-secondary">{{ address.country }}</p>
-                                <p class="text-right mb-0">
-                                    <a href="{{ path('address_update', {'id' : address.id}) }}" class="link action-2">
-                                        Modifier cette adresse
+                {% set count = 1 %}
+                {% for address in app.user.addresses %}
+                    <div class="card col-md-8 mx-auto mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title text-center mb-4">Adresse {{ count }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ address.name }}</h6>
+                            <p class="card-text text-secondary">{{ address.address }}</p>
+                            <p class="card-text text-secondary">{{ address.city }} {{ address.postalCode }}</p>
+                            <p class="card-text text-secondary">{{ address.country }}</p>
+                            <p class="mb-0 d-inline-block mr-3">
+                                <a href="{{ path('address_update', {'id' : address.id}) }}" class="link action-2">
+                                    Modifier cette adresse
+                                </a>
+                            </p>
+                            {% if count > 1 %}
+                                <p class="mb-0 d-inline-block">
+                                    <a href="{{ path('address_delete', {'id' : address.id}) }}" class="link text-danger"
+                                       onclick="return confirm('Etes-vous sûr de vouloir supprimer cette adresse ?')"
+                                    >
+                                        Supprimer
                                     </a>
                                 </p>
-                            </div>
-                        {% set count = count + 1 %}
-                        {% endfor %}
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
+                {% set count = count + 1 %}
+                {% endfor %}
             </div>
         </div>
     </div>
