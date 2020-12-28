@@ -29,9 +29,6 @@
                         <li class="mb-10">
                             Année {{ product.year }}
                         </li>
-                        <li class="mb-10">
-                            Mid-stretch denim
-                        </li>
                     </ul>
                 </div>
                 <div class="col-lg-1">
@@ -45,7 +42,7 @@
                         {{ (product.price / 100)|number_format(2,',') }} €
                     </div>
 
-                    <div class="container">
+                    <div class="mb-3">
                         <div class="row">
                             <div class="rating">
                                 <span><i class="fas fa-star{{ avg > 0 and avg > 0.9 ? ' action-2' : '' }}"></i></span>
@@ -70,11 +67,8 @@
                         <div class="mb-1 f-14 semibold text-uppercase sp-20 label action-1">
                             Quantity
                         </div>
-                        <div class="number-input md-number-input">
-                            <i class="fas fa-minus"></i>
-                            <span class="quantity_input mx-5">1</span>
-                            <i class="fas fa-plus"></i>
-                        </div>
+                        {{ form_start(form) }}
+                        {{ form_row(form.quantity) }}
                     </div>
                     <div class="mt-20 d-flex">
                         <div class="buttons">
@@ -83,51 +77,15 @@
                             </a>
                         </div>
                         <div class="buttons">
-                            <a href="{{ path('add_to_cart', {'id' : product.id}) }}" class="btn mt-40 mr-20 sm action-1 medium f-16">
+                            <button type="submit" class="btn mt-40 mr-20 sm action-1 medium f-16 add_to_cart">
                                 Ajouter au panier
-                            </a>
+                            </button>
                         </div>
                     </div>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
-    </section>
-    <section class="pt-80 pb-80 bg-dark color-white testimonial_1">
-        {% for review in product.reviews %}
-            <div class="container px-xl-0">
-                <div class="row justify-content-center">
-                    <div class="col-xl-10 col-lg-11">
-                        <div class="hr bg-gray h-2">
-                        </div>
-                    </div>
-                </div>
-                <div class="row pt-30 pb-50 inner">
-                    <div class="col-xl-2 col-lg-1">
-                    </div>
-                    <div class="col-md-1 col-sm-2">
-                        <i class="fas fa-quote-left f-36 color-gray">
-                        </i>
-                    </div>
-                    <div class="col-xl-7 col-lg-8 col-sm-10">
-                        <div class="pt-10 f-22 text-adaptive">
-                            {{ review.comment }}
-                        </div>
-                        <div class="mt-20 d-flex align-items-center author_info">
-                            <img src="i/testimonial_1_img.jpg" alt="" class="radius_full">
-                            <div class="ml-15 f-14 semibold text-uppercase sp-20">
-                                {{ review.pseudo }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-xl-10 col-lg-11">
-                        <div class="hr bg-gray h-2">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
     </section>
 {% endblock %}
 

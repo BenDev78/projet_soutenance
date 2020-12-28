@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Classe\Cart;
+use App\Entity\Carrier;
 use App\Entity\Command;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +17,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StripeController extends AbstractController
 {
+
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     /**
      * @Route("/command/create_session/{reference}", name="stripe_create_session")
      * @param EntityManagerInterface $entityManager
@@ -24,7 +33,7 @@ class StripeController extends AbstractController
      * @return Response
      * @throws ApiErrorException
      */
-    public function index(EntityManagerInterface $entityManager,Cart $cart, $reference): Response
+    public function index(EntityManagerInterface $entityManager, Cart $cart, $reference): Response
     {
         $product_for_stripe = [];
         $YOUR_DOMAIN = 'http://127.0.0.1:8000';
@@ -50,13 +59,14 @@ class StripeController extends AbstractController
             ];
         }
 
+        $carrier_object = $entityManager->getRepository(Carrier::class)->findOneById($command->getCarrier());
         $product_for_stripe[] = [
             'price_data' => [
                 'currency' => 'eur',
                 'unit_amount' => $command->getCarrier()->getPrice(),
                 'product_data' => [
                     'name' => $command->getCarrier()->getName(),
-                    'images' => [$YOUR_DOMAIN],
+                    'images' => [$YOUR_DOMAIN."/uploads/images/".$carrier_object->getImage()],
                 ],
             ],
             'quantity' => 1,
@@ -73,11 +83,13 @@ class StripeController extends AbstractController
                 $product_for_stripe
             ]],
             'mode' => 'payment',
-            'success_url' => $YOUR_DOMAIN . '/success.html',
-            'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+            'success_url' => $YOUR_DOMAIN . '/command/success/{CHECKOUT_SESSION_ID}',
+            'cancel_url' => $YOUR_DOMAIN . '/command/cancel/{CHECKOUT_SESSION_ID}',
         ]);
 
-        $response = new JsonResponse(['id' => $checkout_session->id]);
-        return $response;
+        $command->setStripeSessionID($checkout_session->id);
+        $this->em->flush();
+
+        return new JsonResponse(['id' => $checkout_session->id]);
     }
 }
