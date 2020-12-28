@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% set current_page = "four_oh_four" %}
+{% block title %}
+    Page introuvable
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <h3 class="text-center my-5">Erreur 404: Page introuvable</h3>
+        <p>Il semblerait que cette page n'existe pas, vous pouvez retourner à l'accueil en cliquant sur le lien suivant :
+            <a href="{{ path('default_index') }}">Retour à l'accueil</a></p>
+    </div>
+{% endblock %}

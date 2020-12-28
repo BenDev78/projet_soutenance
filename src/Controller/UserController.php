@@ -53,10 +53,9 @@ class UserController extends AbstractController
                 $user->getLastname(),
                 'Confirmation d\'incription',
                 $content,
-                $user->getLastname()
             );
 
-            #Tmessage de confirmation d inscription
+            # Message de confirmation d inscription
             $this->addFlash('success', 'Votre compte a bien été créé ! Connectez-vous maintenant !');
 
             #redirection lors de l inscription vers page connexion
@@ -68,13 +67,15 @@ class UserController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
     /**
      * Modification des données d'un utilisateur
      * @Route("/profil/edit", name="user_profil_edit", methods={"GET|POST"})
      * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function edit(Request $request): Response
+    public function edit(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         # Récupération des données du user connecté
         $user = $this->getUser();
@@ -84,6 +85,16 @@ class UserController extends AbstractController
         # Traitement du Formulaire
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $old_password = $form->get('old_password')->getData();
+
+            # Modification du mot de passe
+            if($old_password && $encoder->isPasswordValid($user, $old_password))
+            {
+                $password = $encoder->encodePassword($user, $user->getPassword());
+
+                $user->setPassword($password);
+
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();

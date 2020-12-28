@@ -41,23 +41,19 @@
                     <div class="mb-25 f-24 medium price action-2">
                         {{ (product.price / 100)|number_format(2,',') }} €
                     </div>
-
-                    <div class="mb-3">
-                        <div class="row">
-                            <div class="rating">
-                                <span><i class="fas fa-star{{ avg > 0 and avg > 0.9 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ avg > 0 and avg > 1.9 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ avg > 0 and avg > 2.9 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ avg > 0 and avg > 3.9 ? ' action-2' : '' }}"></i></span>
-                                <span><i class="fas fa-star{{ avg > 0 and avg > 4 ? ' action-2' : '' }}"></i></span>
-                                <span><small>({{ avg }})</small> sur {{ count[0] }} avis</span>
-                            </div>
-
+                    <div class="row">
+                        <div class="rating">
+                            <span><i class="fas fa-star{{ avg > 0 and avg > 0.9 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ avg > 0 and avg > 1.9 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ avg > 0 and avg > 2.9 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ avg > 0 and avg > 3.9 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ avg > 0 and avg > 4 ? ' action-2' : '' }}"></i></span>
+                            <span><small>({{ avg }})</small> sur {{ count[0] }} avis</span>
                         </div>
-                        <div>
-                            <a href="{{ path('all_product_reviews', {'id' : product.id}) }}">Voir les avis</a>
-                        </div>
+                    </div>
 
+                    <div>
+                        <a href="{{ path('all_product_reviews', {'id' : product.id}) }}">Voir les avis</a>
                     </div>
 
                     <div class="mw-520 color-heading text-adaptive">
