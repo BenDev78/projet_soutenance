@@ -544,11 +544,9 @@
 
 /* Selects */
 select {
-  appearance: none;
   text-indent: 0.01px;
   text-overflow: "";
   background-color: transparent;
-  background-image: url(../i/fa-angle-down-dark.png);
   background-repeat: no-repeat;
   background-position: 90% 50%;
   background-position: calc(100% - 20px) 50%;
@@ -556,15 +554,10 @@ select {
   border: 0;
   outline: none;
   color: #9E8A73;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   text-indent: 1px;
   text-overflow: "";
 }
-select::-ms-expand {
-  display: none;
-}
+
 select.color-white {
   color: #FFFFFF;
   background-image: url(../i/fa-angle-down-white.png);

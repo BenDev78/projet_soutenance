@@ -6,8 +6,11 @@ use App\Classe\Cart;
 use App\Classe\DataCommand;
 use App\Entity\Command;
 use App\Entity\Detail;
+use ContainerSFVfHvO\getMaker_AutoCommand_MakeCommandService;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,10 +43,6 @@ class CommandController extends AbstractController
         ]);
 
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            dd($form->getData());
-        }
 
         return $this->render('command/index.html.twig', [
             'form' => $form->createView(),
@@ -111,5 +110,35 @@ class CommandController extends AbstractController
             ]);
         }
         return $this->redirectToRoute('cart');
+    }
+
+    /**
+     * @Route("/command/success/{stripeSessionID}", name="command_success")
+     * @param Command $command
+     * @param Cart $cart
+     * @return RedirectResponse|Response
+     */
+    public function success(Command $command, Cart $cart)
+    {
+
+        if (!$command || $command->getUSer() !== $this->getUser()) {
+            return $this->redirectToRoute('default_index');
+        }
+
+        if (!$command->getIsPaid()) {
+            // Commande payée
+            $command->setIsPAid(1);
+            $this->entityManager->flush();
+
+            // Panier vidé
+            $cart->remove();
+
+            //envoi de mail de commande
+
+        }
+
+        return $this->render('command/success.html.twig', [
+            'command' => $command
+        ]);
     }
 }
