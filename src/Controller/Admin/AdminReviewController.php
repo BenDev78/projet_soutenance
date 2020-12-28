@@ -8,6 +8,7 @@ use App\Classe\Mail;
 use App\Entity\Review;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -49,14 +50,14 @@ class AdminReviewController extends AbstractController
             ->html('
             <p>
             Bonjour,
-            
+
             Suite à de nombreux signalement et après analyuse de nos équipes, votre commentaire a été supprimé parqu\'il ne respecte pas notre charte d\'utilisateurs.
-            
+
             Vous pouvez toujours non contacter <a href="https://localhost:8000/contact">ici</a> si vous jugez cette décision injuste.
-            
+
             Bien cordialement,
-            
-            l\'Administration  
+
+            l\'Administration
             </p>
             ')
         ;
@@ -67,4 +68,5 @@ class AdminReviewController extends AbstractController
             'id' => $user->getId()
         ]);
     }
+
 }

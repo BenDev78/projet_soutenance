@@ -5,11 +5,13 @@ namespace App\Controller;
 
 
 use App\Entity\Product;
+use App\Entity\Report;
 use App\Entity\Review;
 use App\Entity\User;
 use App\Form\ReviewType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,11 +38,14 @@ class ReviewController extends AbstractController
     public function review(Request $request, Product $product): Response
     {
         #Remplacer "$user = $this->>getDoctrine etc" par ligne ci-dessous lorsque les logins seront fonctionnels
-        #$user = $this->getUser();
-        $user = $this->getDoctrine()->getRepository(User::class)->find(5);
         $review = new Review();
         $review->setProduct($product);
+<<<<<<< HEAD
         $review->setUser($user);
+=======
+        $review->setUser($this->getUser());
+        $review->setCreatedAt(new \DateTime());
+>>>>>>> 029bcf7e3ec21bc1f4837c4d456663ddab50b2ef
 
 
         $form = $this->createForm(ReviewType::class, $review);
@@ -90,16 +95,54 @@ class ReviewController extends AbstractController
         return $this->render("review/formReview.html.twig", ['products'=> $products]);
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 029bcf7e3ec21bc1f4837c4d456663ddab50b2ef
     /**
-     * @Route("/allProductReviews/{id}", name="all_product_reviews", methods={"GET|POST"})
+     * @Route("product/{id}/reviews", name="all_product_reviews", methods={"GET|POST"})
+     * @param Product $product
      * @return Response
      */
-    public function show_all_product_reviews(): Response
+    public function show_all_product_reviews(Product $product): Response
     {
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-        $reviews = $this->getDoctrine()->getRepository(Review::class)->findAll();
-
-        return $this->render("review/allProductReviews.html.twig", ['reviews' =>$reviews, 'products' => $products]);
+        return $this->render("review/allProductReviews.html.twig", ['product' => $product]);
     }
 
+<<<<<<< HEAD
 }
+=======
+    /**
+     * @Route("/report/{id}")
+     * @param Review $review
+     * @return JsonResponse
+     */
+    public function report(Review $review): JsonResponse
+    {
+        $user = $review->getUser();
+
+        # check if a user has already report a review
+        $is_already_reported = $this->em->getRepository(Report::class)->searchUser($user, $review);
+
+        if($is_already_reported)
+        {
+            return $this->json(['success' => false]);
+        }
+
+        $report = new Report();
+        $report->setUser($review->getUser())
+            ->setReview($review);
+
+        $this->em->persist($report);
+        $this->em->flush();
+
+        if($this->em->getRepository(Report::class)->countReports($review) >= 10)
+        {
+            dd('ok');
+        }
+
+        return $this->json(['success' => true]);
+    }
+}
+
+>>>>>>> 029bcf7e3ec21bc1f4837c4d456663ddab50b2ef

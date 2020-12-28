@@ -4,21 +4,61 @@
 {% block body %}
 
     <div class="container">
-        <h3>Review #{{ reviews.id }}</h3>
+        <h3 class="text-center mt-4">Liste des avis du produis {{ product.name }}</h3>
         <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="rating">
-                    <span><i class="fas fa-star{{ reviews.rating > 0 ? ' action-2' : '' }}"></i></span>
-                    <span><i class="fas fa-star{{ reviews.rating > 1 ? ' action-2' : '' }}"></i></span>
-                    <span><i class="fas fa-star{{ reviews.rating > 2 ? ' action-2' : '' }}"></i></span>
-                    <span><i class="fas fa-star{{ reviews.rating > 3 ? ' action-2' : '' }}"></i></span>
-                    <span><i class="fas fa-star{{ reviews.rating > 4 ? ' action-2' : '' }}"></i></span>
-                </div>
-            </div>
+            {% for review in product.reviews %}
+                <article class="card col-md-8 mx-auto mt-4 ">
+                    <div class="card-body">
+                        <h5 class="card-title d-inline-block mr-2">{{ review.pseudo ? review.pseudo : 'anonyme' }}</h5>
+                        <span>le : <u>{{ review.createdAt | date('d/m/y H:m:s') }}</u></span>
+                        <div>
+                            <span><i class="fas fa-star{{ review.rating > 0 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ review.rating > 1 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ review.rating > 2 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ review.rating > 3 ? ' action-2' : '' }}"></i></span>
+                            <span><i class="fas fa-star{{ review.rating > 4 ? ' action-2' : '' }}"></i></span>
+                        </div>
+                        <p class="card-text">
+                            {{ review.comment ? review.comment : '' }}
+                        </p>
+                        <p class="card-link link text-danger report d-inline-block mr-5" style="cursor: pointer;">
+                            <span data-id="{{ review.id }}" class="text-danger">Signaler un abus</span>
+                        </p>
+                    </div>
+                </article>
+            {% endfor %}
         </div>
     </div>
 
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
 
+            $('.report').on('click', '.text-danger', function() {
 
+                $.ajax({
+                    url: `/report/${$(this).attr('data-id')}`,
+
+                    success: data => {
+                        if(data.success)
+                        {
+                            alert('Le commentaire a bien été signalé.');
+                        } else
+                        {
+                            alert('Vous avez déjà signalé ce commentaire.');
+                        }
+                    },
+
+                    error: () => {
+                        alert('Une erreur est survenue, veuillez réessayer ultérireurement.')
+                    }
+
+                });
+
+            });
+        })
+    </script>
+{% endblock %}
