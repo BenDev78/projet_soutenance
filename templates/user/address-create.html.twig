@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
+    <div class="container">
         <div class="col-md-6 mx-auto">
 
-            <h3 class="text-center mb-4">Enregistrez une adresse</h3>
+            <h3 class="text-center mt-2 mb-4">Enregistrez une adresse</h3>
 
             {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
 
@@ -63,6 +63,7 @@
             </div>
 
             <button type="submit" class="btn sm action-2">Enregistrer</button>
+
 
             {{ form_end(form) }}
         </div>

@@ -8,11 +8,7 @@ use App\Classe\Mail;
 use App\Entity\Review;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -43,27 +39,14 @@ class AdminReviewController extends AbstractController
 
         $this->addFlash('success', 'Le commentaire de l\'utilisateur '.$user->getFirstname().' '.$user->getLastname().' a bien été supprimé');
 
-        /*$email = (new Email())
-            ->from('leson.benjamin78@gmail.com')
-            ->to('johnnypierre@icloud.com')
-            ->subject('Suppression de commentaire')
-            ->html('
-            <p>
-            Bonjour,
+        $mail = new Mail();
+        $mail->send(
+            $user,
+            $userEmail,
+            'Suppression de commentaire',
+            "Bonjour ".$user->getFirstname().' '.$user->getLastname().",<br><br> Suite à de nombreux signalements de votre commentaire sur notre produit <strong>".$review->getProduct()->getName()."</strong>, un admistrateur à juger bon de le supprimer car il ne respecte pas notre charte d'utilisateur.<br><br> Vous pouvez toujours nous contracter <a href='https://localhost:8000/contact'>ici</a> si vous trouvez notre décision injuste.<br><br> Nous vous remercion de votre compréhension, <br><br> l'équipe Cognac Guy Bonnaud"
+        );
 
-            Suite à de nombreux signalement et après analyuse de nos équipes, votre commentaire a été supprimé parqu\'il ne respecte pas notre charte d\'utilisateurs.
-
-            Vous pouvez toujours non contacter <a href="https://localhost:8000/contact">ici</a> si vous jugez cette décision injuste.
-
-            Bien cordialement,
-
-            l\'Administration
-            </p>
-            ')
-        ;
-
-        $mailer->send($email);
-        */
         return $this->redirectToRoute("admin_user_reviews", [
             'id' => $user->getId()
         ]);

@@ -3,13 +3,26 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    <!-- Flash Message -->
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {% for label, messages in app.flashes(['success', 'warning']) %}
+                {% for message in messages %}
+                    <div class="text-center alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
     <section class="bg-light form_2">
         <div class="container px-xl-0">
             <div class="row justify-content-center text-center text-md-left">
                 <div class="col-lg-5 col-md-6 col-sm-10">
                     <form method="post" class="pt-105 pb-100">
                         <h2 class="mb-45 small">
-                            Se connecter
+                            Mot de passe oublié
                         </h2>
                         {% for label, messages in app.flashes(['success', 'warning']) %}
                             {% for message in messages %}
@@ -24,27 +37,14 @@
                             </div>
                             <input type="email" name="email" placeholder="Votre mail" required="required" class="input mb-25 w-full lg border-gray focus-action-1 color-heading placeholder-gray text-center text-md-left" data-kwimpalastatus="alive" data-kwimpalaid="1608126207603-44">
                         </div>
-                        <div>
-                            <div class="mb-10 f-14 semibold text-uppercase sp-20">
-                                Mot de passe
-                            </div>
-                            <input type="password" name="password" placeholder="Votre mot de passe" required="required" class="input mb-25 w-full lg border-gray focus-action-1 color-heading placeholder-gray text-center text-md-left" data-kwimpalastatus="alive" data-kwimpalaid="1608126207603-42">
-                        </div>
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                         <div class="mt-25 d-flex flex-wrap align-items-center buttons">
                             <button class="btn mr-20 mb-20 mb-xl-0 w-210 lg action-2">
-                                Connexion
+                                Valider
                             </button>
                         </div>
-                        <a href="{{ path('resetPassword_reset') }}" class="link mt-3 color-main">Mot de passe oublié</a>&nbsp;/&nbsp;
-                        <a href="{{ path('user_create') }}" class="link mt-3 color-main">Créer un compte</a>
+                        <a href="{{ path('app_login') }}" class="link mt-3 color-main">Se connecter</a>
                     </form>
                 </div> <!--col-lg-5 col-md-6 col-sm-10 -->
-                <div class="col-sm-1">
-                </div>
-                <div class="col-lg-6 col-md-5 d-none d-md-block overflow-hidden img_holder">
-                    <img src="" alt="" class="h-full absolute img-fluid" srcset="">
-                </div>
             </div> <!--row justify-content-center text-center text-md-left -->
         </div> <!--container px-xl-0 -->
     </section>

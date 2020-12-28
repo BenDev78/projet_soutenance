@@ -21,9 +21,12 @@
                         <p class="card-text">
                             {{ review.comment ? review.comment : '' }}
                         </p>
-                        <p class="card-link link text-danger report d-inline-block mr-5" style="cursor: pointer;">
-                            <span data-id="{{ review.id }}" class="text-danger">Signaler un abus</span>
-                        </p>
+                        {% if is_granted('ROLE_USER') %}
+                            <p class="card-link link text-danger report d-inline-block mr-5" style="cursor: pointer;">
+                                <span data-id="{{ review.id }}" class="text-danger">Signaler un abus</span>
+                            </p>
+                        {% endif %}
+
                     </div>
                 </article>
             {% endfor %}

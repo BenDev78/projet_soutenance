@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% set current_page = "login" %}
+{% block title %}Modifier votre mot de passe{% endblock %}
+
+{% block body %}
+    <section class="bg-light form_2">
+        <div class="container px-xl-0">
+            <h3 class="text-center mb-5">Modifiez votre mot de passe</h3>
+            <div class="col-md-6 mb-10 mx-auto">
+                {% for label, messages in app.flashes(['success', 'warning']) %}
+                    {% for message in messages %}
+                        <div class="flash-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {{ form_start(form) }}
+                {{ form_errors(form.password) }}
+                {{ form_widget(form.password) }}
+                {{ form_help(form.password) }}
+                <button class="btn mr-20 mb-20 mb-xl-0 w-210 lg action-2 d-block mx-auto">
+                    Valider
+                </button>
+                {{ form_end(form) }}
+            </div>
+        </div> <!--container px-xl-0 -->
+    </section>
+{% endblock %}
+
