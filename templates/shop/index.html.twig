@@ -48,17 +48,19 @@
                     {% include 'components/_filtre.html.twig' %}
                 </div>
                 <div class="col-lg-9 products">
-                    <div class="row text-center">
+                    <div class="row text-center" style="">
                         {% for product in products %}
                             <div class="mt-35 mb-35 col-md-4 col-sm-6 product">
                                 <a href="{{ path('shop_product', {'id' : product.id, 'slug' : product.slug}) }}" class="link img_link">
                                     <img src="{{ asset('uploads/images/'~product.image) }}" alt="{{ product.name }}"
                                          class="img-fluid h-400 radius10">
                                 </a>
+                                <div class="row" style="min-height: 110px; align-content: center">
                                 <a href="{{ path('shop_product', {'id' : product.id, 'slug' : product.slug}) }}"
                                    class="link mt-15 d-block color-main f-18 text-uppercase semibold sp-20 title">
                                     {{ product.name }}
                                 </a>
+                                </div>
                                 <div class="mt-1 f-16 semibold sp-20 action-2 price">
                                     {{ (product.price / 100)|number_format(2, ',') }} €
                                 </div>
@@ -72,6 +74,6 @@
             </div>
         </div>
     </section>
-
+    vertical-align: middle;
 {% endblock %}
 

@@ -35,7 +35,7 @@ class ProfileType extends AbstractType
                     'placeholder' => 'Merci de saisir votre mail',
                 ]
             ])
-            ->add('phone', TelType::class, [
+            ->add('phone', TextType::class, [
                 'attr' =>[
                     'placeholder' => 'Merci de saisir votre téléphone'
                 ]

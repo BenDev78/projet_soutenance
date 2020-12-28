@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Classe\Contact;
 use App\Entity\Command;
 use App\Entity\Product;
+use App\Entity\Review;
+use App\Entity\User;
 use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -122,6 +124,23 @@ class DefaultController extends AbstractController
         return $this->render('user/detail-command.hmtl.twig', [
             'command' => $command
         ]);
+    }
+    /**
+     * @Route("/profile/reviews", name="default_profile_reviews", methods={"GET|POST"})
+     * @return Response
+     */
+    public function reviews(): Response
+    {
+        return $this->render('user/detail-review.html.twig');
+    }
+
+    /**
+     * @Route("/terms", name="default_terms", methods={"GET"})
+     * @return Response
+     */
+    public function terms(): Response
+    {
+        return $this->render('default/terms.html.twig');
     }
 
 }
