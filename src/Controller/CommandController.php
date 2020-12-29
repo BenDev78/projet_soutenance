@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Classe\Cart;
 use App\Classe\DataCommand;
+use App\Classe\Mail;
 use App\Entity\Command;
 use App\Entity\Detail;
 use ContainerSFVfHvO\getMaker_AutoCommand_MakeCommandService;
@@ -51,7 +52,7 @@ class CommandController extends AbstractController
     }
 
     /**
-     * @Route("/command/confirm", name="new_command", methods={"POST"})
+     * @Route("/command/confirm", name="new_command", methods={"GET|POST"})
      * @param Cart $cart
      * @param Request $request
      * @return Response
@@ -120,8 +121,7 @@ class CommandController extends AbstractController
      */
     public function success(Command $command, Cart $cart)
     {
-
-        if (!$command || $command->getUSer() !== $this->getUser()) {
+       if (!$command || $command->getUSer() !== $this->getUser()) {
             return $this->redirectToRoute('default_index');
         }
 
@@ -134,10 +134,44 @@ class CommandController extends AbstractController
             $cart->remove();
 
             //envoi de mail de commande
+            $user = $command->getUser();
+            $content = "<br>
+        <h2>Confirmation de commande</h2><br>
+        <p>Félicitations <span style='color: #ECBC10'>".$user->getFirstname().' '.$user->getLastname()."</span> pour votre commande !<br><br>
+            Nous vous remercions pour votre commande n°<strong style='color: #ECBC10'>".$command->getReference()."</strong>.<br>
+            Une confirmation vient de vous etre envoyé par mail à l'adresse <strong style='color: #ECBC10'>".$user->getEmail()."</strong>.
+        </p>
+        <hr>
+        <p>
+            Votre commande sera livrée par <strong style='color: #ECBC10'>".$command->getCarrier()->getName()."</strong> à l'adresse : <br><br>".$command->getAddress().".
+        </p>
+        <hr>";
 
+            $mail = new Mail();
+            $mail->send(
+                $user->getEmail(),
+                $user->getFirstname().' '.$user->getLastname(),
+                'Confirmation de votre commande n°'.$command->getReference(),
+            $content);
         }
 
         return $this->render('command/success.html.twig', [
+            'command' => $command
+        ]);
+    }
+
+    /**
+     * @Route("/commande/annulation/{stripeSessionID}", name="command_cancel")
+     * @param Command $command
+     * @return Response
+     */
+    public function cancel(Command $command): Response
+    {
+        if (!$command || $command->getUSer() !== $this->getUser()) {
+            return $this->redirectToRoute('default_index');
+        }
+
+        return $this->render('command/cancel.html.twig', [
             'command' => $command
         ]);
     }
