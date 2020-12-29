@@ -16,7 +16,7 @@ class ReviewType extends AbstractType
     {
         $builder
 
-            ->add('rating', IntegerType::class, ['label' => 'Note Générale (0 à 5)'])
+            ->add('rating', IntegerType::class, ['label' => 'Note Générale (0 : Imbuvable, 1 : Très mauvais, 2 : Mauvais, 3 : Bon, 4 : Très bon, 5 : Excellent)'])
             ->add('comment', TextareaType::class, ['label' => 'Commentaire'])
             ->add('pseudo', TextType::class, ['label' => 'Pseudo'])
         ;
