@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% set current_page = 'create_admin' %}
+{% block admin %}{% endblock %}
+
+{% block title %}
+    Enregister une actualité
+{% endblock %}
+
+{% block body %}
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col">
+                <h3 class="my-4 text-center">Enregistrer une actualité</h3>
+                {{ form_start(form, {'attr': {'novalidate' : 'novalidate'}}) }}
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+                        <div class="card shadow-sm mt-4 px-5 border-0" style="padding-top: 15px">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_row(form.title) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(form.place) }}
+                                </div>
+                            </div>
+                            {{ form_row(form.start) }}
+
+                            {{ form_row(form.end) }}
+                            <div class="row">
+                                {{ form_row(form.flyer) }}
+                            </div>
+                            <div class="row">
+                                {{ form_row(form.content) }}
+                            </div>
+                            <div class="row">
+                                {{ form_row(form.googlemap) }}
+                            </div>
+                            <button class="btn sm action-2" type="submit">Créer</button>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 mx-auto">
+        {{ form_start(form) }}
+    </div>
+{% endblock %}
+
+

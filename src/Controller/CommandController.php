@@ -25,7 +25,7 @@ class CommandController extends AbstractController
     }
 
     /**
-     * @Route("/command", name="command_index")
+     * @Route("/commande", name="command_index")
      * @param Cart $cart
      * @param Request $request
      * @return Response
@@ -51,7 +51,7 @@ class CommandController extends AbstractController
     }
 
     /**
-     * @Route("/command/confirm", name="new_command", methods={"POST"})
+     * @Route("/commande/confirmer", name="new_command", methods={"POST"})
      * @param Cart $cart
      * @param Request $request
      * @return Response
@@ -113,7 +113,7 @@ class CommandController extends AbstractController
     }
 
     /**
-     * @Route("/command/success/{stripeSessionID}", name="command_success")
+     * @Route("/commande/succes/{stripeSessionID}", name="command_success")
      * @param Command $command
      * @param Cart $cart
      * @return RedirectResponse|Response

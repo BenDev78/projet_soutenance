@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class AdminCommandController
- * @Route("/admin/command")
+ * @Route("/admin/commande")
  * @package App\Controller\Admin
  */
 class AdminCommandController extends AbstractController

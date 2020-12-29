@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Actuality;
 use App\Entity\Carrier;
 use App\Entity\Command;
 use App\Entity\Product;
@@ -47,7 +48,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/products", name="admin_products", methods={"GET|POST"})
+     * @Route("/produits", name="admin_products", methods={"GET|POST"})
      * @return Response
      */
     public function allProducts(): Response
@@ -60,7 +61,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/users", name="admin_users", methods={"GET"})
+     * @Route("/utilisateurs", name="admin_users", methods={"GET"})
      * @return Response
      */
     public function allUsers(): Response
@@ -73,7 +74,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/commands", name="admin_commands", methods={"GET"})
+     * @Route("/commandes", name="admin_commands", methods={"GET"})
      * @return Response
      */
     public function allCommands(): Response
@@ -86,7 +87,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/carriers", name="admin_carriers", methods={"GET"})
+     * @Route("/transporteurs", name="admin_carriers", methods={"GET"})
      * @return Response
      */
     public function allCarrier(): Response
@@ -95,6 +96,19 @@ class AdminController extends AbstractController
 
         return $this->render('admin/carrier.html.twig', [
            'carriers' => $carriers
+        ]);
+    }
+
+    /**
+     * @Route("/actualites", name="admin_actualities", methods={"GET"})
+     * @return Response
+     */
+    public function allActualities(): Response
+    {
+        $actualities = $this->getDoctrine()->getRepository(Actuality::class)->findAll();
+
+        return $this->render('admin/actualities.html.twig', [
+            'actualities' => $actualities
         ]);
     }
 

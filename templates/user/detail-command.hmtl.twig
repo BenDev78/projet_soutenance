@@ -37,7 +37,7 @@
                         {% set total = null %}
 
                         {% for detail in command.details %}
-                            {% set totalProduct = detail.quantity * detail.product.price %}
+                            {% set totalProduct = detail.quantity * (detail.product.price / 100) %}
                             {% set total = total + totalProduct %}
                             <tr class="text-secondary border-bottom">
                                 <td class="align-middle">
@@ -47,8 +47,8 @@
                                 </td>
                                 <td class="align-middle"><img src="{{ asset('uploads/images/' ~ detail.product.image) }}" class="py-2" alt="{{ detail.product.name }}" width="75px"></td>
                                 <td class="align-middle">{{ detail.quantity }}</td>
-                                <td class="align-middle">€ {{ detail.product.price | number_format(2, ',')}}</td>
-                                <td class="align-middle">€ {{ totalProduct | number_format(2, ',')}}</td>
+                                <td class="align-middle">{{ (detail.product.price / 100)| number_format(2, ',')}} €</td>
+                                <td class="align-middle">{{ totalProduct | number_format(2, ',')}} €</td>
                             </tr>
                         {% endfor %}
                         <tr>
@@ -56,17 +56,17 @@
                             {% set totalHt = total - tva %}
                             <td colspan="3"></td>
                             <td colspan="1" class="text-left pt-2">TVA 19,6% :</td>
-                            <td colspan="1" class="text-left pt-2">€ {{ tva | number_format(2, ',')}}</td>
+                            <td colspan="1" class="text-left pt-2">{{ tva | number_format(2, ',')}} €</td>
                         </tr>
                         <tr>
                             <td colspan="3"></td>
                             <td colspan="1" class="text-left">Total HT :</td>
-                            <td colspan="1" class="text-left">€ {{ totalHt | number_format(2, ',')}}</td>
+                            <td colspan="1" class="text-left">{{ totalHt | number_format(2, ',')}} €</td>
                         </tr>
                         <tr>
                             <td colspan="3"></td>
                             <td colspan="1" class="text-left">Total TTC :</td>
-                            <td colspan="1" class="text-left">€ {{ total | number_format(2, ',') }}</td>
+                            <td colspan="1" class="text-left">{{ total | number_format(2, ',') }} €</td>
                         </tr>
                         </tbody>
                     </table>
