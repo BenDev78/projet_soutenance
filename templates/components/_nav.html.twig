@@ -11,11 +11,7 @@
                    class="link mx-15{% if current_page == "home" %} action-2{% else %} color-main{% endif %}">
                     Accueil
                 </a>
-                <a href="#"
-                   class="link mx-15{% if current_page == "actu" %} action-2{% else %} color-main{% endif %}">
-                    Actualités
-                </a>
-                <a href="#"
+                <a href="{{ path('default_history') }}"
                    class="link mx-15{% if current_page == "history" %} action-2{% else %} color-main{% endif %}">
                     Notre histoire
                 </a>

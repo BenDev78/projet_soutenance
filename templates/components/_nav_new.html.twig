@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#"
+                <a href="{{ path('default_history') }}"
                    class="link mx-15{% if current_page == "history" %} action-2{% else %} color-main{% endif %}">
                     Notre histoire
                 </a>
@@ -61,7 +61,7 @@
             {% endif %}
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item">
-                    <a href="{{ ('/logout') }}" class="btn mr-20 sm action-2 f-16 text-capitalize">
+                    <a href="{{ ('/logout') }}" class="btn mr-20 sm action-2 f-16">
                         <span class="f-12">Se déconnecter</span>
                     </a>
                 </li>
