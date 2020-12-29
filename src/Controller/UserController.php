@@ -14,14 +14,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 /**
- * @Route("/user")
+ * @Route("/utilisateur")
  */
 class UserController extends AbstractController
 {
     /**
      * Inscription d'un utilisateur
-     * @Route("/create", name="user_create", methods={"GET|POST"})
-     * ex: http://localhost:8000/user/create
+     * @Route("/creer", name="user_create", methods={"GET|POST"})
+     * ex: http://localhost:8000/utilisateur/creer
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
@@ -52,7 +52,7 @@ class UserController extends AbstractController
                 $user->getEmail(),
                 $user->getLastname(),
                 'Confirmation d\'incription',
-                $content,
+                $content
             );
 
             # Message de confirmation d inscription
@@ -70,7 +70,7 @@ class UserController extends AbstractController
 
     /**
      * Modification des données d'un utilisateur
-     * @Route("/profil/edit", name="user_profil_edit", methods={"GET|POST"})
+     * @Route("/profil/modifier", name="user_profil_edit", methods={"GET|POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @return Response

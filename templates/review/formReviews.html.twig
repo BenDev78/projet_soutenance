@@ -26,6 +26,23 @@
             <button class="btn mr-20 mb-20 mb-xl-0 w-210 lg action-2 text-center">Envoyer</button>
         </div>
             {{ form_end(form) }}
-
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        const review_rating = document.querySelector('#review_rating');
+
+        review_rating.addEventListener('change', e => {
+            if(e.target.value > 4)
+            {
+                e.target.value = 5
+            }
+            if(e.target.value < 0)
+            {
+                e.target.value = 0
+            }
+        })
+    </script>
 {% endblock %}

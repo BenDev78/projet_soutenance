@@ -33,7 +33,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for command in app.user.commands %}
+                            {% for command in app.user.commands | sort((a,b) => b.id <=> a.id) %}
                                 <tr class="text-secondary">
                                     <td>{{ command.id }}</td>
                                     <td>{{ command.createdAt | date('d/m/y H:m:s')}}</td>

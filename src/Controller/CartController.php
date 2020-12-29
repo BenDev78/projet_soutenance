@@ -23,7 +23,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart", name="cart")
+     * @Route("/panier", name="cart")
      * @param Cart $cart
      * @return Response
      */
@@ -35,7 +35,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart/increase/{id}", name="increase_cart")
+     * @Route("/panier/augmenter/{id}", name="increase_cart")
      * @param Cart $cart
      * @param $id
      * @return Response
@@ -48,7 +48,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart/decrease/{id}", name="decrease_cart")
+     * @Route("/panier/diminuer/{id}", name="decrease_cart")
      * @param Cart $cart
      * @param $id
      * @return Response
@@ -61,7 +61,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart/delete/{id}", name="delete_to_cart")
+     * @Route("/panier/supprimer/{id}", name="delete_to_cart")
      * @param Cart $cart
      * @param $id
      * @return Response
@@ -74,7 +74,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart/remove", name="remove_cart")
+     * @Route("/panier/retirer", name="remove_cart")
      * @param Cart $cart
      * @return Response
      */
@@ -86,7 +86,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/newCommand", name="cart_newCommand")
+     * @Route("/nouvelle-commande", name="cart_newCommand")
      * @param Cart $cart
      * @return Response
      */

@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class AddressController
- * @Route("profile/address")
+ * @Route("profil/adresse")
  * @package App\Controller
  */
 class AddressController extends AbstractController
@@ -29,7 +29,7 @@ class AddressController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="address_create", methods={"GET|POST"})
+     * @Route("/ajouter", name="address_create", methods={"GET|POST"})
      * @param Cart $cart
      * @param Request $request
      * @return Response
@@ -59,7 +59,7 @@ class AddressController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}", name="address_update", methods={"GET|POST"})
+     * @Route("/modifier/{id}", name="address_update", methods={"GET|POST"})
      * @param Address $address
      * @param Request $request
      * @return Response
@@ -87,7 +87,7 @@ class AddressController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="address_delete", methods={"GET|POST"})
+     * @Route("/supprimer/{id}", name="address_delete", methods={"GET|POST"})
      * @param Cart $cart
      * @param Address $address
      * @return Response

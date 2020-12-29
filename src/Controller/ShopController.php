@@ -30,7 +30,7 @@ class ShopController extends AbstractController
 
 
     /**
-     * @Route("/shop", name="shop_index", methods={"GET|POST"})
+     * @Route("/boutique", name="shop_index", methods={"GET|POST"})
      * @param Request $request
      * @param ProductRepository $repository
      * @return Response
@@ -62,7 +62,7 @@ class ShopController extends AbstractController
     }
 
     /**
-     * @Route("/shop/{alias}", name="shop_category", methods={"GET|POST"})
+     * @Route("/boutique/{alias}", name="shop_category", methods={"GET|POST"})
      * @param Category $category
      * @param Request $request
      * @return Response
@@ -81,7 +81,7 @@ class ShopController extends AbstractController
     }
 
     /**
-     * @Route("/shop/product/{slug}_{id}", name="shop_product", methods={"GET|POST"})
+     * @Route("/boutique/produit/{slug}_{id}", name="shop_product", methods={"GET|POST"})
      * @param Product $product
      * @param Request $request
      * @param Cart $cart
