@@ -84,7 +84,7 @@ class StripeController extends AbstractController
             ]],
             'mode' => 'payment',
             'success_url' => $YOUR_DOMAIN . '/command/success/{CHECKOUT_SESSION_ID}',
-            'cancel_url' => $YOUR_DOMAIN . '/command/cancel/{CHECKOUT_SESSION_ID}',
+            'cancel_url' => $YOUR_DOMAIN . '/commande/annulation/{CHECKOUT_SESSION_ID}',
         ]);
 
         $command->setStripeSessionID($checkout_session->id);

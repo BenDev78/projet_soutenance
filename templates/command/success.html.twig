@@ -7,13 +7,15 @@
     <div class="container">
         <br>
         <h2>Confirmation de commande</h2><br>
-        <p>Félicitations {{ command.user.firstname }} {{ command.user.lastname }} pour votre commande !<br><br>
-            Nous vous remercions pour votre commande n°<strong>{{ command.reference }}</strong>.<br>
-            Une confirmation vient de vous etre envoyé par mail à l'adresse <strong>{{ command.user.email }}</strong>.
+        <p>Félicitations <span class="action-2">{{ command.user.firstname }} {{ command.user.lastname }}</span> pour votre commande !<br><br>
+            Nous vous remercions pour votre commande n°<strong class="action-2">{{ command.reference }}</strong>.<br>
+            Une confirmation vient de vous etre envoyé par mail à l'adresse <strong class="action-2">{{ command.user.email }}</strong>.
         </p>
         <hr>
         <p>
-            Votre commande sera livrée par <strong>{{ command.carrier.name }}</strong> à l'adresse : <br>{{ command.address|raw }}.
+            Votre commande sera livrée par <strong class="action-2">{{ command.carrier.name }}</strong> à l'adresse : <br><br>{{ command.address|raw }}.
         </p>
+        <hr>
+        <p>Vous pouvez retrouver les details de votre commandes <a href="{{ path('default_profile_commands') }}" class="action-2">ici</a></p>
     </div>
 {% endblock %}
