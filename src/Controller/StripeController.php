@@ -26,7 +26,7 @@ class StripeController extends AbstractController
     }
 
     /**
-     * @Route("/command/create_session/{reference}", name="stripe_create_session")
+     * @Route("/commande/creer_session/{reference}", name="stripe_create_session")
      * @param EntityManagerInterface $entityManager
      * @param Cart $cart
      * @param $reference
@@ -84,7 +84,7 @@ class StripeController extends AbstractController
             ]],
             'mode' => 'payment',
             'success_url' => $YOUR_DOMAIN . '/command/success/{CHECKOUT_SESSION_ID}',
-            'cancel_url' => $YOUR_DOMAIN . '/command/cancel/{CHECKOUT_SESSION_ID}',
+            'cancel_url' => $YOUR_DOMAIN . '/commande/annulation/{CHECKOUT_SESSION_ID}',
         ]);
 
         $command->setStripeSessionID($checkout_session->id);

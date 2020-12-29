@@ -14,13 +14,13 @@ use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 /**
  * Class AdminUserController
- * @Route("/admin/user")
+ * @Route("/admin/utilisateur")
  * @package App\Controller\Admin
  */
 class AdminUserController extends AbstractController
 {
     /**
-     * @Route("/delete/{id}", name="admin_user_delete", methods={"GET|POST"})
+     * @Route("/supprimer/{id}", name="admin_user_delete", methods={"GET|POST"})
      * @param User $user
      * @return Response
      */
@@ -37,7 +37,7 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * @Route("/reviews/{id}", name="admin_user_reviews", methods={"GET|POST"})
+     * @Route("/commentaires/{id}", name="admin_user_reviews", methods={"GET|POST"})
      * @param User $user
      * @return Response
      */
@@ -49,7 +49,7 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * @Route("/review/{id}", name="admin_user_review", methods={"GET|POST"})
+     * @Route("/commentaire/{id}", name="admin_user_review", methods={"GET|POST"})
      * @param Review $review
      * @return Response
      */
