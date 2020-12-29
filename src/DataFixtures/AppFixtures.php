@@ -35,6 +35,7 @@ class AppFixtures extends Fixture
         //Création carrier
         $carrier = new Carrier();
         $carrier->setDescription('test')
+            ->setImage('https://via.placeholder.com/150')
             ->setPrice(2)
             ->setName('test');
         $manager->persist($carrier);

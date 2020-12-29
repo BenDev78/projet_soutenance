@@ -1,12 +1,29 @@
 {% extends "base.html.twig" %}
 {% set current_page = 'all_product_reviews' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .container nav{
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .container nav a{
+            color: #ECBC10; !important
+        }
+        .container nav li.page-item.active span{
+            background-color: #ECBC10; !important
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
 
     <div class="container">
         <h3 class="text-center mt-4">Liste des avis du produis {{ product.name }}</h3>
         <div class="row">
-            {% for review in product.reviews %}
+            {% for review in reviews %}
+
                 <article class="card col-md-8 mx-auto mt-4 ">
                     <div class="card-body">
                         <h5 class="card-title d-inline-block mr-2">{{ review.pseudo ? review.pseudo : 'anonyme' }}</h5>
@@ -30,6 +47,7 @@
                     </div>
                 </article>
             {% endfor %}
+            {{ knp_pagination_render(reviews) }}
         </div>
     </div>
 

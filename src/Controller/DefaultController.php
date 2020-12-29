@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Classe\Contact;
+use App\Entity\Actuality;
 use App\Entity\Command;
 use App\Entity\Product;
 use App\Entity\Review;
@@ -36,8 +37,11 @@ class DefaultController extends AbstractController
 
         $products = $this->em->getRepository(Product::class)->findByIsBest(1);
 
+        $actualities = $this->em->getRepository(Actuality::class)->findAll();
+
         return $this->render('default/index.html.twig', [
-            'products' => $products
+            'products' => $products,
+            'actualities' => $actualities
         ]);
     }
 
@@ -82,7 +86,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/profile", name="default_profile", methods={"GET|POST"})
+     * @Route("/profil", name="default_profile", methods={"GET|POST"})
      * @return Response
      */
     public function profile(): Response
@@ -91,7 +95,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/profile/commands", name="default_profile_commands", methods={"GET|POST"})
+     * @Route("/profil/commandes", name="default_profile_commands", methods={"GET|POST"})
      * @return Response
      */
     public function commands(): Response
@@ -100,7 +104,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/profile/addresses", name="default_profile_addresses", methods={"GET|POST"})
+     * @Route("/profil/adresses", name="default_profile_addresses", methods={"GET|POST"})
      * @return Response
      */
     public function addresses(): Response
@@ -109,7 +113,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/profile/command/{id}", name="default_profil_command")
+     * @Route("/profil/commande/{id}", name="default_profil_command")
      * @param Command $command
      * @return Response
      */
@@ -126,7 +130,7 @@ class DefaultController extends AbstractController
         ]);
     }
     /**
-     * @Route("/profile/reviews", name="default_profile_reviews", methods={"GET|POST"})
+     * @Route("/profil/commentaires", name="default_profile_reviews", methods={"GET|POST"})
      * @return Response
      */
     public function reviews(): Response
@@ -135,7 +139,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/terms", name="default_terms", methods={"GET"})
+     * @Route("/conditions-generales", name="default_terms", methods={"GET"})
      * @return Response
      */
     public function terms(): Response

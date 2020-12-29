@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class AdminProductController
- * @Route("/admin/carriers")
+ * @Route("/admin/transporteurs")
  * @package App\Controller\Admin
  */
 class AdminCarrierController extends AbstractController
@@ -26,7 +26,7 @@ class AdminCarrierController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="admin_carrier_create")
+     * @Route("/creer", name="admin_carrier_create")
      * @param Request $request
      * @return Response
      */
@@ -51,7 +51,7 @@ class AdminCarrierController extends AbstractController
     }
 
     /**
-     * @Route("/update", name="admin_carrier_update", methods={"GET|POST"})
+     * @Route("/modifier", name="admin_carrier_update", methods={"GET|POST"})
      * @param Carrier $carrier
      * @param Request $request
      * @return Response
@@ -75,7 +75,7 @@ class AdminCarrierController extends AbstractController
     }
 
     /**
-     * @Route("delete/{id}", name="admin_carrier_delete", methods={"GET|POST"})
+     * @Route("supprimer/{id}", name="admin_carrier_delete", methods={"GET|POST"})
      * @param Carrier $carrier
      * @return Response
      */

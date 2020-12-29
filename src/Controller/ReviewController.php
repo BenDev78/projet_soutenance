@@ -10,12 +10,14 @@ use App\Entity\Report;
 use App\Entity\Review;
 use App\Form\ReviewType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class ReviewController extends AbstractController
 {
@@ -32,7 +34,10 @@ class ReviewController extends AbstractController
     /**
      * Création du formulaire d'avis produit
      * @IsGranted("ROLE_USER")
-     * @Route("/review/{id}", name="product_review", methods={"GET|POST"})
+
+     * @Route("/review/{id}", name="form_review", methods={"GET|POST"})
+
+     * @Route("/commentaire/{id}", name="product_review", methods={"GET|POST"})
      * @param Request $request
      * @param Product $product
      * @return Response
@@ -40,6 +45,22 @@ class ReviewController extends AbstractController
     public function review(Request $request, Product $product): Response
     {
         #Remplacer "$user = $this->>getDoctrine etc" par ligne ci-dessous lorsque les logins seront fonctionnels
+        $reviews = $product->getReviews();
+
+        # If the user already reviewed a product, we redirect him to the product page
+        foreach ($reviews as $review)
+        {
+            if($review->getUser() == $this->getUser())
+            {
+                $this->addFlash('warning', 'Vous avez déjà laissé votre avis sur ce produit.');
+
+                return $this->redirectToRoute('shop_product', [
+                    'id' => $product->getId(),
+                    'slug' => $product->getSlug()
+                ]);
+            }
+        }
+
         $review = new Review();
         $review->setProduct($product);
         $review->setUser($this->getUser());
@@ -83,13 +104,26 @@ class ReviewController extends AbstractController
 
 
     /**
-     * @Route("product/{id}/reviews", name="all_product_reviews", methods={"GET|POST"})
+     * @Route("product/{id}/reviews", name="product_reviews", methods={"GET|POST"})
+     * @Route("produit/{id}/commentaires", name="all_product_reviews", methods={"GET|POST"})
      * @param Product $product
+     * @param Request $request
+     * @param PaginatorInterface $paginator
      * @return Response
      */
-    public function show_all_product_reviews(Product $product): Response
+    public function product_reviews(Product $product, Request $request, PaginatorInterface $paginator): Response
     {
-        return $this->render("review/allProductReviews.html.twig", ['product' => $product]);
+        $reviews = $this->getDoctrine()->getRepository(Review::class)->findByProduct($product);
+
+        $reviews = $paginator->paginate(
+            $reviews, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), 2
+        );
+
+        return $this->render("review/productReviews.html.twig", [
+            'reviews' => $reviews,
+            'product' => $product
+        ]);
     }
 
     /**

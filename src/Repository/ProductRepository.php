@@ -37,11 +37,6 @@ class ProductRepository extends ServiceEntityRepository
         return $stmt->fetchNumeric();
     }
 
-/*SELECT p.id, AVG(r.rating)
-FROM product p, review r
-WHERE p.id = r.product_id
-AND p.id = 5;*/
-
     public function findSearch($search)
     {
         $query =  $this
@@ -57,6 +52,7 @@ AND p.id = 5;*/
 
         return $query->getQuery()->getResult();
     }
+
 //SELECT p.id, p.name, ROUND(AVG(r.rating), 1) as rate
 //FROM product p, review r
 //WHERE p.id = r.product_id 
@@ -66,32 +62,4 @@ AND p.id = 5;*/
 //FROM avg_rating
 //WHERE rate BETWEEN 3 AND 3 +1;
 
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Product
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

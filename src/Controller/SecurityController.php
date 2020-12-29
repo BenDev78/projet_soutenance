@@ -13,7 +13,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/connexion", name="app_login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -32,7 +32,7 @@ class SecurityController extends AbstractController
         #TODO ajouter un message de confirmation de connexion
     }
     /**
-     * @Route("/logout", name="app_logout")
+     * @Route("/deconnexion", name="app_logout")
      */
     public function logout(): Response
     {
@@ -40,12 +40,12 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/delete_user/{id}", name="delete_user")
+     * @Route("/supprimer/{id}", name="delete_user")
      * @param User $user
-     * @param TokenStorageInterface $tokenStorage
+     * @param SessionInterface $session
      * @return Response
      */
-    public function deleteUser(User $user, TokenStorageInterface $tokenStorage, SessionInterface $session): Response
+    public function deleteUser(User $user, SessionInterface $session): Response
     {
         if($user !== $this->getUser()) {
             $this->addFlash('warning', 'Vous ne pouvez pas supprimer ce membre!');

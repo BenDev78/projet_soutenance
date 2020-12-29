@@ -1,8 +1,16 @@
 {% extends 'base.html.twig' %}
-{% set current_page 'cancel' %}
+{% set current_page = 'cancel' %}
 
-{% block title %}{% endblock %}
+{% block title %}Cognac Guy Bonnaud{% endblock %}
 
 {% block body %}
-
+<div class="container">
+    <br>
+    <h2>Erreur de Paiement</h2><br>
+    <p>Bonjour <span class="action-2">{{ command.user.firstname }} {{ command.user.lastname }}</span> .<br><br>
+        Malheureusement, le paiement de votre commande n°<strong class="action-2">{{ command.reference }}</strong> n'a pas aboutit.<br>
+    </p>
+    <hr>
+    <p>Vous pouvez rééssayer votre paiement <a href="{{ path('new_command') }}" class="action-2">ici</a></p>
+</div>
 {% endblock %}
