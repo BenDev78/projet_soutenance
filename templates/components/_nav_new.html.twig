@@ -17,13 +17,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#"
-                   class="link mx-15{% if current_page == "actu" %} action-2{% else %} color-main{% endif %}">
-                    Actualités
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#"
+                <a href="{{ path('default_history') }}"
                    class="link mx-15{% if current_page == "history" %} action-2{% else %} color-main{% endif %}">
                     Notre histoire
                 </a>
