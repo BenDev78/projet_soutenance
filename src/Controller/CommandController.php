@@ -9,7 +9,8 @@ use App\Entity\Command;
 use App\Entity\Detail;
 use ContainerSFVfHvO\getMaker_AutoCommand_MakeCommandService;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\This;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,14 +76,14 @@ class CommandController extends AbstractController
             $date = new \DateTime();
             $carriers = $form->get('carriers')->getData();
             $address = $form->get('address')->getData();
-            $address_content = $address->getUser()->getFirstName().' '.$address->getUser()->getLastName();
-            $address_content .= '<br/>'.$address->getAddress();
-            $address_content .= '<br/>'.$address->getPostalCode().' '.$address->getCity();
-            $address_content .= '<br/>'.$address->getCountry();
+            $address_content = $address->getUser()->getFirstName() . ' ' . $address->getUser()->getLastName();
+            $address_content .= '<br/>' . $address->getAddress();
+            $address_content .= '<br/>' . $address->getPostalCode() . ' ' . $address->getCity();
+            $address_content .= '<br/>' . $address->getCountry();
 
             // Enregistrer ma commande
             $command = new Command();
-            $reference = $date->format('dmY').'-'.uniqid();
+            $reference = $date->format('dmY') . '-' . uniqid();
             $command->setReference($reference);
             $command->setUser($this->getUser())
                 ->setCreatedAt($date)
@@ -121,7 +122,7 @@ class CommandController extends AbstractController
      */
     public function success(Command $command, Cart $cart)
     {
-       if (!$command || $command->getUSer() !== $this->getUser()) {
+        if (!$command || $command->getUSer() !== $this->getUser()) {
             return $this->redirectToRoute('default_index');
         }
 
@@ -129,31 +130,67 @@ class CommandController extends AbstractController
             // Commande payée
             $command->setIsPAid(1);
             $this->entityManager->flush();
+        }
 
-            // Panier vidé
-            $cart->remove();
+        // Panier vidé
+        $cart->remove();
 
-            //envoi de mail de commande
-            $user = $command->getUser();
-            $content = "<br>
+        //PDF
+        $dompdf = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('Roboto');
+        $options->setDefaultPaperOrientation('portrait');
+        $options->setIsHtml5ParserEnabled(true);
+        $dompdf->setOptions($options);
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('command/pdf.html.twig', [
+            'cart' => $cart,
+            'command' => $command
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size
+        $dompdf->setPaper('A4');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Store PDF Binary Data
+        $output = $dompdf->output([0]);
+
+        // In this case, we want to write the file in the public directory
+        $publicDirectory = $this->getParameter('pdf_directory');
+
+        // e.g /var/www/project/public/mypdf.pdf
+        $pdfFilepath = $publicDirectory . $command->getReference() . '.pdf';
+
+        // Write file to the desired path
+        file_put_contents($pdfFilepath, $output);
+
+        //envoi de mail de commande
+        $user = $command->getUser();
+        $content = "<br>
         <h2>Confirmation de commande</h2><br>
-        <p>Félicitations <span style='color: #ECBC10'>".$user->getFirstname().' '.$user->getLastname()."</span> pour votre commande !<br><br>
-            Nous vous remercions pour votre commande n°<strong style='color: #ECBC10'>".$command->getReference()."</strong>.<br>
-            Une confirmation vient de vous etre envoyé par mail à l'adresse <strong style='color: #ECBC10'>".$user->getEmail()."</strong>.
+        <p>Félicitations <span style='color: #ECBC10'>" . $user->getFirstname() . ' ' . $user->getLastname() . "</span> pour votre commande !<br><br>
+            Nous vous remercions pour votre commande n°<strong style='color: #ECBC10'>" . $command->getReference() . "</strong>.<br>
+            Une confirmation vient de vous etre envoyé par mail à l'adresse <strong style='color: #ECBC10'>" . $user->getEmail() . "</strong>.
         </p>
         <hr>
         <p>
-            Votre commande sera livrée par <strong style='color: #ECBC10'>".$command->getCarrier()->getName()."</strong> à l'adresse : <br><br>".$command->getAddress().".
+            Votre commande sera livrée par <strong style='color: #ECBC10'>" . $command->getCarrier()->getName() . "</strong> à l'adresse : <br><br>" . $command->getAddress() . ".
         </p>
         <hr>";
 
-            $mail = new Mail();
-            $mail->send(
-                $user->getEmail(),
-                $user->getFirstname().' '.$user->getLastname(),
-                'Confirmation de votre commande n°'.$command->getReference(),
+        $mail = new Mail();
+        $mail->send(
+            $user->getEmail(),
+            $user->getFirstname() . ' ' . $user->getLastname(),
+            'Confirmation de votre commande n°' . $command->getReference(),
             $content);
-        }
+
 
         return $this->render('command/success.html.twig', [
             'command' => $command
