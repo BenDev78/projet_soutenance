@@ -52,6 +52,10 @@
                         </div>
                     </div>
 
+
+                    <div>
+                        <a href="{{ path('product_reviews', {'id' : product.id}) }}">Voir les avis</a>
+
                     <div class="mb-20">
                         <a href="{{ path('all_product_reviews', {'id' : product.id}) }}">Voir les avis</a>
                     </div>
@@ -68,7 +72,7 @@
                     </div>
                     <div class="mt-20 d-flex">
                         <div class="buttons">
-                            <a href="{{ path('product_review', {'id' : product.id}) }}" class="btn mt-40 mr-20 sm action-2 medium f-16">
+                            <a href="{{ path('form_review', {'id' : product.id}) }}" class="btn mt-40 mr-20 sm action-2 medium f-16">
                                 Laisser un avis
                             </a>
                         </div>
