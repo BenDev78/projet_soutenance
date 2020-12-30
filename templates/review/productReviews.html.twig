@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% set current_page = 'all_product_reviews' %}
+{% set current_page = 'product_reviews' %}
 {% block stylesheets %}
     {{ parent() }}
     <style>
@@ -9,11 +9,16 @@
             margin-top: 15px;
         }
         .container nav a{
-            color: #ECBC10; !important
+            color: #ecbc10; !important
         }
         .container nav li.page-item.active span{
             background-color: #ECBC10; !important
         }
+        .container nav a:hover{
+            color: #9e8a73; !important
+        }
+
+
     </style>
 {% endblock %}
 
