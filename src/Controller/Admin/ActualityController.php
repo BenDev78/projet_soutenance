@@ -6,13 +6,17 @@ namespace App\Controller\Admin;
 
 use App\Entity\Actuality;
 use App\Form\ActualityType;
+use App\Form\CreateType;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * Class ActualityController
@@ -61,6 +65,51 @@ class ActualityController extends AbstractController
         }
 
         return $this->render('admin/actuality-create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route ("/modifier/{id}", methods={"GET|POST"})
+     * @param Actuality $actuality
+     * @param Request $request
+     * @param FileUploader $fileUploader
+     * @param SluggerInterface $slugger
+     * @return Response
+     */
+    public function update(Actuality $actuality, Request $request, FileUploader $fileUploader, SluggerInterface $slugger): Response
+    {
+        if($fileUploader)
+        {
+            $oldFile = new File($this->getParameter('images_directory') . '/' . $actuality->getFlyer());
+            $oldFileName = $oldFile->getFilename();
+        }
+
+        $form = $this->createForm(CreateType::class, $actuality)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $actuality->setFlyer($oldFileName);
+
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('flyer')->getData();
+
+            if ($imageFile) {
+                $filesystem = new Filesystem();
+                $filesystem->remove($this->getParameter('images_directory') . '/' . $oldFileName);
+
+                $newFilename = $fileUploader->upload($imageFile);
+
+                $actuality->setFlyer($newFilename);
+            }
+
+            $this->em->flush();
+
+            return $this->redirectToRoute('admin_actuality_create');
+        }
+
+        return $this->render('admin/actuality-create.html.twig', [
+            'actuality' => $actuality,
             'form' => $form->createView()
         ]);
     }
