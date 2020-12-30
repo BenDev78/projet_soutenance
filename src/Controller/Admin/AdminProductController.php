@@ -49,6 +49,7 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             /** @var UploadedFile $productFile */
             $productFile = $form->get('image')->getData();
             if ($productFile) {
