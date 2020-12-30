@@ -83,7 +83,7 @@ class StripeController extends AbstractController
                 $product_for_stripe
             ]],
             'mode' => 'payment',
-            'success_url' => $YOUR_DOMAIN . '/command/success/{CHECKOUT_SESSION_ID}',
+            'success_url' => $YOUR_DOMAIN . '/commande/succes/{CHECKOUT_SESSION_ID}',
             'cancel_url' => $YOUR_DOMAIN . '/commande/annulation/{CHECKOUT_SESSION_ID}',
         ]);
 

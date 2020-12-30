@@ -39,7 +39,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="" onclick="return confirm('Voulez-vous vraiment supprimer cet article ?')">
+                            <a href="{{ path('admin_command_delete', {'id' : command.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette commande ?')">
                                 <i class="fas fa-times text-danger"></i>
                             </a>
                         </td>
