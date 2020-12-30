@@ -7,6 +7,7 @@ use App\Classe\DataCommand;
 use App\Classe\Mail;
 use App\Entity\Command;
 use App\Entity\Detail;
+use App\Entity\Product;
 use ContainerSFVfHvO\getMaker_AutoCommand_MakeCommandService;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
@@ -53,7 +54,7 @@ class CommandController extends AbstractController
     }
 
     /**
-     * @Route("/commande/confirmer", name="new_command", methods={"POST"})
+     * @Route("/commande/confirmer", name="new_command", methods={"POST|GET"})
      * @param Cart $cart
      * @param Request $request
      * @return Response
@@ -99,6 +100,7 @@ class CommandController extends AbstractController
                     ->setProduct($product['products'])
                     ->setQuantity($product['quantities']);
                 $this->entityManager->persist($detail);
+
             }
 
             $this->entityManager->flush();
@@ -200,13 +202,23 @@ class CommandController extends AbstractController
     /**
      * @Route("/commande/annulation/{stripeSessionID}", name="command_cancel")
      * @param Command $command
+     * @param Cart $cart
      * @return Response
      */
-    public function cancel(Command $command): Response
+    public function cancel(Command $command, Cart $cart): Response
     {
         if (!$command || $command->getUSer() !== $this->getUser()) {
             return $this->redirectToRoute('default_index');
         }
+
+        // Update des stocks en BDD
+        foreach ($cart->getFull() as $product) {
+            $stock = $product['products']->getStock();
+            $stock = $stock + $product['quantities'];
+            $product['products']->setStock($stock);
+        }
+
+        $this->entityManager->flush();
 
         return $this->render('command/cancel.html.twig', [
             'command' => $command

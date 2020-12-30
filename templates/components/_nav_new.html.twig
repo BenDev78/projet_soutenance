@@ -54,14 +54,14 @@
             {% endif %}
             {% if not is_granted('ROLE_USER') %}
                 <li class="nav-item">
-                    <a href="{{ ('/login') }}" class="btn mr-20 sm action-2 f-16">
+                    <a href="{{ path('app_login') }}" class="btn mr-20 sm action-2 f-16 text-capitalize">
                         S'identifier
                     </a>
                 </li>
             {% endif %}
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item">
-                    <a href="{{ ('/logout') }}" class="btn mr-20 sm action-2 f-16">
+                    <a href="{{ path('app_logout') }}" class="btn mr-20 sm action-2 f-16 text-capitalize">
                         <span class="f-12">Se déconnecter</span>
                     </a>
                 </li>

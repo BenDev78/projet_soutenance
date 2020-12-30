@@ -40,11 +40,17 @@ class CreateType extends AbstractType
                 'label' => 'Image du produit',
                 'data_class' => null
             ])
+            ->add('stock', NumberType::class, [
+                'label' => 'Stock'
+            ])
             ->add('year', NumberType::class, [
                 'label' => 'Millésime'
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description'
+                'label' => 'Description',
+                'attr' => [
+                    'rows' => 10
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregister le produit',
