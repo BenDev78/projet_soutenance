@@ -9,6 +9,7 @@ use App\Entity\Product;
 use App\Entity\Review;
 use App\Entity\User;
 use App\Form\ContactType;
+use App\Repository\ReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,17 +32,34 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/", name="default_index", methods={"GET"})
+     * @param ReviewRepository $reviewRepository
+     * @return Response
      */
-    public function index(): Response
+    public function index(ReviewRepository $reviewRepository): Response
     {
 
         $products = $this->em->getRepository(Product::class)->findByIsBest(1);
 
         $actualities = $this->em->getRepository(Actuality::class)->findAll();
 
+
+        # Get all reviews with a rating > 3
+        $reviews = $reviewRepository->getHightRatedReview();
+        $reviewsId = [];
+        foreach($reviews as $review)
+        {
+            $reviewsId[] = $review['id'];
+        }
+
+        $nbRand = array_rand($reviewsId, 1);
+
+        $randReview = $reviewRepository->randomReview($reviewsId[$nbRand]);
+
+
         return $this->render('default/index.html.twig', [
             'products' => $products,
-            'actualities' => $actualities
+            'actualities' => $actualities,
+            'randReview' => $randReview
         ]);
     }
 
