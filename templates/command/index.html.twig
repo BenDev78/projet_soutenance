@@ -29,8 +29,8 @@
                 <div class="scroll-div">
 
                     <div class="order-summary">
-                        {% for key,product in cart %}
-                            <div class="row {% if key > 0 %}mt-2{% endif %}">
+                        {% for product in cart %}
+                            <div class="row">
                                 <div class="col-2">
                                     <img src="{{ asset('/uploads/images/'~ product.products.image) }}"
                                          alt="{{ product.products.name }}"

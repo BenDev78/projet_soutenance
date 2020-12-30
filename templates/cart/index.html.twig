@@ -5,6 +5,17 @@
 
 {% block body %}
 <div class="container">
+    <div class="row ">
+        <div class="col-md-6 mx-auto">
+            {% for label, messages in app.flashes(['success', 'warning']) %}
+                {% for message in messages %}
+                    <div class="text-center alert alert-{{ label }} mt-2">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
     <h1>Mon panier</h1>
 
     {% if cart|length > 0 %}
