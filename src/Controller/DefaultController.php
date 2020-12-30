@@ -42,7 +42,6 @@ class DefaultController extends AbstractController
 
         $actualities = $this->em->getRepository(Actuality::class)->findAll();
 
-        $picture = $this->em->getRepository(Product::class)->findAll();
 
         # Get all reviews with a rating > 3
         $reviews = $reviewRepository->getHightRatedReview();
@@ -60,8 +59,7 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'products' => $products,
             'actualities' => $actualities,
-            'randReview' => $randReview,
-            'picture' => $picture
+            'randReview' => $randReview
         ]);
     }
 
