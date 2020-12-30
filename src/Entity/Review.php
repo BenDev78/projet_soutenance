@@ -29,12 +29,14 @@ class Review
     /**
      * @ORM\Column(type="text", nullable=false)
      * @Assert\Length(min="3", max="150")
+     * @Assert\NotBlank(message="Vous avez oublié le commentaire.")
      */
     private $comment;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\Range(min=0, max=5)
+     * @Assert\NotNull(message="Merci de rentrer une valeur valide.")
      */
     private $rating;
 

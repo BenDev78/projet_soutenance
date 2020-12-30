@@ -100,6 +100,11 @@ class Product
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $stock;
+
 
     public function __construct()
     {
@@ -276,6 +281,18 @@ class Product
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): self
+    {
+        $this->stock = $stock;
 
         return $this;
     }

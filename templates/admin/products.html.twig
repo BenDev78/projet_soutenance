@@ -30,6 +30,7 @@
                     <th>Nom</th>
                     <th>Prix <small>€</small></th>
                     <th>Quantité <small>cl</small></th>
+                    <th>Stock</th>
                     <th>Image</th>
                     <th>En avant</th>
                     <th>Editer</th>
@@ -44,6 +45,7 @@
                         <td class="align-middle">{{ product.name }}</td>
                         <td class="align-middle">{{ product.price / 100 }}</td>
                         <td class="align-middle">{{ product.quantity }}</td>
+                        <td class="align-middle {{ product.stock < 10 ? 'text-danger' : 'text-success' }}">{{ product.stock }}</td>
                         <td class="align-middle">
                             <img src="{{ asset('uploads/images/' ~ product.image) }}"
                                  alt="{{ product.name }}" height="80px">
