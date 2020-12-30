@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+{% set current_page = "history" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        div img {
+            float: right;
+            height: 200px;
+            width: 350px;
+            margin: 0 15px;
+        }
+
+        div .img2 {
+            float: left;
+        !important;
+        }
+
+        #p1 {
+            margin-bottom: 100px;
+            margin-top: 30px;
+        }
+
+        #t1 {
+            margin-top: 10px;
+        }
+
+        #p2 {
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ecbc10;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: x-large;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Notre histoire</h2>
+        <h3>Cognac Guy Bonnaud : l'histoire d'une famille rurale française</h3>
+
+        <div id="p1">
+            <div>
+                <img src="{{ asset('uploads/images/history1.jpg') }}" alt="">
+            </div>
+            <div id="t1">
+                <p>L'histoire du cognac Guy Bonnaud, c'est l'histoire d'une authentique famille rurale française. Une
+                    histoire marquée par les grands événements et les drames de son temps.</p>
+                <p>Installé aux Cailletières à Gourville, le grand père de Guy Bonnaud, André Bonnaud exploite une
+                    petite
+                    ferme en polyculture-élevage, dont quelques parcelles en vigne pour le cognac.</p>
+                <p>Quand il est mobilisé pour la guerre 1914-1918, André Bonnaud est veuf et père de trois enfants.
+                    Pendant
+                    toute la guerre, il confie ses enfants au voisinage qu'il rémunère en leur donnant une vache...</p>
+            </div>
+        </div>
+
+        <div id="p2">
+            <div>
+                <img class="img2" src="{{ asset('uploads/images/history2.jpg') }}" alt="">
+            </div>
+            <div>
+                <p>Son fils Aristide, le père de Guy est à son tour victime de la seconde guerre mondiale et reste
+                    prisonnier pendant 6 ans. Mais la famille serre les rangs, et l'exploitation continue de
+                    fonctionner. Au sortir de la guerre, le jeune Guy Bonnaud aide son père jusqu'à son départ au
+                    service militaire. Il reste 18 mois au Maroc, 5 mois en Algérie et un mois au Moyen-Orient. A son
+                    retour en 1958, il prend lui-même la direction de l'exploitation et développe le vignoble destiné au
+                    cognac qui passe des 2 hectares du grand-père et des 6 hectares du père à 30 hectares et même 50
+                    aujourd'hui avec son fils, sa belle-fille et ses deux petits-fils qui assurent déjà la relève.</p>
+            </div>
+        </div>
+        <div>
+            <p>Il vend ses eaux-de vies à de prestigieuses maisons de cognac comme Hennessy. En 1975, il commence à
+                stocker et vieillir lui-même une partie des eaux-de-vies de cognac qu'il produit. Et commence à
+                vendre les premiers cognacs Guy Bonnaud en 1997. Qualité aidant, le succès est immédiat.</p>
+        </div>
+        <div>
+            <img src="{{ asset('uploads/images/history3.jpg') }}" alt="">
+        </div>
+        <div>
+            <p>L'exploitation de la famille Bonnaud s'étend aujourd'hui sur plus de 50 hectares de vignes idéalement
+                situées sur des coteaux Sud, au coeur de la campagne verdoyante de Charente en zone d'appellation "fins
+                bois".</p>
+            <p>Le cognac vieillit pendant de longues années dans des chais maintenus à température idéale et sécurisés.</p>
+            <p>Une chaine d'embouteillage permet à la famille Bonnaud d'assurer la totalité de la chaine de fabrication depuis la culture de la vigne jusqu'à votre verre.</p>
+        </div>
+
+    </div>
+
+{% endblock %}

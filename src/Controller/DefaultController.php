@@ -147,5 +147,13 @@ class DefaultController extends AbstractController
         return $this->render('default/terms.html.twig');
     }
 
+    /**
+     * @Route("/histoire", name="default_history", methods={"GET"})
+     * @return Response
+     */
+    public function about(): Response
+    {
+        return $this->render('default/history.html.twig');
+    }
 }
 
