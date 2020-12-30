@@ -20,7 +20,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * Class AdminProductController
- * @Route("/admin/product")
+ * @Route("/admin/produits")
  * @package App\Controller\Admin
  */
 class AdminProductController extends AbstractController
@@ -33,7 +33,7 @@ class AdminProductController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="admin_product_create")
+     * @Route("/creer", name="admin_product_create")
      * @param Request $request
      * @param FileUploader $fileUploader
      * @param SluggerInterface $slugger
@@ -68,7 +68,7 @@ class AdminProductController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}", name="admin_product_update", methods={"GET|POST"})
+     * @Route("/modifier/{id}", name="admin_product_update", methods={"GET|POST"})
      * @param Product $product
      * @param Request $request
      * @param FileUploader $fileUploader
@@ -126,7 +126,7 @@ class AdminProductController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="admin_product_delete", methods={"GET|POST"})
+     * @Route("/supprimer/{id}", name="admin_product_delete", methods={"GET|POST"})
      * @param Product $product
      * @return Response
      */

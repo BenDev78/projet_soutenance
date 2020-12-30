@@ -184,9 +184,9 @@
 }
 
 .btn.sm {
-    height: 40px;
-    line-height: 40px;
-    padding: 0 15px
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px
 }
 
 .btn.sm[class^=border-], .btn.sm[class*=" border-"] {

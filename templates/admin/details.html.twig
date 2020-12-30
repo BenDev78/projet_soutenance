@@ -33,14 +33,14 @@
                         </td>
                         <td class="align-middle">{{ detail.quantity }}</td>
                         <td class="align-middle">{{ (detail.product.price / 100) | number_format(2, ',')}} €</td>
-                        {% set priceProducts = (detail.product.price * detail.quantity) / 100 %}
+                        {% set priceProducts = ((detail.product.price / 100) * detail.quantity) / 100 %}
                         <td class="align-middle">{{ priceProducts | number_format(2, ',')}} €</td>
                     </tr>
                 {% endfor %}
                     <tr>
                         <td colspan="4"></td>
                         <td colspan="1">Total :</td>
-                        <td colspan="1">{{ somme | number_format(2, ',') }} €</td>
+                        <td colspan="1">{{ (somme / 100) | number_format(2, ',') }} €</td>
                     </tr>
                 </tbody>
             </table>

@@ -28,7 +28,7 @@ class Review
 
     /**
      * @ORM\Column(type="text", nullable=false)
-     * @Assert\Length(min="3", max="255")
+     * @Assert\Length(min="3", max="150")
      */
     private $comment;
 
