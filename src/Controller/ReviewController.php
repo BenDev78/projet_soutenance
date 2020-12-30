@@ -34,10 +34,7 @@ class ReviewController extends AbstractController
     /**
      * Création du formulaire d'avis produit
      * @IsGranted("ROLE_USER")
-
-     * @Route("/review/{id}", name="form_review", methods={"GET|POST"})
-
-     * @Route("/commentaire/{id}", name="product_review", methods={"GET|POST"})
+     * @Route("/commentaire/{id}", name="form_review", methods={"GET|POST"})
      * @param Request $request
      * @param Product $product
      * @return Response
@@ -104,8 +101,7 @@ class ReviewController extends AbstractController
 
 
     /**
-     * @Route("product/{id}/reviews", name="product_reviews", methods={"GET|POST"})
-     * @Route("produit/{id}/commentaires", name="all_product_reviews", methods={"GET|POST"})
+     * @Route("produit/{id}/commentaires", name="product_reviews", methods={"GET|POST"})
      * @param Product $product
      * @param Request $request
      * @param PaginatorInterface $paginator
