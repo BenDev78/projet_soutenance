@@ -43,12 +43,12 @@ class AdminProductController extends AbstractController
     {
         $product = new Product();
         $product->setIsBest(false);
-        $product->setSlug($slugger->slug('-', $product->getName()));
 
         $form = $this->createForm(CreateType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             /** @var UploadedFile $productFile */
             $productFile = $form->get('image')->getData();
             if ($productFile) {
@@ -56,6 +56,7 @@ class AdminProductController extends AbstractController
                 $product->setImage($productFileName);
             }
 
+            $product->setSlug($slugger->slug('-', $product->getName()));
             $this->em->persist($product);
             $this->em->flush();
 

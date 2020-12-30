@@ -3,12 +3,31 @@
 
 {% block title %}Formulaire d'avis produit{% endblock %}
 
+{% block stylesheets %}
+   {{ parent()}}
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+{% endblock %}
+
+
 {% block body %}
 
     <div class="container-fluid col-8">
         <h2 class="text-center mb-45 small">DONNEZ VOTRE AVIS | {{ product.name }}</h2>
 
-        {{ form_start(form) }}
+
+        {{ form_start(form, {'attr' : {'novalidate' : 'novalidate'}}) }}
 
         <div class="mb-10 f-14 semibold text-uppercase sp-20">
             {{ form_row(form.rating) }}
@@ -35,6 +54,7 @@
         const review_rating = document.querySelector('#review_rating');
 
         review_rating.addEventListener('change', e => {
+
             if(e.target.value > 4)
             {
                 e.target.value = 5

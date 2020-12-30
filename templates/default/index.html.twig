@@ -106,12 +106,17 @@
                 </div>
                 <div class="col-xl-7 col-lg-8 col-sm-10">
                     <div class="pt-10 f-22 text-adaptive">
-                        The most important part of the Startup Framework is the samples. The samples form a set of 25 usable pages you can use as is or you can add new blocks from UI Kit.
+
+                        <a href="/boutique/produit/{slug}_{id}">
+                            <img src="{{ asset('uploads/images/'~randReview[0].product.image) }}" class="h-100 w-75" alt="{{ randReview[0].product.name }} image"></a>
+                        {{ randReview[0].product.name }}<br><br>
+                        {{ randReview[0].comment }}
                     </div>
+
                     <div class="mt-20 d-flex align-items-center author_info">
                         <img src="i/testimonial_1_img.jpg" alt="" class="radius_full">
                         <div class="ml-15 f-14 semibold text-uppercase sp-20">
-                            Jessey Kirk, designmodo
+                            {{ randReview[0].pseudo }}
                         </div>
                     </div>
                 </div>

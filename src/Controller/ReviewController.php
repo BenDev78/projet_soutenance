@@ -70,7 +70,7 @@ class ReviewController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-//            dd($review);
+
             if(is_null($review->getPseudo()))
             {
                 $review->setPseudo("Un utilisateur");

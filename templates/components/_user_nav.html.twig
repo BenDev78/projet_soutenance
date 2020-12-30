@@ -11,23 +11,23 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <a href="{{ path('default_profile') }}"
-                       class="link {% if app.request.pathInfo() == '/profile' %} action-2 {% else %} color-main {% endif %}">
+                       class="link {% if app.request.pathInfo() == '/profil' %} action-2 {% else %} color-main {% endif %}">
                         Informations
                     </a>
                 </li>
                 <li class="list-group-item">
                     <a href="{{ path('default_profile_addresses') }}"
-                       class="link {% if app.request.pathInfo() == '/profile/addresses' %} action-2 {% else %} color-main {% endif %}">
+                       class="link {% if app.request.pathInfo() == '/profil/adresses' %} action-2 {% else %} color-main {% endif %}">
                         Adresses
                     </a>
                 <li class="list-group-item">
                     <a href="{{ path('default_profile_commands') }}"
-                       class="link {% if app.request.pathInfo() == '/profile/commands' or current_page == 'detail_command' %} action-2 {% else %} color-main {% endif %}">
+                       class="link {% if app.request.pathInfo() == '/profil/commandes' or current_page == 'detail_command' %} action-2 {% else %} color-main {% endif %}">
                         Commandes
                     </a>
                 <li class="list-group-item">
                     <a href="{{ path('default_profile_reviews') }}"
-                       class="link {% if app.request.pathInfo() == '/profile/reviews' or current_page == 'detail_reviews' %} action-2 {% else %} color-main {% endif %}">
+                       class="link {% if app.request.pathInfo() == '/profil/commentaires' or current_page == 'detail_reviews' %} action-2 {% else %} color-main {% endif %}">
                         Commentaires
                     </a>
                 </li>

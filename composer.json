@@ -13,13 +13,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
-<<<<<<< HEAD
         "knplabs/knp-paginator-bundle": "^5.4",
-=======
-
-        "knplabs/knp-paginator-bundle": "^5.4",
-
->>>>>>> 7e53c038949c853c70c079b32e7263e4d7a45aab
         "dompdf/dompdf": "^1.0",
         "mailjet/mailjet-apiv3-php": "^1.5",
         "phpdocumentor/reflection-docblock": "^5.2",

@@ -107,12 +107,12 @@ class ShopController extends AbstractController
             $avg = round($sumReviews / $count[0], 1);
         }
 
-        $form = $this->createForm(QuantitySelectorType::class)->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
+        if ($request->get('quantity'))
         {
-            $data = $form->getData();
-            $cart->add($product->getId(), $data['quantity']);
+
+            $quantity = $request->get('quantity');
+
+            $cart->add($product->getId(), $quantity);
 
             $this->addFlash('success', 'Votre produit a bien été ajouté au panier.');
 
@@ -125,8 +125,7 @@ class ShopController extends AbstractController
         return $this->render("shop/product.html.twig", [
             'product' => $product,
             'avg' => $avg,
-            'count' => $count,
-            'form' => $form->createView()
+            'count' => $count
         ]);
     }
 
