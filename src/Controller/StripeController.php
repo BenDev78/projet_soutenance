@@ -13,6 +13,7 @@ use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class StripeController extends AbstractController
@@ -35,6 +36,24 @@ class StripeController extends AbstractController
      */
     public function index(EntityManagerInterface $entityManager, Cart $cart, $reference): Response
     {
+        // Update des stocks en BDD
+        foreach ($cart->getFull() as $product) {
+            if ($product['products']->getStock() >= $product['quantities']) {
+                $stock = $product['products']->getStock();
+                $stock = $stock - $product['quantities'];
+                $product['products']->setStock($stock);
+                $this->em->flush();
+            } else {
+                $this->addFlash('warning', 'Le produit '. $product['products']->getName() . ' n\'a plus assez de stock, nous avons mis à jour votre panier.');
+                $realStock = $product['quantities'] - $product['products']->getStock();
+                for($i=0; $i<$realStock; $i++) {
+                    $cart->decrease($product['products']->getId());
+                }
+
+                return new JsonResponse(['error' => 'stock']);
+            }
+        }
+
         $product_for_stripe = [];
         $YOUR_DOMAIN = 'http://127.0.0.1:8000';
 

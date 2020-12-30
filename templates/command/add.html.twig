@@ -85,17 +85,21 @@
                 method: "POST",
             })
             .then(function (response) {
+                console.log(response.json);
                 return response.json();
             })
             .then(function (session) {
-                if (session.error === '/command'){
+                if (session.error === '/commande'){
                     //Redirection
                     window.location.replace('{{ path('command_index') }}')
+                } else if (session.error === 'stock'){
+                    window.location.replace('{{ path('cart') }}')
                 } else {
-                return stripe.redirectToCheckout({ sessionId: session.id });
+                    return stripe.redirectToCheckout({ sessionId: session.id });
                 }
             })
             .then(function (result) {
+                console.log(result);
                 // If redirectToCheckout fails due to a browser or network
                 // error, you should display the localized error message to your
                 // customer using error.message.
