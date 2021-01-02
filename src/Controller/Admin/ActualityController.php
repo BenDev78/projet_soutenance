@@ -79,11 +79,14 @@ class ActualityController extends AbstractController
      */
     public function update(Actuality $actuality, Request $request, FileUploader $fileUploader, SluggerInterface $slugger): Response
     {
+        if($actuality->getFlyer())
+        {
             $oldFile = new File($this->getParameter('images_directory') . '/' . $actuality->getFlyer());
             $oldFileName = $oldFile->getFilename();
+        }
 
 
-        $form = $this->createForm(CreateType::class, $actuality)->handleRequest($request);
+        $form = $this->createForm(ActualityType::class, $actuality)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
