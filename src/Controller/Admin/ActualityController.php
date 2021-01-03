@@ -84,7 +84,10 @@ class ActualityController extends AbstractController
             $oldFile = new File($this->getParameter('images_directory') . '/' . $actuality->getFlyer());
             $oldFileName = $oldFile->getFilename();
         }
-
+        else
+        {
+            $oldFileName = null;
+        }
 
         $form = $this->createForm(ActualityType::class, $actuality)->handleRequest($request);
 

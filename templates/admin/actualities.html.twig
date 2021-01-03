@@ -34,7 +34,7 @@
                         <td class="align-middle">{{ actuality.title }}</td>
                         <td class="align-middle">{{ actuality.start | date('d/m/y') }}</td>
                         <td class="align-middle">{{ actuality.end | date('d/m/y') }}</td>
-                        <td><a href="{{ path('app_admin_actuality_update', {'id' : actuality.id}) }}">
+                        <td><a href="{{ path('admin_actuality_update', {'id' : actuality.id}) }}">
                                 <i class="fas fa-pen action-2"></i>
                             </a>
                         </td>
