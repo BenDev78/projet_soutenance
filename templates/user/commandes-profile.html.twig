@@ -30,6 +30,7 @@
                                 <th>Date</th>
                                 <th>Transporteur</th>
                                 <th>Détail</th>
+                                <th>Facture PDF</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -41,6 +42,11 @@
                                     <td>
                                         <a href="{{ path('default_profil_command', {'id' : command.id}) }}">
                                             <i class="fas fa-paperclip action-2" style="cursor: pointer;"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ asset('factures/' ~ command.reference ~ '.pdf') }}" download>
+                                            <i class="far fa-file-pdf action-1" style="cursor: pointer;"></i>
                                         </a>
                                     </td>
                                 </tr>

@@ -33,7 +33,7 @@ class Mail
                     'Subject' => $subject,
                     'Variables' => [
                         'content' => $content
-                    ],
+                    ]
                 ]
             ]
         ];
