@@ -70,7 +70,7 @@ class ActualityController extends AbstractController
     }
 
     /**
-     * @Route ("/modifier/{id}", methods={"GET|POST"})
+     * @Route ("/modifier/{id}", name="admin_actuality_update", methods={"GET|POST"})
      * @param Actuality $actuality
      * @param Request $request
      * @param FileUploader $fileUploader
