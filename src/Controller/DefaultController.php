@@ -131,7 +131,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/profil/commande/{id}", name="default_profil_command")
+     * @Route("/profil/commande/{id}", name="default_profile_command")
      * @param Command $command
      * @return Response
      */
