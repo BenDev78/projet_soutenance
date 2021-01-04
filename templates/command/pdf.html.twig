@@ -4,31 +4,17 @@
     <p>Félicitations <span class="action-2">{{ command.user.firstname }} {{ command.user.lastname }}</span> pour votre
         commande !<br><br>
         Nous vous remercions pour votre commande n°<strong class="action-2">{{ command.reference }}</strong>.<br>
-        Une confirmation vient de vous etre envoyé par mail à l'adresse <strong
+        Elle contient {{ quantity }} articles pour un total TTC de {{ price / 100 }} €.<strong
                 class="action-2">{{ command.user.email }}</strong>.
     </p>
     <hr>
     <p>
         Votre commande sera livrée par <strong class="action-2">{{ command.carrier.name }}</strong> à l'adresse :
-        <br><br>{{ command.address|raw }}.
+        <br><br>{{ command.address|raw }}.<br><br>
+        Retrouvez cette dernière en vous rendant sur le lien suivant : https://localhost:8000/profil/commande/{{ command.id }}
     </p>
     <hr>
-    <div class="order-summary">
-        {% for product in cart %}
-            <div class="row">
-                <div class="col-2">
-                    <img src="{{ asset('/uploads/images/'~ product.products.image) }}"
-                         alt="{{ product.products.name }}"
-                         height="100px">
-                </div>
-                <div class="col-8 my-auto">
-                    {{ product.products.name }}
-                </div>
-                <div class="col-2 my-auto">
-                    x {{ product.quantities }}
-                </div>
-            </div>
-            <hr>
-        {% endfor %}
-    </div>
+    <p>
+        Merci pour votre confiance !
+    </p>
 </div>

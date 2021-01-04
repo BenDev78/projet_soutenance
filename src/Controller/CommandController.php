@@ -100,7 +100,6 @@ class CommandController extends AbstractController
                     ->setProduct($product['products'])
                     ->setQuantity($product['quantities']);
                 $this->entityManager->persist($detail);
-
             }
 
             $this->entityManager->flush();
@@ -134,8 +133,13 @@ class CommandController extends AbstractController
             $this->entityManager->flush();
         }
 
-        // Panier vidé
-        $cart->remove();
+        $price= null;
+        $quanity = null;
+
+        foreach ($cart->getFull() as $product) {
+            $price += $product['products']->getPrice();
+            $quanity += $product['quantities'];
+        }
 
         //PDF
         $dompdf = new Dompdf();
@@ -147,8 +151,9 @@ class CommandController extends AbstractController
 
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('command/pdf.html.twig', [
-            'cart' => $cart,
-            'command' => $command
+            'command' => $command,
+            'price' => $price,
+            'quantity' => $quanity
         ]);
 
         // Load HTML to Dompdf
@@ -191,8 +196,11 @@ class CommandController extends AbstractController
             $user->getEmail(),
             $user->getFirstname() . ' ' . $user->getLastname(),
             'Confirmation de votre commande n°' . $command->getReference(),
-            $content);
+            $content
+        );
 
+        // Panier vidé
+        $cart->remove();
 
         return $this->render('command/success.html.twig', [
             'command' => $command
