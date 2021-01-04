@@ -40,7 +40,7 @@
                                     <td>{{ command.createdAt | date('d/m/y H:m:s')}}</td>
                                     <td>{{ command.carrier.name }}</td>
                                     <td>
-                                        <a href="{{ path('default_profil_command', {'id' : command.id}) }}">
+                                        <a href="{{ path('default_profile_command', {'id' : command.id}) }}">
                                             <i class="fas fa-paperclip action-2" style="cursor: pointer;"></i>
                                         </a>
                                     </td>
@@ -55,6 +55,7 @@
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
