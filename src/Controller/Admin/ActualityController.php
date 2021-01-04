@@ -109,7 +109,7 @@ class ActualityController extends AbstractController
 
             $this->em->flush();
 
-            return $this->redirectToRoute('admin_actuality_create');
+            return $this->redirectToRoute('default_index');
         }
 
         return $this->render('admin/actuality-create.html.twig', [

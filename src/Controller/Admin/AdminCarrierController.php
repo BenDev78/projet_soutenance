@@ -33,6 +33,7 @@ class AdminCarrierController extends AbstractController
     public function create(Request $request): Response
     {
         $carrier = new Carrier();
+        $carrier->setImage('');
         $form = $this->createForm(CarrierType::class, $carrier);
         $form->handleRequest($request);
 
@@ -51,7 +52,7 @@ class AdminCarrierController extends AbstractController
     }
 
     /**
-     * @Route("/modifier", name="admin_carrier_update", methods={"GET|POST"})
+     * @Route("/modifier/{id}", name="admin_carrier_update", methods={"GET|POST"})
      * @param Carrier $carrier
      * @param Request $request
      * @return Response
@@ -59,7 +60,7 @@ class AdminCarrierController extends AbstractController
     public function update(Carrier $carrier, Request $request): Response
     {
 
-        $form = $this->createForm(CreateType::class, $carrier)->handleRequest($request);
+        $form = $this->createForm(CarrierType::class, $carrier)->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
@@ -68,8 +69,8 @@ class AdminCarrierController extends AbstractController
             return $this->redirectToRoute('admin_carriers');
         }
 
-        return $this->render('admin/carrier.html.twig', [
-            'carrier' => $carrier,
+        return $this->render('admin/create_carrier.html.twig', [
+            'carriers' => $carrier,
             'form' => $form->createView()
         ]);
     }
