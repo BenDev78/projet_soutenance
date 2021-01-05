@@ -137,7 +137,7 @@ class CommandController extends AbstractController
         $quanity = null;
 
         foreach ($cart->getFull() as $product) {
-            $price += $product['products']->getPrice();
+            $price += $product['products']->getPrice() * $product['quantities'];
             $quanity += $product['quantities'];
         }
 
