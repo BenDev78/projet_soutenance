@@ -102,7 +102,7 @@
             $('.isBest').on('click', '.fas.fa-times-circle.text-danger', function() {
 
                 $.ajax({
-                    url: `product/isbest/${$(this).attr('data-id')}`
+                    url: `produits/isbest/${$(this).attr('data-id')}`
                 });
 
                 $(this).replaceWith(
