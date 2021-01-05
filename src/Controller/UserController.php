@@ -102,7 +102,7 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Les modifications ont bien été effectuées !');
 
             #redirection lors de l inscription vers page acceuil
-            return $this->redirectToRoute('user_profil_edit');
+            return $this->redirectToRoute('default_profile');
         }
         # Affichage dans la vue
         return $this->render("user/profil-edit.html.twig", [
