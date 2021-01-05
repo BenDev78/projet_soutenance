@@ -1,17 +1,16 @@
 <div class="container">
     <br>
-    <h2>Confirmation de commande</h2><br>
+    <h2>Confirmation de commande</h2><br><br>
     <p>Félicitations <span class="action-2">{{ command.user.firstname }} {{ command.user.lastname }}</span> pour votre
         commande !<br><br>
         Nous vous remercions pour votre commande n°<strong class="action-2">{{ command.reference }}</strong>.<br>
-        Elle contient {{ quantity }} articles pour un total TTC de {{ price / 100 }} €.<strong
-                class="action-2">{{ command.user.email }}</strong>.
+        Elle contient {{ quantity }} articles pour un total TTC de {{ price / 100 }} €.
     </p>
     <hr>
     <p>
         Votre commande sera livrée par <strong class="action-2">{{ command.carrier.name }}</strong> à l'adresse :
         <br><br>{{ command.address|raw }}.<br><br>
-        Retrouvez cette dernière en vous rendant sur le lien suivant : https://localhost:8000/profil/commande/{{ command.id }}
+        Retrouvez cette dernière en vous rendant sur le lien suivant : https://projetsoutenance.herokuapp.com/profil/commande/{{ command.id }}
     </p>
     <hr>
     <p>
