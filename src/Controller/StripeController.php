@@ -85,7 +85,7 @@ class StripeController extends AbstractController
                 'unit_amount' => $command->getCarrier()->getPrice(),
                 'product_data' => [
                     'name' => $command->getCarrier()->getName(),
-                    'images' => [$YOUR_DOMAIN."/uploads/images/".$carrier_object->getImage()],
+                    'images' => [$YOUR_DOMAIN."/assets/i/".$carrier_object->getImage()],
                 ],
             ],
             'quantity' => 1,
