@@ -57,7 +57,7 @@ class ResetPasswordController extends AbstractController
                 ]);
 
                 $content = "Bonjour ".$user->getFirstName()."<br>Vous avez demandé à rénitialiser votre mot de passe sur le site Cognac Guy Bonnaud.<br><br>.";
-                $content .= "Merci de bien vouloir cliquer sur le lien suivant pour <a href='".$url."'>mettre à jour votre mot de passe</a>";
+                $content .= "Merci de bien vouloir cliquer sur le lien suivant pour <a href='https://projetsoutenance.herokuapp.com".$url."'>mettre à jour votre mot de passe</a>";
 
                 $mail = new Mail();
                 $mail->send(
